@@ -8,42 +8,29 @@ package andoridserver;
 import CSVReader.CSVReader;
 import andoridserver.androidData.*;
 import andoridserver.database.*;
+import java.io.IOException;
 import json.*;
 import java.io.InputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
  *
  * @author Nicola
  */
-public class AndoridServer implements ServerInterface{
-
-    /**
-     * @param args the command line arguments
-     */
+public class AndoridServer implements Runnable {
     
-    public static void main(String[] args) {
-            CSVReader.main(null);
-    }
+    public final int PORTNUMBER = 1313;
+    public final String IPADDRESS = "localhost";
+    public Socket socket;
+    public ServerSocket serverSocket;
 
-    @Override
-    public Socket openSocket(int port, String address) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void closeSocket(Socket s) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean acceptRequest(InputStream is) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int sendResponse(AndroidDataInterface adi) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public AndoridServer() throws IOException{
+       serverSocket = new ServerSocket(PORTNUMBER);
     }
     
+    public void run(){
+    
+    
+    }
 }

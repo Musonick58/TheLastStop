@@ -13,15 +13,12 @@ interface AndroidDataRequest {
     
     //per la richiesta potete mandarmi una stringa,
     //formalmente potrebbe essere formatata così
-    //DataRequest:AllLinesNumber
-    //DataRequest:LinesNumber Like (numero/nome linea) (bus/navig)
-    //DataRequest:TimeTable Like (numero/nome linea) (bus/navig)
-    //DataRequest:AllStopName
-    //DataRequest:Delay Like (numero/nome linea) (bus/navig)
-    //Es: DataRequest: Delay Like 2 bus
-    
-    
-    
+    //DataRequest:AllLinesNumber restituisce la lista di tutte le fermate
+    //DataRequest:LinesNumber:(numero/nome linea):(bus/navig) dovrebbe servire per info di una linea specifica con il cerca
+    //DataRequest:TimeTable:(numero/nome linea):(bus/navig) chiede gli orari per una determinata linea
+    //DataRequest:AllStopName:(numero/nome linea):(bus/navig) restituisce la lista di tutte le fermate di una certa linea
+    //Es-> DataRequest:LinesNumber:2:bus
+    //Es-> DataRequest:LinesNumber:2:navig
     
     public void askLines(); //tutte le linee
       
