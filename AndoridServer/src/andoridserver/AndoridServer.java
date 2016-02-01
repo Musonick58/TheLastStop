@@ -13,6 +13,9 @@ import json.*;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,17 +23,52 @@ import java.net.Socket;
  */
 public class AndoridServer implements Runnable {
     
-    public final int PORTNUMBER = 1313;
+    public final int PORTNUMBER = 1311;
     public final String IPADDRESS = "localhost";
     public Socket socket;
     public ServerSocket serverSocket;
-
+    public ArrayList<Thread> createdThread = null;
     public AndoridServer() throws IOException{
        serverSocket = new ServerSocket(PORTNUMBER);
+       System.out.println("Server Creato");
     }
     
     public void run(){
+        String clientIp;
+        Scanner textReader;
+        String request;
+        Thread t;
+        while(true){
+            try {
+                System.out.println("Server Started! v0.1");
+                this.socket=serverSocket.accept();
+                clientIp  = this.socket.getInetAddress().getHostAddress();
+                System.out.println("Indirizzo del client: "+clientIp);
+                textReader = new Scanner(this.socket.getInputStream());
+                request = textReader.nextLine();
+                t = new AcceptDataRequest(this.socket,request);
+                t.start();
+                System.out.println(request);
+                //System.exit(0);
+            } catch (IOException ex) {
+                Logger.getLogger(AndoridServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        
+        
+        }
+    }
+    
+    
+    public static void main(String[] args) throws IOException{
+        
+    AndoridServer s = new AndoridServer();
+    Thread mainServer = new Thread(s,"Andorid Server");
+    mainServer.start();
+    
     
     
     }
+    
+    
 }

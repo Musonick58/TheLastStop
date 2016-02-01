@@ -14,20 +14,22 @@ import java.net.*;
  */
 public class AcceptDataRequest extends Thread {
 
-    public final int PORTNUMBER = 1313;
-    public final String IPADDRESS = "localhost";
     public Socket socket;
-    public ServerSocket serverSocket;
+    private String request;
 
-    public AcceptDataRequest() throws IOException {
-        socket = new Socket(IPADDRESS, PORTNUMBER);
+    public AcceptDataRequest(Socket socket,String request) throws IOException {
+        this.socket = socket;
+        this.request = request;
+        System.out.println("sono il thread che accetta i dati");
+        manageRequest();
     }
 
-    public void manageRequest(String request) {
+    public void manageRequest() {
         String temp = request;
         int lineNum = -1;
         String lineStr = null;
-        AndroidDataInterface info;
+        AndroidDataInterface info; 
+        System.out.println("ciaoo");
         if (request.startsWith("DataRequest:")) {
             if (!request.equals("AllLinesNumber")) {
                 temp = request.substring("DataRequest:".length());
@@ -75,6 +77,7 @@ public class AcceptDataRequest extends Thread {
                 }                
             }else{
                 //chiedi al database le informazioni sulle linee
+                System.out.println("tutte le linee");
             }
         }
     }
