@@ -5,15 +5,23 @@
  */
 package andoridserver.androidData;
 
+import java.util.*;
+
 /**
  *
  * @author Nicola
  */
 public interface AndroidDataInterface {
+      
+    String getNameObject();
+    
+    List<String> getDataAsList();
+    
+    void addData(String dato);
+    
+    void setData(String s, int index);
+   
     
     
-    void setData(AndroidDataInterface o); //cambi un oggetto con i valori di un altro oggetto dello stesso tipo
-    
-
   
 }

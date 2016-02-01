@@ -53,7 +53,7 @@ public class DBConnector implements DBInterface{
     }
 
     @Override
-    public void connect(String dbTipe, String dbAdress, int dbPort, String[] otherParams) {
+    public boolean connect(String dbTipe, String dbAdress, int dbPort, String[] otherParams) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -102,8 +102,7 @@ public class DBConnector implements DBInterface{
     }
 
     @Override
-    public AndroidDataInterface executeQuery(String compiledQuery) {
-        AndroidDataInterface ADI=null;
+    public void executeQuery(String compiledQuery) {
         try {
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from feedback.comments");
@@ -112,7 +111,6 @@ public class DBConnector implements DBInterface{
         } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return ADI;
     }
     
 }

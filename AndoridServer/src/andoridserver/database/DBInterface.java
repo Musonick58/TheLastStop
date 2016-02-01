@@ -26,8 +26,9 @@ public interface DBInterface {
      * @param dbAdress
      * @param dbPort
      * @param otherParams array di stringhe con altri parametri
+     * @return true if it was connected, false otherwise
      */
-    void connect(String dbTipe,String dbAdress,int dbPort, String[] otherParams);
+    boolean connect(String dbTipe,String dbAdress,int dbPort, String[] otherParams);
     
     /**
      * @return nothing but close db connection
@@ -57,7 +58,7 @@ public interface DBInterface {
      * @param compiledQuery query compilata con il metodo compile query ho a mano
      * @return un oggetto popolato di tipo ADI con il result della query
      */
-    AndroidDataInterface executeQuery(String compiledQuery);
+    void executeQuery(String compiledQuery);
     
     
     
