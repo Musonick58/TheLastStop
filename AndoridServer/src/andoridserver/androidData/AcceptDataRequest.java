@@ -26,21 +26,45 @@ public class AcceptDataRequest extends Thread {
     
     public void manageRequest(String request){
         String temp=request;
-        if(request.startsWith("DataReques:")){
-            temp=request.substring(request.length());
+        int lineNum=-1;
+        String lineStr=null;
+        if(request.startsWith("DataRequest:")){
+            temp=request.substring("DataRequest:".length());
+            AndroidDataInterface info;
             switch(temp){
                 case "AllLinesNumber":
                     //chidere al db le info
+                    
                     break;
                 case "AllStopName":
                     //chidere al db le info
                     break;
             
             }
+            if(request.startsWith("Delay Like")){
+            temp=request.substring("Delay Like:".length());
+                if(isNumber(temp)){
+                    lineNum=Integer.parseInt(temp);
+                }else{
+                    lineStr=temp;
+                }
+            }
         
         }   
     }
     
+     private static boolean isNumber(String n){
+       double c;
+       boolean ret=true;
+       if(n.equals("000000") || n.equals("'000000'"))
+           ret=false;
+       try{
+        c=Double.parseDouble(n);
+       }catch(NumberFormatException nfe){   
+        ret=false;
+       } 
+       return ret; 
+    }
     
     
     @Override

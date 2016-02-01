@@ -15,6 +15,8 @@ public interface AndroidDataInterface {
       
     String getNameObject();
     
+    void setNameObject(String name);
+    
     List<String> getDataAsList();
     
     void addData(String dato);

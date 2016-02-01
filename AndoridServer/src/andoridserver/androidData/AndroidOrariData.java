@@ -16,26 +16,37 @@ public class AndroidOrariData implements AndroidDataInterface{
     
     String objectName;
     
-    List<String> data = new ArrayList<>();
+    List<String> data;
+    
+    public AndroidOrariData(String name){
+        this.objectName=name;
+        this.data=new ArrayList<>();
+    }
+    
     
     @Override
     public String getNameObject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "orari"; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<String> getDataAsList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return data; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void addData(String dato) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.add(dato); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void setData(String s, int index) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.add(index, s); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setNameObject(String name) {
+        this.objectName=name; //To change body of generated methods, choose Tools | Templates.
     }
     
 }
