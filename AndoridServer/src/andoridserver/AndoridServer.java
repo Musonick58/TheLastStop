@@ -28,6 +28,7 @@ public class AndoridServer implements Runnable {
     public Socket socket;
     public ServerSocket serverSocket;
     public ArrayList<Thread> createdThread = null;
+    
     public AndoridServer() throws IOException{
        serverSocket = new ServerSocket(PORTNUMBER);
        System.out.println("Server Creato");

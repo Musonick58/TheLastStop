@@ -19,6 +19,7 @@ interface AndroidDataRequest {
     //DataRequest:AllStopName:(numero/nome linea):(bus/navig) restituisce la lista di tutte le fermate di una certa linea
     //Es-> DataRequest:LinesNumber:2:bus
     //Es-> DataRequest:LinesNumber:2:navig
+    //Es-> DataRequest:TimeTable:2:bus
     
     public void askLines(); //tutte le linee
       

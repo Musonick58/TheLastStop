@@ -21,7 +21,13 @@ public class AcceptDataRequest extends Thread {
         this.socket = socket;
         this.request = request;
         System.out.println("sono il thread che accetta i dati");
-        manageRequest();
+        
+    }
+    
+    
+    public void run(){
+        manageRequest();    
+    
     }
 
     public void manageRequest() {
@@ -29,17 +35,23 @@ public class AcceptDataRequest extends Thread {
         int lineNum = -1;
         String lineStr = null;
         AndroidDataInterface info; 
-        System.out.println("ciaoo");
         if (request.startsWith("DataRequest:")) {
-            if (!request.equals("AllLinesNumber")) {
+            System.out.println("Data Request: Processing");
+            //System.out.println(request);
+            System.out.println(!request.equalsIgnoreCase("DataRequest:AllLinesNumber"));
+            if (!request.equalsIgnoreCase("DataRequest:AllLinesNumber")) {              
                 temp = request.substring("DataRequest:".length());
-                if (request.startsWith("TimeTable")) {
+                System.out.println(temp);
+                if (temp.startsWith("TimeTable:")) {
+                  //  System.out.println(request);
                     temp = request.substring("TimeTable:".length());
                     String[] lines = temp.split(":");
                     if (isNumber(lines[0])) {
                         lineNum = Integer.parseInt(lines[0]);
+                        System.out.println("Integer number:"+" "+lineNum);
                     } else {
                         lineStr = lines[0];
+                        System.out.println("String number:"+" "+lineStr);
                     }
                     if (lineStr == null) {
                         //qui cerco la linea come intero
