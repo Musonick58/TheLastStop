@@ -30,17 +30,14 @@ public class AndoridServer implements Runnable {
     public ArrayList<Thread> createdThread = null;
     
     public AndoridServer(){
-        
         try {
             serverSocket = new ServerSocket(PORTNUMBER);
             createdThread = new ArrayList<>();
             System.out.println("Server Started! v0.1");
         } catch (IOException ex) {
             //Logger.getLogger(AndoridServer.class.getName()).log(Level.SEVERE, null, ex);
-            
         }finally{
             //socket.close();
-        
         }
     }
     
@@ -64,15 +61,11 @@ public class AndoridServer implements Runnable {
             } catch (IOException ex) {
                 Logger.getLogger(AndoridServer.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
-        
-        
         }
     }
     
     
-    public static void main(String[] args) throws IOException{
-        
+    public static void main(String[] args) throws IOException{     
     AndoridServer s = new AndoridServer();
     Thread mainServer = new Thread(s,"Andorid Server");
     mainServer.start();

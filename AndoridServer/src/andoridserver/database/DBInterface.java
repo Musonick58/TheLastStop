@@ -11,7 +11,9 @@ import andoridserver.androidData.AndroidDataInterface;
  *
  * @author Nicola
  */
-public interface DBInterface {
+public interface DBInterface { 
+    
+    
     /**connessione al database BASE
      * @param dbTipe db: mysql, postgress, oracle, microsoft
      * @param dbAdress indirizzo ip del db
@@ -58,7 +60,7 @@ public interface DBInterface {
      * @param compiledQuery query compilata con il metodo compile query ho a mano
      * @return un oggetto popolato di tipo ADI con il result della query
      */
-    void executeQuery(String compiledQuery);
+    AndroidDataInterface executeQuery(String compiledQuery);
     
     
     

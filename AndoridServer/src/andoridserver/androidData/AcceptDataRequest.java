@@ -21,7 +21,6 @@ public class AcceptDataRequest extends Thread {
         super("AccpetDataRequest");
         this.socket = socket;
         this.request = request;
-        
     }
     
     public void run(){

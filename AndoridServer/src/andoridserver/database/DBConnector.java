@@ -30,13 +30,14 @@ public class DBConnector implements DBInterface{
     private DBConnector(){
     }
     
+    
     public static DBConnector getIstance(){
         if(ref==null){
             ref=new DBConnector();
         }
         return ref;
     }
-    
+
     @Override
     public boolean connect(String dbType, String dbAdress, int dbPort, String resources) {
         try {
@@ -102,7 +103,7 @@ public class DBConnector implements DBInterface{
     }
 
     @Override
-    public void executeQuery(String compiledQuery) {
+    public AndroidDataInterface executeQuery(String compiledQuery) {
         try {
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from feedback.comments");
@@ -111,6 +112,7 @@ public class DBConnector implements DBInterface{
         } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
     
 }
