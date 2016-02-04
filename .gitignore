@@ -1,2 +1,9 @@
 /AndoridServer/dist/
+/AndoridServer/nbproject/private/
+/AndoridServer/build/
+/AndoridServer/nbbuild/
+/AndoridServer/dist/
+/AndoridServer/nbdist/
+/AndoridServer/nbactions.xml
+.nb-gradle/
 *.class
