@@ -23,15 +23,25 @@ import java.util.logging.Logger;
  */
 public class AndoridServer implements Runnable {
     
-    public final int PORTNUMBER = 1311;
+    public final int PORTNUMBER = 1313;
     public final String IPADDRESS = "localhost";
     public Socket socket;
     public ServerSocket serverSocket;
     public ArrayList<Thread> createdThread = null;
     
-    public AndoridServer() throws IOException{
-       serverSocket = new ServerSocket(PORTNUMBER);
-       System.out.println("Server Creato");
+    public AndoridServer(){
+        
+        try {
+            serverSocket = new ServerSocket(PORTNUMBER);
+            createdThread = new ArrayList<>();
+            System.out.println("Server Started! v0.1");
+        } catch (IOException ex) {
+            //Logger.getLogger(AndoridServer.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }finally{
+            //socket.close();
+        
+        }
     }
     
     public void run(){
@@ -41,15 +51,15 @@ public class AndoridServer implements Runnable {
         Thread t;
         while(true){
             try {
-                System.out.println("Server Started! v0.1");
                 this.socket=serverSocket.accept();
                 clientIp  = this.socket.getInetAddress().getHostAddress();
                 System.out.println("Indirizzo del client: "+clientIp);
                 textReader = new Scanner(this.socket.getInputStream());
                 request = textReader.nextLine();
                 t = new AcceptDataRequest(this.socket,request);
+                createdThread.add(t);
                 t.start();
-                System.out.println(request);
+                //System.out.println(request);
                 //System.exit(0);
             } catch (IOException ex) {
                 Logger.getLogger(AndoridServer.class.getName()).log(Level.SEVERE, null, ex);

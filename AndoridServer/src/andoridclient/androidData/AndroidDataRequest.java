@@ -20,14 +20,16 @@ interface AndroidDataRequest {
     //Es-> DataRequest:LinesNumber:2:bus
     //Es-> DataRequest:LinesNumber:2:navig
     //Es-> DataRequest:TimeTable:2:bus
+    //Es-> DataRequest:AllStopName:2:bus
+    //Es-> DataRequest:LinesNumber:2:navig
     
     public void askLines(); //tutte le linee
       
-    public void askLines(String prefered); //la linea preferita
+    public void askLines(String prefered); //la linea preferita se si vuole usare per una linea salvata
     
     public void askTimeTable(String linesNumber); //orario della linea selezionata
     
-    public void askAllStops(); //lista di tutte le fermate!
+    public void askAllStops(String linesNumber); //lista di tutte le fermate!
     
     public void askAvgDelay(String linesNumber); //orario medio di ritardo
     
