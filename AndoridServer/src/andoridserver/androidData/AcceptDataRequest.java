@@ -7,6 +7,9 @@ package andoridserver.androidData;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,11 +19,33 @@ public class AcceptDataRequest extends Thread {
 
     public Socket socket;
     private String request;
+    private String clientIp;
+    private Scanner textReader;
 
-    public AcceptDataRequest(Socket socket,String request) {
+    public AcceptDataRequest(Socket socket) {
         super("AccpetDataRequest");
         this.socket = socket;
-        this.request = request;
+        clientIp = this.socket.getInetAddress().getHostAddress();
+        System.out.println("Indirizzo del client: " + clientIp+"port number: "+this.socket.getPort());
+        setRequest();
+    }
+    
+    private void setRequest(){
+        try {
+            textReader = new Scanner(this.socket.getInputStream());   
+            request = textReader.nextLine();
+        } catch (IOException ex) {
+            Logger.getLogger(AcceptDataRequest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void closeAll(){
+        try {
+            this.socket.close();
+            this.textReader.close();
+        } catch (IOException ex) {
+            Logger.getLogger(AcceptDataRequest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void run(){
@@ -119,6 +144,7 @@ public class AcceptDataRequest extends Thread {
                 //chiedi al database le informazioni sulle linee
                 System.out.println("tutte le linee");
             }
+            closeAll();
         }
     }
     
