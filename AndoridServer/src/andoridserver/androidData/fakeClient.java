@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 public class fakeClient {
     
     private Socket s;
-
     public fakeClient() {
         try {
             this.s = new Socket("localhost",1313);
@@ -33,7 +32,7 @@ public class fakeClient {
             Logger.getLogger(fakeClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+ 
     public void request(){
         try {
             String request="DataRequest:TimeTable:2:bus";
@@ -55,14 +54,12 @@ public class fakeClient {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(fakeClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-    
     }
     
     public static void main(String[] args){
         System.out.println("fake client started");
         
-        for(int i=0;i<15;i++){
+        for(int i=0;i<1000;i++){
             fakeClient fake = new fakeClient();
             fake.request();
         }

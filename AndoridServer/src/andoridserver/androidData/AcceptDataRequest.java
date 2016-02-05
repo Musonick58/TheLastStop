@@ -26,31 +26,28 @@ public class AcceptDataRequest extends Thread {
         super("AccpetDataRequest");
         this.socket = socket;
         clientIp = this.socket.getInetAddress().getHostAddress();
-        System.out.println("Indirizzo del client: " + clientIp+"port number: "+this.socket.getPort());
+        System.out.println("Indirizzo del client: " + clientIp + "port number: " + this.socket.getPort());
     }
-    
-    private void setRequest(){
+
+    private void setRequest() {
         try {
-            textReader = new Scanner(this.socket.getInputStream());   
+            textReader = new Scanner(this.socket.getInputStream());
             this.request = textReader.nextLine();
-        } catch (java.util.NoSuchElementException ex) {
-           
-        } catch(IOException ex){
-            ex.getMessage();
-        }
+        } catch (java.util.NoSuchElementException ex) {}
+        catch (IOException ex) { ex.getMessage(); }
     }
-    
-    public void closeAll(){
+
+    public void closeAll() {
         try {
-            //this.socket.close();
+            this.socket.close();
             this.textReader.close();
         } catch (Exception ex) {
             Logger.getLogger(AcceptDataRequest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void run(){
-        manageRequest();      
+
+    public void run() {
+        manageRequest();
     }
 
     public void manageRequest() {
@@ -59,99 +56,47 @@ public class AcceptDataRequest extends Thread {
         String temp = "";
         int lineNum = -1;
         String lineStr = null;
-        String[] lines=null;
-        String serviceType=null;
-        AndroidDataInterface info; 
-        if (request!=null && request.startsWith("DataRequest:")) {
+        String[] lines = null;
+        String serviceType = null;
+        AndroidDataInterface info;
+        
+        if (request != null && request.startsWith("DataRequest:")) {
             System.out.println("Data Request: Processing");
-            //System.out.println(request);
-            System.out.println(!request.equalsIgnoreCase("DataRequest:AllLinesNumber"));
-            if (!request.equalsIgnoreCase("DataRequest:AllLinesNumber")) {              
+            //System.out.println(!request.equalsIgnoreCase("DataRequest:AllLinesNumber"));
+            if (!request.equalsIgnoreCase("DataRequest:AllLinesNumber")) {
                 temp = request.substring("DataRequest:".length());
-                System.out.println(temp);
+
                 if (temp.startsWith("TimeTable:")) {
-                  //  System.out.println(request);
                     temp = temp.substring("TimeTable:".length());
-                    System.out.println("temp: "+temp);
                     lines = temp.split(":");
-                    System.out.println("lunghezza array"+lines.length);
-                    for(String x : lines )
-                        System.out.println("contenuto"+x);
+                    // System.out.println("lunghezza array"+lines.length);
+                    //for(String x : lines )
+                    //System.out.println("contenuto"+x);
                     if (isNumber(lines[0])) {
                         lineNum = Integer.parseInt(lines[0]);
-                        System.out.println("Integer number:"+" "+lineNum);
+                        //System.out.println("Integer number:"+" "+lineNum);
                         serviceType = lines[1];
                     } else {
                         lineStr = lines[0];
-                        System.out.println("String number:"+" "+lineStr);
+                        //System.out.println("String number:"+" "+lineStr);
                         serviceType = lines[1];
                     }
                     if (lineStr == null) {
                         //qui cerco la linea come intero
-                        new SendData(socket,"",null).send();
+                        new SendData(socket, "", null).send();
                     } else {
                         //qui cerco la linea per nome
-                        new SendData(socket,"",null).send();
+                        new SendData(socket, "", null).send();
                     }
                 }
-                if (temp.startsWith("LinesNumber:")) {
-                  //  System.out.println(request);
-                    temp = temp.substring("LinesNumber:".length());
-                    System.out.println("temp: "+temp);
-                    lines = temp.split(":");
-                    System.out.println("lunghezza array"+lines.length);
-                    for(String x : lines )
-                        System.out.println("contenuto"+x);
-                    if (isNumber(lines[0])) {
-                        lineNum = Integer.parseInt(lines[0]);
-                        System.out.println("Integer number:"+" "+lineNum);
-                        serviceType = lines[1];
-                    } else {
-                        lineStr = lines[0];
-                        System.out.println("String number:"+" "+lineStr);
-                        serviceType = lines[1];
-                    }
-                    if (lineStr == null) {
-                        //qui cerco la linea come intero
-                        
-                    } else {
-                        //qui cerco la linea per nome
-                        
-                    }
-                }
-                if (temp.startsWith("AllStopName:")) {
-                    temp = temp.substring("AllStopName:".length());
-                    System.out.println("temp: "+temp);
-                    lines = temp.split(":");
-                    System.out.println("lunghezza array"+lines.length);
-                    for(String x : lines )
-                        System.out.println("contenuto"+x);
-                    if (isNumber(lines[0])) {
-                        lineNum = Integer.parseInt(lines[0]);
-                        System.out.println("Integer number:"+" "+lineNum);
-                        serviceType = lines[1];
-                    } else {
-                        lineStr = lines[0];
-                        System.out.println("String number:"+" "+lineStr);
-                        serviceType = lines[1];
-                    }
-                    if (lineStr == null) {
-                        //qui cerco la linea come intero
-                        
-                    } else {
-                        //qui cerco la linea per nome
-                        
-                    }
-                }                
-            }else{
+            } else {
                 //chiedi al database le informazioni sulle linee
                 System.out.println("tutte le linee");
             }
-            
             closeAll();
         }
     }
-    
+
     private static boolean isNumber(String n) {
         double c;
         boolean ret = true;
@@ -165,11 +110,5 @@ public class AcceptDataRequest extends Thread {
         }
         return ret;
     }
-    
-    
-    
-    public static void main(String[] args){
-        
-        
-    }
+
 }

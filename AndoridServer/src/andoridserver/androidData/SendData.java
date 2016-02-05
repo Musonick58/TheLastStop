@@ -31,15 +31,6 @@ public class SendData implements Serializable {
         this.database=db;
     }
     
-        public void closeAll(){
-        try {
-            this.socket.close();
-           
-        } catch (IOException ex) {
-            Logger.getLogger(AcceptDataRequest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     public AndroidDataInterface getDataFromDB(){
         AndroidDataInterface dataToSend = null;
         dataToSend = new AndroidOrariData();//database.executeQuery(query);
@@ -49,19 +40,14 @@ public class SendData implements Serializable {
     }
 
     public void send(){
-        System.out.println("you call Send");
+        System.out.println("You call Send");
         try {
             OutputStream os = socket.getOutputStream();
             ObjectOutputStream osobj = new ObjectOutputStream(os);
-            //FileOutputStream fos = new FileOutputStream("temp.dat");
-            //ObjectOutputStream oout = new ObjectOutputStream(fos);
-            //oout.writeObject(getDataFromDB());
             osobj.writeObject(getDataFromDB());
             osobj.flush();
-            //oout.flush();
+            osobj.close();
             System.out.println("data Sent");
-            //oout.close();
-            closeAll();
         } catch (IOException ex) {
             Logger.getLogger(SendData.class.getName()).log(Level.SEVERE, null, ex);
         }  
