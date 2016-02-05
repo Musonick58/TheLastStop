@@ -27,15 +27,16 @@ public class AcceptDataRequest extends Thread {
         this.socket = socket;
         clientIp = this.socket.getInetAddress().getHostAddress();
         System.out.println("Indirizzo del client: " + clientIp+"port number: "+this.socket.getPort());
-        setRequest();
     }
     
     private void setRequest(){
         try {
             textReader = new Scanner(this.socket.getInputStream());   
-            request = textReader.nextLine();
-        } catch (IOException ex) {
-            Logger.getLogger(AcceptDataRequest.class.getName()).log(Level.SEVERE, null, ex);
+            this.request = textReader.nextLine();
+        } catch (java.util.NoSuchElementException ex) {
+           
+        } catch(IOException ex){
+            ex.getMessage();
         }
     }
     
@@ -53,12 +54,13 @@ public class AcceptDataRequest extends Thread {
     }
 
     public void manageRequest() {
-        String temp = request;
+        setRequest();
+        String temp = "";
         int lineNum = -1;
         String lineStr = null;
         String serviceType=null;
         AndroidDataInterface info; 
-        if (request.startsWith("DataRequest:")) {
+        if (request!=null && request.startsWith("DataRequest:")) {
             System.out.println("Data Request: Processing");
             //System.out.println(request);
             System.out.println(!request.equalsIgnoreCase("DataRequest:AllLinesNumber"));
@@ -116,7 +118,6 @@ public class AcceptDataRequest extends Thread {
                     }
                 }
                 if (temp.startsWith("AllStopName:")) {
-                  //  System.out.println(request);
                     temp = temp.substring("AllStopName:".length());
                     System.out.println("temp: "+temp);
                     String[] lines = temp.split(":");
