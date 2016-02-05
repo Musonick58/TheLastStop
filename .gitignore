@@ -7,3 +7,4 @@
 /AndoridServer/nbactions.xml
 .nb-gradle/
 *.class
+**.class
