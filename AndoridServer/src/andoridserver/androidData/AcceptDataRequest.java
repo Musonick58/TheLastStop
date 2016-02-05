@@ -42,9 +42,9 @@ public class AcceptDataRequest extends Thread {
     
     public void closeAll(){
         try {
-            this.socket.close();
+            //this.socket.close();
             this.textReader.close();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(AcceptDataRequest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -55,9 +55,11 @@ public class AcceptDataRequest extends Thread {
 
     public void manageRequest() {
         setRequest();
+        String query = "SELECT %l FROM %t WHERE %nf ILIKE %us";
         String temp = "";
         int lineNum = -1;
         String lineStr = null;
+        String[] lines=null;
         String serviceType=null;
         AndroidDataInterface info; 
         if (request!=null && request.startsWith("DataRequest:")) {
@@ -71,7 +73,7 @@ public class AcceptDataRequest extends Thread {
                   //  System.out.println(request);
                     temp = temp.substring("TimeTable:".length());
                     System.out.println("temp: "+temp);
-                    String[] lines = temp.split(":");
+                    lines = temp.split(":");
                     System.out.println("lunghezza array"+lines.length);
                     for(String x : lines )
                         System.out.println("contenuto"+x);
@@ -86,17 +88,17 @@ public class AcceptDataRequest extends Thread {
                     }
                     if (lineStr == null) {
                         //qui cerco la linea come intero
-                        
+                        new SendData(socket,"",null).send();
                     } else {
                         //qui cerco la linea per nome
-                        
+                        new SendData(socket,"",null).send();
                     }
                 }
                 if (temp.startsWith("LinesNumber:")) {
                   //  System.out.println(request);
                     temp = temp.substring("LinesNumber:".length());
                     System.out.println("temp: "+temp);
-                    String[] lines = temp.split(":");
+                    lines = temp.split(":");
                     System.out.println("lunghezza array"+lines.length);
                     for(String x : lines )
                         System.out.println("contenuto"+x);
@@ -120,7 +122,7 @@ public class AcceptDataRequest extends Thread {
                 if (temp.startsWith("AllStopName:")) {
                     temp = temp.substring("AllStopName:".length());
                     System.out.println("temp: "+temp);
-                    String[] lines = temp.split(":");
+                    lines = temp.split(":");
                     System.out.println("lunghezza array"+lines.length);
                     for(String x : lines )
                         System.out.println("contenuto"+x);
@@ -145,6 +147,7 @@ public class AcceptDataRequest extends Thread {
                 //chiedi al database le informazioni sulle linee
                 System.out.println("tutte le linee");
             }
+            
             closeAll();
         }
     }

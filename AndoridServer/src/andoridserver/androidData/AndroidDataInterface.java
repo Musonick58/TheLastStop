@@ -5,17 +5,16 @@
  */
 package andoridserver.androidData;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  *
  * @author Nicola
  */
-public interface AndroidDataInterface {
+public interface AndroidDataInterface extends Serializable{
       
     String getNameObject();
-    
-    void setNameObject(String name);
     
     List<String> getDataAsList();
     

@@ -5,19 +5,13 @@
  */
 package andoridserver;
 
-import CSVReader.CSVReader;
+
 import andoridserver.androidData.*;
 import andoridserver.database.*;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
-import com.sun.webkit.dom.EventImpl;
-import java.io.IOException;
-import json.*;
-import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -25,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class AndoridServer {
    
-    public static void emptyDeadThread(List<Thread> x) {
+    public synchronized static void emptyDeadThread(List<Thread> x) {
         for (Thread t : x) {
             if (t != null && !t.isAlive()) {
                 x.remove(t);
@@ -33,7 +27,7 @@ public class AndoridServer {
         }
     }
     
-    public static int numberOfThreadActive(List<Thread> x) {
+    public synchronized static int numberOfThreadActive(List<Thread> x) {
             return x.size();
     }
 
@@ -46,9 +40,9 @@ public class AndoridServer {
           Socket clientSocket = serverSocket.accept();
           AcceptDataRequest serviceThread = new AcceptDataRequest(clientSocket);
           serviceThread.start();
-          createdThread.add(serviceThread);
-          AndoridServer.emptyDeadThread(createdThread);
-          System.out.println(AndoridServer.numberOfThreadActive(createdThread));
+          //createdThread.add(serviceThread);
+          //AndoridServer.emptyDeadThread(createdThread);
+          //System.out.println(AndoridServer.numberOfThreadActive(createdThread));
         }
     }
 

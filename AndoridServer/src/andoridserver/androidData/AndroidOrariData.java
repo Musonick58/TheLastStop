@@ -14,12 +14,12 @@ import java.util.*;
  */
 public class AndroidOrariData implements AndroidDataInterface{
     
-    String objectName;
+   final String objectName="Orari";
     
     List<String> data;
     
-    public AndroidOrariData(String name){
-        this.objectName=name;
+    public AndroidOrariData(){
+       // this.objectName=name;
         this.data=new ArrayList<>();
     }
     
@@ -44,9 +44,6 @@ public class AndroidOrariData implements AndroidDataInterface{
         data.add(index, s); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void setNameObject(String name) {
-        this.objectName=name; //To change body of generated methods, choose Tools | Templates.
-    }
+   
     
 }

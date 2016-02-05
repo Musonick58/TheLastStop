@@ -7,6 +7,7 @@ package andoridserver.androidData;
 
 import java.net.*;
 import andoridserver.database.*;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -30,34 +31,39 @@ public class SendData implements Serializable {
         this.database=db;
     }
     
-    public AndroidDataInterface getDataFromDB(){
-        AndroidDataInterface dataToSend = null;
-        dataToSend = database.executeQuery(query);
-        return dataToSend;
+        public void closeAll(){
+        try {
+            this.socket.close();
+           
+        } catch (IOException ex) {
+            Logger.getLogger(AcceptDataRequest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    
+    public AndroidDataInterface getDataFromDB(){
+        AndroidDataInterface dataToSend = null;
+        dataToSend = new AndroidOrariData();//database.executeQuery(query);
+        dataToSend.addData("09:30");
+        dataToSend.addData("10:00");
+        return dataToSend;
+    }
+
     public void send(){
-        
+        System.out.println("you call Send");
         try {
             OutputStream os = socket.getOutputStream();
             ObjectOutputStream osobj = new ObjectOutputStream(os);
+            //FileOutputStream fos = new FileOutputStream("temp.dat");
+            //ObjectOutputStream oout = new ObjectOutputStream(fos);
+            //oout.writeObject(getDataFromDB());
             osobj.writeObject(getDataFromDB());
-            
-            
-            
+            osobj.flush();
+            //oout.flush();
+            System.out.println("data Sent");
+            //oout.close();
+            closeAll();
         } catch (IOException ex) {
             Logger.getLogger(SendData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    
-    
-    
-    }
-    
-    
-    
-    
-    
+        }  
+    }    
 }
