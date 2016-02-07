@@ -7,7 +7,6 @@ package andoridserver.androidData;
 
 import java.net.*;
 import andoridserver.database.*;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -43,8 +42,8 @@ public class SendData implements Serializable {
     public AndroidDataInterface getDataFromDB(){
         AndroidDataInterface dataToSend = null;
         dataToSend = new AndroidOrariData();//database.executeQuery(query);
-        dataToSend.addData("09:30");
-        dataToSend.addData("10:00");
+        for(int i=5;i<22;i++)
+            dataToSend.addData("%h:30".replaceAll("%h",""+i));
         return dataToSend;
     }
 

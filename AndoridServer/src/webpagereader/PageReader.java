@@ -24,6 +24,7 @@ public class PageReader {
     Document doc;
     String site;
     String service;
+    String fileName=null;
 
     /**
      *
@@ -49,7 +50,10 @@ public class PageReader {
         // System.out.println(site + "/" + last);
         return (site + "/" + last);
     }
-
+        
+    public String getArciveName(){ return this.filename; }
+    
+    
     /**
      * Downloads a file from a URL
      *
@@ -65,7 +69,7 @@ public class PageReader {
 
         // always check HTTP response code first
         if (responseCode == HttpURLConnection.HTTP_OK) {
-            String fileName = "";
+            this.fileName = "";
             String disposition = httpConn.getHeaderField("Content-Disposition");
             String contentType = httpConn.getContentType();
             int contentLength = httpConn.getContentLength();
@@ -74,23 +78,23 @@ public class PageReader {
                 // extracts file name from header field
                 int index = disposition.indexOf("filename=");
                 if (index > 0) {
-                    fileName = disposition.substring(index + 10,
+                    this.fileName = disposition.substring(index + 10,
                             disposition.length() - 1);
                 }
             } else {
                 // extracts file name from URL
-                fileName = link.substring(link.lastIndexOf("/") + 1,
+                this.fileName = link.substring(link.lastIndexOf("/") + 1,
                         link.length());
             }
 
             System.out.println("Content-Type = " + contentType);
             System.out.println("Content-Disposition = " + disposition);
             System.out.println("Content-Length = " + contentLength);
-            System.out.println("fileName = " + fileName);
-
+            System.out.println("fileName = " + this.fileName);
+            
             // opens input stream from the HTTP connection
             InputStream inputStream = httpConn.getInputStream();
-            String saveFilePath = fileName;
+            String saveFilePath = this.fileName;
 
             // opens an output stream to save into file
             FileOutputStream outputStream = new FileOutputStream(saveFilePath);
@@ -110,6 +114,15 @@ public class PageReader {
             return false;
         }
 
+    }
+    
+    
+    public void updateFiles(){
+        if(this.fileName!=null){
+            
+        
+        
+        };
     }
 
     public static void main(String[] args) throws IOException {

@@ -50,9 +50,7 @@ public class fakeClient {
             for(String a : inputData.getDataAsList())
                     System.out.println("ora: " + a);
            
-        } catch (IOException ex) {
-            Logger.getLogger(fakeClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(fakeClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     

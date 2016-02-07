@@ -8,6 +8,7 @@ package andoridserver;
 
 import andoridserver.androidData.*;
 import andoridserver.database.*;
+import CSVReader.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -32,9 +33,12 @@ public class AndoridServer {
     }
 
     public static void main(String[] args) throws Exception {
+    System.out.println("Server Started! v0.3");
     final int PORTNUMBER = 1313;
+    DBConnector.getIstance(); //Inizializzazione del singleton del database
+
     ServerSocket serverSocket = new ServerSocket(PORTNUMBER);
-    System.out.println("Server Started! v0.2");
+    System.out.println("Listen on port: "+PORTNUMBER);
     ArrayList<Thread> createdThread = new ArrayList<>();
         while (true) {
           Socket clientSocket = serverSocket.accept();

@@ -18,6 +18,7 @@ public interface DBInterface {
      * @param dbTipe db: mysql, postgress, oracle, microsoft
      * @param dbAdress indirizzo ip del db
      * @param dbPort porta a cui accedere al db
+     * @param resource il db al quale vogliamo collegarci
      * @return true se connessione effettuata, false altrimenti
      */
     boolean connect(String dbType, String dbAdress, int dbPort, String resources);
@@ -27,8 +28,8 @@ public interface DBInterface {
      * @param dbTipe
      * @param dbAdress
      * @param dbPort
-     * @param otherParams array di stringhe con altri parametri
-     * @return true if it was connected, false otherwise
+     * @param otherParams array di stringhe con altri parametri, [0] database, [1+] altri parametri
+     * @return true se connessione effettuata, false altrimenti
      */
     boolean connect(String dbTipe,String dbAdress,int dbPort, String[] otherParams);
     
@@ -57,10 +58,18 @@ public interface DBInterface {
     
     /**
      *
-     * @param compiledQuery query compilata con il metodo compile query ho a mano
-     * @return un oggetto popolato di tipo ADI con il result della query
+     * @param compiledQuery query compilata con il metodo compile query o a mano
+     * @return un oggetto popolato di tipo ADI con il result della query 
+     * Es -> ListaLinee, Linea, Orari
      */
     AndroidDataInterface executeQuery(String compiledQuery);
+    
+    /**
+     *
+     * @param compiledQuery query compilata per aggiornamento dei ritardi nel db
+     * @return true se l'update nel database è riuscito, false altrimenti
+     */
+    boolean updateDelayQuery(String lineNumber,int minRitardo);
     
     
     

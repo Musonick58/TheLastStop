@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.*;
+
 
 /**
  *
@@ -18,15 +20,14 @@ import java.util.logging.Logger;
 public class DBConnector implements DBInterface{
     //singletone, una connessione al db per tutte le richieste
     //pro non devo aprire più connessioni diferenti per gestire le richieste
-    //    la esecuzione della query mi restituisce un object quindi factory
+    //la esecuzione della query mi restituisce un object quindi factory
     //contro la velocità delle risposte è minore
-    String driver="jdbc:mysql://fumatix.altervista.org/my_fumatix";
     
-    
-
      
-    Connection con;
+    private Connection con;
     private static DBConnector ref=null;
+    public final int POSTGRESPORT = 5492;
+    
     private DBConnector(){
     }
     
@@ -40,17 +41,17 @@ public class DBConnector implements DBInterface{
 
     @Override
     public boolean connect(String dbType, String dbAdress, int dbPort, String resources) {
+        boolean connected = false;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            //jdbc:mysql://localhost/feedback?user=sqluser&password=sqluserpw"
-            String driver="jdbc:"+dbType+"://"+dbAdress+":"+dbPort+"/"+resources;
-            con = DriverManager.getConnection(driver,"fumatix", "supertripod");
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+            Class.forName("org.postgresql.Driver");
+            //"jdbc:postgresql://localhost:5432/postgres","postgres"
+            String driver="jdbc:postgresql://127.0.0.1:5432/postgres";//"jdbc:"+dbType+"://"+dbAdress+":"+dbPort+"/"+resources;
+            con = DriverManager.getConnection(driver,"nicola", "nicola");
+            connected=true;
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+        return connected;
     }
 
     @Override
@@ -115,4 +116,23 @@ public class DBConnector implements DBInterface{
         return null;
     }
     
+    @Override
+    public boolean updateDelayQuery(String lineNumber, int minRitardo) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
+    public static void main(String[] args){
+        DBInterface db = DBConnector.getIstance();
+        System.out.println("Trying to connect...");    
+        System.out.println(db.connect("postgres", "localhost", 5492, "nicola"));
+        //db.updateDelayQuery(null,0);
+        
+        System.out.println("Disconecting!! Bye");
+        db.disconnect();
+    
+    
+    }
+
+ 
 }

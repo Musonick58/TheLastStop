@@ -38,6 +38,8 @@ public class Checker extends Thread {
                     //call update db
                     System.out.println("call update db nav "+navpr.parse());
                     oldStringNav=navpr.parse();
+                }else{              
+                    System.out.println("nav not changed");
                 }
 
                 if (!oldStringBus.equals(buspr.parse())) {
@@ -46,10 +48,13 @@ public class Checker extends Thread {
                     //call update db
                     System.out.println("call update db bus "+buspr.parse());
                     oldStringBus=buspr.parse();
+                }else{
+                    System.out.println("bus not changed");
                 }
                 navpr = null;
                 buspr = null;
-                sleep(60000*24);//un giorno
+                sleep(60000 * 24);//un giorno di attesa prima di cercare aggiornamenti e scaricarli!
+                
             }
         } catch (InterruptedException ex) {
 
@@ -62,6 +67,7 @@ public class Checker extends Thread {
 
     public static void main(String[] args) {
         try {
+            System.out.println("checker");
             Checker test = new Checker("Checker");
             test.start();
         } catch (IOException ex) {
