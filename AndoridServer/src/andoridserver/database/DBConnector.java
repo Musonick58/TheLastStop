@@ -5,12 +5,10 @@
  */
 package andoridserver.database;
 
-import andoridserver.androidData.AndroidDataInterface;
-import java.net.Socket;
+import andoridserver.androidData.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.sql.*;
 
 
 /**
@@ -26,7 +24,7 @@ public class DBConnector implements DBInterface{
      
     private Connection con;
     private static DBConnector ref=null;
-    public final int POSTGRESPORT = 5492;
+    public static final int POSTGRESPORT = 5492;
     
     private DBConnector(){
     }
@@ -45,7 +43,7 @@ public class DBConnector implements DBInterface{
         try {
             Class.forName("org.postgresql.Driver");
             //"jdbc:postgresql://localhost:5432/postgres","postgres"
-            String driver="jdbc:postgresql://127.0.0.1:5432/postgres";//"jdbc:"+dbType+"://"+dbAdress+":"+dbPort+"/"+resources;
+            String driver="jdbc:"+dbType+"://"+dbAdress+":"+dbPort+"/"+resources;//"jdbc:postgresql://52.36.66.44:5432/nicola";
             con = DriverManager.getConnection(driver,"nicola", "nicola");
             connected=true;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -105,15 +103,23 @@ public class DBConnector implements DBInterface{
 
     @Override
     public AndroidDataInterface executeQuery(String compiledQuery) {
+        AndroidDataInterface adi = null;
         try {
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from feedback.comments");
+            ResultSet resultSet = statement.executeQuery(compiledQuery);
             //adesso devo convertire il mio result set nell'oggetto per android
+           adi = new AndroidOrariData();
+           Array arr=null;
+            while (resultSet.next()) {
+                adi.addData(""+resultSet.getInt("intero"));
+                //arr = resultSet.getArray("intero");
+                //System.out.println(arr.toString());
+            }
             
         } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return adi;
     }
     
     @Override
@@ -123,11 +129,10 @@ public class DBConnector implements DBInterface{
     
     
     public static void main(String[] args){
-        DBInterface db = DBConnector.getIstance();
-        System.out.println("Trying to connect...");    
-        System.out.println(db.connect("postgres", "localhost", 5492, "nicola"));
-        //db.updateDelayQuery(null,0);
-        
+        DBConnector db = DBConnector.getIstance();
+        System.out.println("Trying to connect...");
+        System.out.println(db.connect("postgresql", "52.36.66.44", 5432, "nicola"));
+        System.out.println(db.executeQuery("SELECT * FROM nick").getDataAsList().get(0));     
         System.out.println("Disconecting!! Bye");
         db.disconnect();
     

@@ -51,7 +51,7 @@ public class PageReader {
         return (site + "/" + last);
     }
         
-    public String getArciveName(){ return this.filename; }
+    public String getArchiveName(){ return this.fileName; }
     
     
     /**
