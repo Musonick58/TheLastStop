@@ -25,6 +25,9 @@ public class PageReader {
     String site;
     String service;
     String fileName=null;
+    private String barra = System.getProperty("file.separator");
+    private final String NAV="actv"+barra+barra+"navigazione"+barra+barra;
+    private final String AUTOBUS="actv"+barra+barra+"automobilistico"+barra+barra;
 
     /**
      *
@@ -118,17 +121,25 @@ public class PageReader {
     
     
     public void updateFiles(){
+        Unzip unzip;
         if(this.fileName!=null){
-            
-        
-        
-        };
+            if(this.fileName.startsWith("actv_nav_")){
+                unzip = new Unzip(fileName,NAV);    
+            }else{
+                unzip = new Unzip(fileName,AUTOBUS);   
+            }
+            unzip.unZipIt();
+            unzip=null;
+            File del = new File(fileName);
+            del.delete();
+        }
     }
 
     public static void main(String[] args) throws IOException {
         PageReader pr = new PageReader("http://www.actv.it/opendata/navigazione", "nav");
         String link = pr.parse();
         System.out.println(pr.download(link));
+        pr.updateFiles();
 
     }
 

@@ -121,6 +121,7 @@ public class CSVReader {
         barra+=barra;
         final String NAV="actv"+barra+"navigazione"+barra;
         final String AUTOBUS="actv"+barra+"automobilistico"+barra;
+        System.out.println(NAV);
         System.out.println("Conversione in query dei csv");
         PrintWriter printerNAV=null;
         PrintWriter printerBUS=null;

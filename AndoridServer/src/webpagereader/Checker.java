@@ -34,9 +34,11 @@ public class Checker extends Thread {
 
                 if (!oldStringNav.equals(navpr.parse())) {
                     System.out.println(oldStringNav);
-                    navpr.download(navpr.parse());
-                    //call update db
+                    navpr.download(navpr.parse()); //cerco l'ultimo zip disponibile e lo scarico
+                    navpr.updateFiles(); //chiamo il metodo che estrare lo zip aggiornato nelle cartelle
+                    //Dobbiamo far partire il csv reader e da li poi aggiornare il database
                     System.out.println("call update db nav "+navpr.parse());
+                    //salvo il nome dell'ultimo archivo in modo da poterlo confrontare se cambia 
                     oldStringNav=navpr.parse();
                 }else{              
                     System.out.println("nav not changed");
@@ -44,8 +46,9 @@ public class Checker extends Thread {
 
                 if (!oldStringBus.equals(buspr.parse())) {
                     System.out.println(oldStringBus);
-                    buspr.download(buspr.parse());
-                    //call update db
+                    buspr.download(buspr.parse());//cerco l'ultimo zip disponibile e lo scarico
+                    buspr.updateFiles();//come sopra
+                    //Dobbiamo far partire il csv reader e da li poi aggiornare il database
                     System.out.println("call update db bus "+buspr.parse());
                     oldStringBus=buspr.parse();
                 }else{
@@ -54,11 +57,8 @@ public class Checker extends Thread {
                 navpr = null;
                 buspr = null;
                 sleep(60000 * 24);//un giorno di attesa prima di cercare aggiornamenti e scaricarli!
-                
             }
-        } catch (InterruptedException ex) {
-
-        } catch (IOException ex) {
+        } catch (InterruptedException | IOException ex ) {
             Logger.getLogger(Checker.class.getName()).log(Level.SEVERE, null, ex);
         }
 
