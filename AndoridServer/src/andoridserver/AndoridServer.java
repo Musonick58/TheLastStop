@@ -5,7 +5,6 @@
  */
 package andoridserver;
 
-
 import andoridserver.androidData.*;
 import andoridserver.database.*;
 import java.net.ServerSocket;
@@ -13,7 +12,6 @@ import java.net.Socket;
 import java.util.*;
 import webpagereader.Checker;
 import webpagereader.PageReader;
-
 
 /**
  *
@@ -32,7 +30,6 @@ public class AndoridServer{
     public synchronized static int numberOfThreadActive(List<Thread> x) {
             return x.size();
     }
-
 
     public static void main(String[] args) throws Exception {
     System.out.println("Server Started! v0.3");

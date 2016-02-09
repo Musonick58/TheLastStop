@@ -18,7 +18,7 @@ public class Checker extends Thread {
 
     protected String oldStringNav;
     protected String oldStringBus;
-
+    public boolean changed=false;
     public Checker(String name,String oldStringNav,String oldStringBus) throws IOException {
         super(name);
 
@@ -45,6 +45,7 @@ public class Checker extends Thread {
                     //while(t.isAlive()){ this.sleep(180000);}//busy waiting
                     //salvo il nome dell'ultimo archivo in modo da poterlo confrontare se cambia 
                     oldStringNav=navpr.parse();
+                    changed=true;
                 }else{              
                     System.out.println("["+this.getName()+"]: "+"nav not changed");
                 }
@@ -59,14 +60,18 @@ public class Checker extends Thread {
                     //while(t.isAlive()){ this.sleep(180000);}//busy waiting
                     //salvo il nome dell'ultimo archivo in modo da poterlo confrontare se cambia 
                     oldStringBus=buspr.parse();
+                    changed=true;
                 }else{
                     System.out.println("["+this.getName()+"]: "+"bus not changed");
                 }
                 navpr = null;
                 buspr = null;
-                Thread t = new CSVThread(); //chiamo il CSVReader per far aggiornare il file di query
-                t.start();//avvio il thread
-                sleep(60000 * 24);//un giorno di attesa prima di cercare aggiornamenti e scaricarli!
+                if(changed==true){
+                    changed=false;
+                    Thread t = new CSVThread(); //chiamo il CSVReader per far aggiornare il file di query
+                    t.start();//avvio il thread
+                }
+                this.sleep(60000 * 24);//un giorno di attesa prima di cercare aggiornamenti e scaricarli!
             }
         } catch (InterruptedException | IOException ex ) {
             Logger.getLogger(Checker.class.getName()).log(Level.SEVERE, null, ex);

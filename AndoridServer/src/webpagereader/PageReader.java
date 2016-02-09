@@ -136,12 +136,4 @@ public class PageReader {
             }
     }
 
-    /*public static void main(String[] args) throws IOException {
-        PageReader pr = new PageReader("http://www.actv.it/opendata/navigazione", "nav");
-        String link = pr.parse();
-        System.out.println(pr.download(link));
-        pr.updateFiles();
-
-    }*/
-
 }

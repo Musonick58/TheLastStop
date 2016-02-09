@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +9,6 @@ package CSVReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +22,7 @@ FilePrinter sqlNav;
 FilePrinter sqlBus;
 Integer result;
 
-    public CSVThread(Integer result) {
+    public CSVThread() {
         super("CSV Thread");
         this.result=result;
     try {
@@ -33,17 +33,6 @@ Integer result;
     }
     }
     
-    public synchronized void waitForNextUpdate(){
-    try {
-        this.wait(1000);
-        run();
-    } catch (InterruptedException ex) {
-        System.out.println("Sono stato interroto");
-    }
-    
-    
-    }
-
     @Override
     public void run() {
         int navCount = 0;
@@ -102,6 +91,5 @@ Integer result;
             return;
         }
         System.out.println("fine dell'esecuzione");
-        waitForNextUpdate();
     }
 }
