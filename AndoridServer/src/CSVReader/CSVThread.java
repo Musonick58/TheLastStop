@@ -20,11 +20,9 @@ public class CSVThread extends Thread {
     
 FilePrinter sqlNav;
 FilePrinter sqlBus;
-Integer result;
 
     public CSVThread() {
-        super("CSV Thread");
-        this.result=result;
+        super("CSVThread");
     try {
         sqlNav = new FilePrinter("nav.sql");
         sqlBus = new FilePrinter("bus.sql");
@@ -40,7 +38,7 @@ Integer result;
         barra += barra;
         final String NAV = "actv" + barra + "navigazione" + barra;
         final String AUTOBUS = "actv" + barra + "automobilistico" + barra;
-        System.out.println("Conversione in query dei csv");
+        System.out.println("[CSVReader]: Conversione in query dei csv");
         try {
             
             sqlNav = new FilePrinter("nav.sql");
@@ -64,8 +62,9 @@ Integer result;
             /*contiene la lista di file csv da caricare*/
             String[] filesName = dirNav.list(textFilter);
             navCount = filesName.length;
-            System.out.println(navCount);
+            //System.out.println(navCount);
             String[] busFilesName = dirAutobus.list(textFilter);
+            System.out.println("[CSVReader]: FILES TO PROCESS -> "+(navCount+busFilesName.length));
             CSVReader csvrNAV[] = new CSVReader[filesName.length];
             for (int i = 0; i < filesName.length; i++) {
                 csvrNAV[i] = new CSVReader(NAV + filesName[i]);
@@ -75,6 +74,7 @@ Integer result;
                 csvrNAV[i] = null;
             }
             sqlNav.close();
+            sqlNav.destroy();
             CSVReader csvrBUS[] = new CSVReader[busFilesName.length];
             for (int i = 0; i < busFilesName.length; i++) {
                 csvrBUS[i] = new CSVReader(AUTOBUS + busFilesName[i]);
@@ -84,12 +84,12 @@ Integer result;
                 csvrBUS[i] = null;
             }
             sqlBus.close();
+            sqlBus.destroy();
         } catch (FileNotFoundException ex) {
-            this.result=-1;
             //Logger.getLogger(CSVReader.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("errore nell'esecuzione");
+            System.out.println("[CSVReader]: ERRORE NELL'ESECUZIONE");
             return;
         }
-        System.out.println("fine dell'esecuzione");
+        System.out.println("[CSVReader]: FINE DELL'ESECUZIONE");
     }
 }
