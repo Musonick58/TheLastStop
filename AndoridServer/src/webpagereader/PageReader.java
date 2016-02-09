@@ -130,17 +130,18 @@ public class PageReader {
             }
             unzip.unZipIt();
             unzip=null;
-            File del = new File(fileName);
-            del.delete();
-        }
+            File archivio = new File(fileName);
+            if(archivio.exists())
+                archivio.delete();
+            }
     }
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         PageReader pr = new PageReader("http://www.actv.it/opendata/navigazione", "nav");
         String link = pr.parse();
         System.out.println(pr.download(link));
         pr.updateFiles();
 
-    }
+    }*/
 
 }

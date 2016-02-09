@@ -40,12 +40,13 @@ public class FilePrinter {
         for(int i=0;i<csvr.getValues().size();i++){
             List<String> stringList = csvr.getValues().get(i);
             String[] s = stringList.toArray(new String[stringList.size()]);
-            DatabaseUpdater dbupdate = DatabaseUpdater.getIstance();
+            //DatabaseUpdater dbupdate = DatabaseUpdater.getIstance();
             String toWrite;
-            toWrite=(dbupdate.updateTables2(filesName.substring(0, filesName.length()-4),csvr.getTableNames(), s))+"\n";            
+            toWrite=(DatabaseUpdater.updateTables2(filesName.substring(0, filesName.length()-4),csvr.getTableNames(), s))+"\n";            
             stampante.write(toWrite); 
         }
-        System.out.println("END");
+        System.out.println("[CSVReader]: END "+filesName);
+        
     }
     
     public void flush(){

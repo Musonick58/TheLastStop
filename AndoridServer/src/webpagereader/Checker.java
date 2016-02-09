@@ -5,6 +5,7 @@
  */
 package webpagereader;
 
+import CSVReader.CSVThread;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,62 +19,66 @@ public class Checker extends Thread {
     protected String oldStringNav;
     protected String oldStringBus;
 
-    public Checker(String name) throws IOException {
+    public Checker(String name,String oldStringNav,String oldStringBus) throws IOException {
         super(name);
-        oldStringNav = new PageReader("http://www.actv.it/opendata/navigazione", "nav").parse();
-        oldStringBus = new PageReader("http://www.actv.it/opendata/automobilistico", "bus").parse();
-    }
 
+        this.oldStringNav = oldStringNav;//new PageReader("http://www.actv.it/opendata/navigazione", "nav").parse();
+        this.oldStringBus = oldStringBus;//new PageReader("http://www.actv.it/opendata/automobilistico", "bus").parse();
+    }
+    
+ 
+    
     @Override
     public void run() {
         try {
-            int i=0;
             while (true) {
                 PageReader navpr = new PageReader("http://www.actv.it/opendata/navigazione", "nav");
                 PageReader buspr = new PageReader("http://www.actv.it/opendata/automobilistico", "bus");
 
                 if (!oldStringNav.equals(navpr.parse())) {
-                    System.out.println(oldStringNav);
                     navpr.download(navpr.parse()); //cerco l'ultimo zip disponibile e lo scarico
                     navpr.updateFiles(); //chiamo il metodo che estrare lo zip aggiornato nelle cartelle
                     //Dobbiamo far partire il csv reader e da li poi aggiornare il database
-                    System.out.println("call update db nav "+navpr.parse());
+                    System.out.println("["+this.getName()+"]: Update dei CSV"+navpr.parse());
+                    //Thread t = new CSVThread("nav"); //chiamo il CSVReader per far aggiornare il file di query
+                    //t.start();//avvio il thread
+                    //while(t.isAlive()){ this.sleep(180000);}//busy waiting
                     //salvo il nome dell'ultimo archivo in modo da poterlo confrontare se cambia 
                     oldStringNav=navpr.parse();
                 }else{              
-                    System.out.println("nav not changed");
+                    System.out.println("["+this.getName()+"]: "+"nav not changed");
                 }
 
                 if (!oldStringBus.equals(buspr.parse())) {
-                    System.out.println(oldStringBus);
                     buspr.download(buspr.parse());//cerco l'ultimo zip disponibile e lo scarico
                     buspr.updateFiles();//come sopra
                     //Dobbiamo far partire il csv reader e da li poi aggiornare il database
-                    System.out.println("call update db bus "+buspr.parse());
+                    System.out.println("["+this.getName()+"]: Update dei CSV"+buspr.parse());
+                    //Thread t = new CSVThread("bus"); //chiamo il CSVReader per far aggiornare il file di query
+                    //t.start();//avvio il thread
+                    //while(t.isAlive()){ this.sleep(180000);}//busy waiting
+                    //salvo il nome dell'ultimo archivo in modo da poterlo confrontare se cambia 
                     oldStringBus=buspr.parse();
                 }else{
-                    System.out.println("bus not changed");
+                    System.out.println("["+this.getName()+"]: "+"bus not changed");
                 }
                 navpr = null;
                 buspr = null;
+                Thread t = new CSVThread(); //chiamo il CSVReader per far aggiornare il file di query
+                t.start();//avvio il thread
                 sleep(60000 * 24);//un giorno di attesa prima di cercare aggiornamenti e scaricarli!
             }
         } catch (InterruptedException | IOException ex ) {
             Logger.getLogger(Checker.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         System.out.println("exited");
     }
-
-    public static void main(String[] args) {
-        try {
-            System.out.println("checker");
-            Checker test = new Checker("Checker");
-            test.start();
-        } catch (IOException ex) {
-            Logger.getLogger(Checker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    
+    
+    public static void main(String[] args){
+        
+    
+    
+    
     }
-
 }

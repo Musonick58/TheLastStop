@@ -21,9 +21,9 @@ public class AcceptDataRequest extends Thread {
     private String request;
     private String clientIp;
     private Scanner textReader;
-
+    private Integer count;
     public AcceptDataRequest(Socket socket) {
-        super("AccpetDataRequest");
+        super("AcceptDataRequest");
         this.socket = socket;
         clientIp = this.socket.getInetAddress().getHostAddress();
         System.out.println("Indirizzo del client: " + clientIp+"port number: "+this.socket.getPort());
@@ -42,8 +42,10 @@ public class AcceptDataRequest extends Thread {
     
     public void closeAll(){
         try {
-            //this.socket.close();
+            
             this.textReader.close();
+            this.count--;
+            
         } catch (Exception ex) {
             Logger.getLogger(AcceptDataRequest.class.getName()).log(Level.SEVERE, null, ex);
         }
