@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.List;
 
 import andoridserver.androidData.*;
 
@@ -25,11 +26,19 @@ public class SendRequest implements AndroidDataRequest {
 
     }
 
-
-    public void askLines(){
-        OutputStream os = null;
+    public void closeSendData(){
         try {
-            String request="DataRequest:TimeTable:2:bus";
+            this.socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public AndroidDataInterface askLines(String servizio){
+        OutputStream os;
+        AndroidDataInterface inputData=null;
+        try {
+            String request="DataRequest:Lines"+servizio;
             os = this.socket.getOutputStream();
             PrintStream ps = new PrintStream(os);
             ps.println(request);
@@ -38,27 +47,31 @@ public class SendRequest implements AndroidDataRequest {
             InputStream is = this.socket.getInputStream();
             ObjectInputStream isobj = new ObjectInputStream(is);
             //System.out.println(isobj.available());
-            AndroidDataInterface inputData= (AndroidDataInterface) isobj.readObject();
+            inputData = (AndroidDataInterface) isobj.readObject();
             System.out.println(inputData.getNameObject());
-            for(int i=0; i<inputData.getDataAsList().size();i++)
-                System.out.println("ora: "+inputData.getDataAsList());
+            List<String> dati = inputData.getDataAsList();
+            System.out.println(dati);
+            isobj.close();
+            ps.close();
+            os.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+    return inputData;
 
     } //tutte le linee
 
-    public void askLines(String prefered){} //la linea preferita se si vuole usare per una linea salvata
+    public AndroidDataInterface askLines(String linesNumber, String servizio){return null;} //il numero della linea e il tipo di servizio
 
-    public void askTimeTable(String linesNumber){} //orario della linea selezionata
+    public AndroidDataInterface askTimeTable(String linesNumber, String servizio, String fermata){return null;} //orario della linea selezionata
 
-    public void askAllStops(String linesNumber){} //lista di tutte le fermate!
+    public AndroidDataInterface askAllStops(String servizio){return null;} //lista di tutte le fermate!
 
-    public void askAvgDelay(String linesNumber){} //orario medio di ritardo
+    public AndroidDataInterface askAvgDelay(String linesNumber, String fermata, String servizio){return null;} //orario medio di ritardo
+
 
     public static void main(String[] args){
         SendRequest send = new SendRequest();
-        send.askLines();
+        send.askLines("bus");
     }
 }
