@@ -5,33 +5,28 @@
  */
 package andoridclient.androidData;
 
+import andoridserver.androidData.AndroidDataInterface;
 /**
  *
  * @author nichi
  */
 interface AndroidDataRequest {
     
-    //per la richiesta potete mandarmi una stringa,
-    //formalmente potrebbe essere formatata così
-    //DataRequest:AllLinesNumber restituisce la lista di tutte le fermate
-    //DataRequest:LinesNumber:(numero/nome linea):(bus/navig) dovrebbe servire per info di una linea specifica con il cerca
-    //DataRequest:TimeTable:(numero/nome linea):(bus/navig) chiede gli orari per una determinata linea
-    //DataRequest:AllStopName:(numero/nome linea):(bus/navig) restituisce la lista di tutte le fermate di una certa linea
-    //Es-> DataRequest:LinesNumber:2:bus
-    //Es-> DataRequest:LinesNumber:2:navig
-    //Es-> DataRequest:TimeTable:2:bus
-    //Es-> DataRequest:AllStopName:2:bus
-    //Es-> DataRequest:LinesNumber:2:navig
-    
-    public void askLines(); //tutte le linee
-      
-    public void askLines(String prefered); //la linea preferita se si vuole usare per una linea salvata
-    
-    public void askTimeTable(String linesNumber); //orario della linea selezionata
-    
-    public void askAllStops(String linesNumber); //lista di tutte le fermate!
-    
-    public void askAvgDelay(String linesNumber); //orario medio di ritardo
+      //Es -> DataRequest:Lines:bus
+     //Es -> DataRequest:Lines:navig
+     AndroidDataInterface askLines(String servizio); //tutte le linee navigazione o autobus
+
+     //Es -> DataRequest:Stops:2:bus
+     //Es -> DataRequest:Stops:2:navig
+     AndroidDataInterface askAllStops(String linesNumber, String servizio); //lista di tutte le fermate!
+
+     //Es -> DataRequest:Timetable:2:bus
+     //Es -> DataRequest:Timetable:2:navig
+     AndroidDataInterface askTimeTable(String linesNumber, String servizio, String fermata); //orario della linea selezionata
+
+     //Es -> DataRequest:Delay:2:Stop:bus
+     //Es -> DataRequest:Delay:2:Stop:navig
+     AndroidDataInterface askAvgDelay(String linesNumber, String fermata, String servizio); //orario medio di ritardo
     
     
     
