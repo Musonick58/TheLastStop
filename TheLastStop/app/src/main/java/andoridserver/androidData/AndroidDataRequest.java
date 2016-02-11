@@ -1,4 +1,4 @@
-package androidclient;
+package andoridserver.androidData;
 
 /**
  * Created by nichi on 10/02/2016.

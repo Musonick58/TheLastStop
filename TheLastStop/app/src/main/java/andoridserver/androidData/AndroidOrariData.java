@@ -1,6 +1,8 @@
-package androidclient;
+package andoridserver.androidData;
 
 import java.util.*;
+
+import andoridserver.androidData.AndroidDataInterface;
 
 /**
  * Created by nichi on 10/02/2016.

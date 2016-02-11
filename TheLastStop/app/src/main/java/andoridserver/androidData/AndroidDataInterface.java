@@ -1,4 +1,4 @@
-package androidclient;
+package andoridserver.androidData;
 
 import java.util.List;
 import java.io.Serializable;

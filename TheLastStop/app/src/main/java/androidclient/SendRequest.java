@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.PrintStream;
 import java.net.Socket;
+
+import andoridserver.androidData.*;
+
 
 /**
  * Created by nichi on 10/02/2016.
  */
-public class SendRequest implements AndroidDataRequest{
+public class SendRequest implements AndroidDataRequest {
 
     private Socket socket;
     public SendRequest(){
@@ -26,19 +29,19 @@ public class SendRequest implements AndroidDataRequest{
     public void askLines(){
         OutputStream os = null;
         try {
+            String request="DataRequest:TimeTable:2:bus";
             os = this.socket.getOutputStream();
-            PrintWriter pw = new PrintWriter(os);
-            pw.write("DataRequest:TimeTable:2:bus");
-            pw.flush();
+            PrintStream ps = new PrintStream(os);
+            ps.println(request);
+            ps.flush();
             os.flush();
             InputStream is = this.socket.getInputStream();
             ObjectInputStream isobj = new ObjectInputStream(is);
-            AndroidDataInterface inputData = (AndroidOrariData) isobj.readObject();
-            isobj.close();
+            //System.out.println(isobj.available());
+            AndroidDataInterface inputData= (AndroidDataInterface) isobj.readObject();
             System.out.println(inputData.getNameObject());
-            pw.close();
-            os.close();
-
+            for(int i=0; i<inputData.getDataAsList().size();i++)
+                System.out.println("ora: "+inputData.getDataAsList());
         } catch (Exception e) {
             e.printStackTrace();
         }
