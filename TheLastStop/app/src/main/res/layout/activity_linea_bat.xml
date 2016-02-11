@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".lineaBat"
-    android:background="#4c4c4c">
+    android:background="#91b4ff">
 
 
     <TextView
@@ -25,7 +25,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listaLineeBus"
+        android:id="@+id/listaLineeBat"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:dividerHeight="0.2dp"

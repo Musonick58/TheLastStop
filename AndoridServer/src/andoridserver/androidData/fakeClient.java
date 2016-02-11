@@ -28,7 +28,7 @@ public class fakeClient {
 
     public fakeClient() {
         try {
-            this.s = new Socket("localhost",1313);
+            this.s = new Socket("52.36.66.44",1313);
         } catch (IOException ex) {
             Logger.getLogger(fakeClient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,7 +60,7 @@ public class fakeClient {
     public static void main(String[] args){
         System.out.println("fake client started");
         
-        for(int i=0;i<15;i++){
+        for(int i=0;i<1000;i++){
             fakeClient fake = new fakeClient();
             fake.request();
         }
