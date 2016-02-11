@@ -24,7 +24,7 @@ public class DBAsk implements DBAskInterface{
     }
     
     @Override
-    public String dbStops(int linea){
+    public String dbStops(String linea){
         String str="SELECT DISTINCT(s.stop_id,s.stop_code)"
                 + "FROM trips tr,stop_times st,stop s"
                 + "WHERE tr.route_id="+linea+"AND"
@@ -59,8 +59,16 @@ public class DBAsk implements DBAskInterface{
         return "str";
     }
     
+    @Override
+    public String dbTimesDelay(String line,String stop){
+        String str=null;
+        return str;
+    };
     
-    public String db
-    
+    @Override
+    public String dbSetDelay(String delay,String line,String stop){
+        String str=null;
+        return str;
+    }
     
 }
