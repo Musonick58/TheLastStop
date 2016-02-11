@@ -7,11 +7,13 @@ package andoridserver.database;
 
 /**
  *
- * @author Utente
+ * @author Jack
  */
-public class DBAsk {
+public class DBAsk implements DBAskInterface{
+    
     //devo rivederle
-    public String dbLinee(String x){
+    @Override
+    public String dbLinee(){
         String str="SELECT(a.route_short_name,a.route_lomg_name)"
                 + "FROM routes a,routes b "
                 + "WHERE a.route_lomg_name=b.route_long_name"
@@ -21,6 +23,7 @@ public class DBAsk {
                 
     }
     
+    @Override
     public String dbStops(int linea){
         String str="SELECT DISTINCT(s.stop_id,s.stop_code)"
                 + "FROM trips tr,stop_times st,stop s"
@@ -31,18 +34,33 @@ public class DBAsk {
         return str;
     }
     
+    @Override
     public String dbTime(String stop,String linea){
         String str="SELECT"
-                + "FROM "
+                + "FROM trips tr,stop_times st"
                 + "st.stop_id=s.stop_id AND"
                 + "st.trip_id=tr.trip_id"
+                + "st.stop_id="+stop+""
+                + "tr.route_id="+linea+""
                 + "ORDER BY stop_sequence";
         return str;
     }
     
-    public String dbStopBus(String linea,String stop){
-        return "";
+    @Override
+    public String dbFindLinesAtBusStop( String stopId ){
+        
+        String str="SELECT route_short_name,route_long_name"
+                + "FROM stop_times st,trips t,routes r"
+                + "WHERE st.trip_id=t.trip_id AND"
+                + "t.route_id=r.route_id"
+                + "st.stop_id="+stopId+""
+                + "ORDER BY stop_sequence";
+        
+        return "str";
     }
+    
+    
+    public String db
     
     
 }

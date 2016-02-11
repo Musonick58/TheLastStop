@@ -101,6 +101,8 @@ public class DBConnector implements DBInterface{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
+    /*da sistemere per vesatilita*/
     @Override
     public AndroidDataInterface executeQuery(String compiledQuery) {
         AndroidDataInterface adi = null;
