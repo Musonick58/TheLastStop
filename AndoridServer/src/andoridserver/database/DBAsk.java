@@ -61,13 +61,22 @@ public class DBAsk implements DBAskInterface{
     
     @Override
     public String dbTimesDelay(String line,String stop){
-        String str=null;
+        String str="SELECT arrival_time-departure_time"
+                + "FROM stop_time st,trips t"
+                + "WHERE st.trip_id=t.trip_id"
+                + "st.stop_id="+stop+""
+                + "st.route_id="+line;
         return str;
     };
     
     @Override
-    public String dbSetDelay(String delay,String line,String stop){
-        String str=null;
+    public String dbSetDelay(String arrival_time,String line,String stop){
+        String str="SELECT"
+                + "FROM stop_time st,trips t"
+                + "WHERE st.trip_id=t.trip:id"
+                + "st.departure_time="+arrival_time+""
+                + "st.route_id="+line+""
+                + "st.stop_id="+stop;
         return str;
     }
     
