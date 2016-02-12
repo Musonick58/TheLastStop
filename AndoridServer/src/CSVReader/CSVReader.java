@@ -77,10 +77,14 @@ public class CSVReader {
                 if(tempLine.endsWith(","))
                     tempLine+="null";
                 tempStrings = new ArrayList<String>();
-                ParseString st = new ParseString(tempLine,",");
+                ParseString st ;
+                if(filename.equals("stop_times.txt"))
+                    st = new ParseString(tempLine,",","stop_times.txt");
+                else
+                    st = new ParseString(tempLine,",");
                 while(st.hasMoreTokens()){
                     String temp=st.nextToken();    
-                        tempStrings.add(temp);
+                    tempStrings.add(temp);
                     if(linesNumber==1){
                         wordCount++;
                     }
