@@ -37,12 +37,34 @@ public class ParseString {
         this.delimiters = delimiters;
     }
     private void fixData(String[] arr){
-        System.out.println(filename);
+        //System.out.println(filename);
     switch(filename){
         case "stop_times.txt": 
+            if(arr[1].startsWith("24:"))
             arr[1]="00"+arr[1].substring(2,arr[1].length());
+            if(arr[2].startsWith("24:"))
             arr[2]="00"+arr[2].substring(2,arr[2].length());
-            System.out.println(arr[1]);
+            if(arr[1].startsWith("25:"))
+            arr[1]="01"+arr[1].substring(2,arr[1].length());
+            if(arr[2].startsWith("25:"))
+            arr[2]="01"+arr[2].substring(2,arr[2].length());
+            if(arr[1].startsWith("26:"))
+            arr[1]="02"+arr[1].substring(2,arr[1].length());
+            if(arr[2].startsWith("26:"))
+            arr[2]="02"+arr[2].substring(2,arr[2].length());
+            if(arr[1].startsWith("27:"))
+            arr[1]="03"+arr[1].substring(2,arr[1].length());
+            if(arr[2].startsWith("27:"))
+            arr[2]="03"+arr[2].substring(2,arr[2].length());
+            if(arr[1].startsWith("28:"))
+            arr[1]="04"+arr[1].substring(2,arr[1].length());
+            if(arr[2].startsWith("28:"))
+            arr[2]="04"+arr[2].substring(2,arr[2].length());
+            if(arr[1].startsWith("29:"))
+            arr[1]="05"+arr[1].substring(2,arr[1].length());
+            if(arr[2].startsWith("29:"))
+            arr[2]="05"+arr[2].substring(2,arr[2].length());
+            //System.out.println(arr[1]);
         break;
         
     }

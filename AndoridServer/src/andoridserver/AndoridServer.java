@@ -5,6 +5,7 @@
  */
 package andoridserver;
 
+import CSVReader.CSVThread;
 import andoridserver.androidData.*;
 import andoridserver.database.*;
 import java.net.ServerSocket;
@@ -44,7 +45,9 @@ public class AndoridServer{
     String buslink = pr.parse();
     System.out.println("[MAIN]: LINK AUTOMOBILISTICO -> "+pr.download(buslink));
     pr.updateFiles(); //SI OCCUPA DI UNZIPARE I FILE
-    Checker updater = new Checker("CSV online Checker","","");
+    CSVThread csvstart = new CSVThread();//faccio partire i primi csv da trasformare
+    csvstart.start();
+    Checker updater = new Checker("CSV online Checker",navlink,buslink);// avvio il thread che check il sito
     //Inizializzo la classe la quale si occupa di attendere una connessione alla porta PORTNUMBER
     ServerSocket serverSocket = new ServerSocket(PORTNUMBER); 
     System.out.println("[MAIN]: Listen on port: "+PORTNUMBER);

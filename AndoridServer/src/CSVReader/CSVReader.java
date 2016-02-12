@@ -77,9 +77,9 @@ public class CSVReader {
                 if(tempLine.endsWith(","))
                     tempLine+="null";
                 tempStrings = new ArrayList<String>();
-                ParseString st ;
-                if(filename.equals("stop_times.txt"))
-                    st = new ParseString(tempLine,",","stop_times.txt");
+                ParseString st;
+                if(inputCsv.getName().equals("stop_times.txt"))
+                    st = new ParseString(tempLine,",",inputCsv.getName());
                 else
                     st = new ParseString(tempLine,",");
                 while(st.hasMoreTokens()){
@@ -105,20 +105,7 @@ public class CSVReader {
         
    
 }
-    public static String[]  mergeStringArray(String[] first, String[] second) {
-        String[] ret=null;
-        List<String> both = new ArrayList<String>(first.length + second.length);
-        for(String x : first)
-            both.add(x);
-        for(String x : second)
-            both.add(x);
-        ret=both.toArray(new String[both.size()]);
-        both.clear();
-        both=null;
-       System.out.println("Merged");
-       return ret;  
-    }
-    
+ 
     public static void main(String[] args) {   
         int navCount=0;
         String barra = System.getProperty("file.separator");
@@ -127,8 +114,6 @@ public class CSVReader {
         final String AUTOBUS="actv"+barra+"automobilistico"+barra;
         System.out.println(NAV);
         System.out.println("Conversione in query dei csv");
-        PrintWriter printerNAV=null;
-        PrintWriter printerBUS=null;
 
         try {
             
