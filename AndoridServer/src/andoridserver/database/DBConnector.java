@@ -97,11 +97,8 @@ public class DBConnector implements DBInterface{
         return query;
     }
 
-    @Override
-    public String compileQuery(String query) {
-        Statement statement = null;
-        try {
-        statement = con.createStatement();
+    public boolean updateTabe(String querry) throws SQLException{
+        Statement statement=con.createStatement();
         String sql="CREATE TABLE agency(\n" +
         "	Agency_id text,\n" +
         "	Agency_name text,\n" +
@@ -111,8 +108,10 @@ public class DBConnector implements DBInterface{
         "	Agency_phone varchar(10),\n" +
         "	Agency_fare_url text,\n" +
         "	PRIMARY KEY(Agency_id)\n" +
-        ");\n" +
-        "CREATE TABLE calendar(\n" +
+        ");\n";
+        int result= statement.executeUpdate(sql);
+        if(result!=1){return false;}
+        sql="CREATE TABLE calendar(\n" +
         "	service_id text,\n" +
         "	monday integer, \n" +
         "	tuesday integer,\n" +
@@ -124,14 +123,18 @@ public class DBConnector implements DBInterface{
         "	start_date text,\n" +
         "	end_date text,\n" +
         "	PRIMARY KEY(service_id)\n" +
-        ");\n" +
-        "CREATE TABLE calendar_dates(\n" +
+        ")";
+        result= statement.executeUpdate(sql);
+        if(result!=1){return false;}    
+        sql="CREATE TABLE calendar_dates(\n" +
         "	service_id text,\n" +
         "	end_date text,\n" +
         "	exception_type text\n" +
         "	--FOREIGN KEY(service_id) REFERENCES calendar(service_id)\n" +
-        ");\n" +
-        "CREATE TABLE routes(\n" +
+        ")";
+        result= statement.executeUpdate(sql);
+        if(result!=1){return false;}         
+        sql="CREATE TABLE routes(\n" +
         "	route_id integer,\n" +
         "	agency_id text,\n" +
         "	route_short_name varchar(3),\n" +
@@ -143,8 +146,11 @@ public class DBConnector implements DBInterface{
         "	route_text_color varchar(6),\n" +
         "	--FOREIGN KEY(agency_id) REFERENCES agency(agency_id),\n" +
         "	PRIMARY KEY(route_id)\n" +
-        ");\n" +
-        "CREATE TABLE stops(\n" +
+        ")";
+        result= statement.executeUpdate(sql);
+        if(result!=1){return false;}
+        
+        sql="CREATE TABLE stops(\n" +
         "	stop_id integer,\n" +
         "	stop_code text,\n" +
         "	stop_name text,\n" +
@@ -160,9 +166,10 @@ public class DBConnector implements DBInterface{
         "	wheelchair_boarding text,\n" +
         "	--\n" +
         "	PRIMARY KEY(stop_id)\n" +
-        ");\n" +
-        "\n" +
-        "CREATE TABLE trips(\n" +
+        ")";
+        result= statement.executeUpdate(sql);
+        if(result!=1){return false;} 
+        sql="CREATE TABLE trips(\n" +
         "	route_id integer,\n" +
         "	service_id text,\n" +
         "	trip_id integer,\n" +
@@ -180,8 +187,10 @@ public class DBConnector implements DBInterface{
         "	--FOREIGN KEY(route_id) REFERENCES routes(route_id),\n" +
         "	--FOREIGN KEY(service_id) REFERENCES calendar(service_id)\n" +
         "	--bisogna modificare la chiave primari di shapes\n" +
-        ");\n" +
-        "CREATE TABLE stop_times(\n" +
+        ")";
+        result= statement.executeUpdate(sql);
+        if(result!=1){return false;} 
+        sql="CREATE TABLE stop_times(\n" +
         "	trip_id integer,\n" +
         "	arrival_time time,\n" +
         "	departure_time time,\n" +
@@ -195,17 +204,20 @@ public class DBConnector implements DBInterface{
         "	--\n" +
         "	--FOREIGN KEY(stop_id) REFERENCES stops(stop_id),\n" +
         "	--FOREIGN KEY(trip_id) REFERENCES trips(trip_id)\n" +
-        "       );\n" +
-        "CREATE TABLE shapes(\n" +
+        ")";
+        result= statement.executeUpdate(sql);
+        if(result!=1){return false;} 
+        sql="CREATE TABLE shapes(\n" +
         "	shape_id text,\n" +
         "	shape_pt_lat double precision,\n" +
         "	shape_pt_lon double precision,\n" +
         "	shape_pt_sequence integer,\n" +
         "	shape_dist_traveled double precision,\n" +
         "	PRIMARY KEY(shape_id,shape_pt_sequence)\n" +
-        "       );\n" +
-        "       \n" +
-        "CREATE TABLE trips_shape(\n" +
+        ")";
+        result= statement.executeUpdate(sql);
+        if(result!=1){return false;} 
+        sql="CREATE TABLE trips_shape(\n" +
         "	trip_id integer,\n" +
         "	shape_id text,\n" +
         "	shape_pt_sequence integer,\n" +
@@ -213,15 +225,10 @@ public class DBConnector implements DBInterface{
         "	FOREIGN KEY(shape_id,shape_pt_sequence) REFERENCES shapes(shape_id,shape_pt_sequence),\n" +
         "	PRIMARY KEY(trip_id,shape_id,shape_pt_sequence)\n" +
         ")";
-            int result= statement.executeUpdate(sql);
-            System.out.println("risultato di esecuzione: "+ result );
-                    
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return result;
+        result= statement.executeUpdate(sql);
+        if(result!=1){return false;} 
+        return true;
     }
-
     
     /*da sistemere per vesatilita*/
     @Override
