@@ -228,16 +228,67 @@ public class DBConnector implements DBInterface{
             "	PRIMARY KEY(trip_id,shape_id,shape_pt_sequence)\n" +
             ")";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;} 
+            if(result!=1){return false;}
+            sql="ALTER TABLE stop_times ADD	FOREIGN KEY(stop_id) REFERENCES stops(stop_id);";
+            result= statement.executeUpdate(sql);
+            if(result!=1){return false;}
+            sql="ALTER TABLE stop_times ADD FOREIGN KEY(trip_id) REFERENCES trips(trip_id);";
+            result= statement.executeUpdate(sql);
+            if(result!=1){return false;}
+            sql="ALTER TABLE trips ADD FOREIGN KEY(route_id) REFERENCES routes(route_id);";
+            result= statement.executeUpdate(sql);
+            if(result!=1){return false;}
+            sql="ALTER TABLE trips ADD FOREIGN KEY(service_id) REFERENCES calendar(service_id);";
+            result= statement.executeUpdate(sql);
+            if(result!=1){return false;}
+            sql="ALTER TABLE routes ADD FOREIGN KEY(agency_id) REFERENCES agency(agency_id);";
+            result= statement.executeUpdate(sql);
+            if(result!=1){return false;}
+            sql="ALTER TABLE calendar_dates ADD FOREIGN KEY(service_id) REFERENCES calendar(service_id);";
+            result= statement.executeUpdate(sql);
+            if(result!=1){return false;}
         } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
     }
     
-    public int dropDB(){
-        
+    public boolean dropDB(){
+        try {
+            Statement statement=con.createStatement();
+            String sql="DROP TABLE agency CASCADE;";
+            int result=statement.executeUpdate(sql);
+            if(result!=1) {return false;};
+            sql="DROP TABLE calendar CASCADE;";
+            result=statement.executeUpdate(sql);
+            if(result!=1) {return false;};
+            sql="DROP TABLE calendar_dates CASCADE;";
+            result=statement.executeUpdate(sql);
+            if(result!=1) {return false;};
+            sql="DROP TABLE routes CASCADE;";
+            result=statement.executeUpdate(sql);
+            if(result!=1) {return false;};
+            sql="DROP TABLE shapes CASCADE;";
+            result=statement.executeUpdate(sql);
+            if(result!=1) {return false;};
+            sql="DROP TABLE stops CASCADE;";
+            result=statement.executeUpdate(sql);
+            if(result!=1) {return false;};
+            sql="DROP TABLE trips CASCADE;";
+            result=statement.executeUpdate(sql);
+            if(result!=1) {return false;};
+            sql="DROP TABLE stop_times CASCADE;";
+            result=statement.executeUpdate(sql);
+            if(result!=1) {return false;};
+            sql="DROP TABLE trips_shape CASCADE;";
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
+    
+    
     
     /*da sistemere per vesatilita*/
     @Override
