@@ -123,7 +123,7 @@ public class AcceptDataRequest extends Thread {
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "autobus" );
                     else 
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "autobus" );
-                    info = DBConnector.getIstance().executeQuery(send.query.dbTime(stopName, lineStr));
+                    info = DBConnector.getIstance().executeQuery(send.query.dbTimesDelay(lineStr,stopName));
                 }               
                
             }
