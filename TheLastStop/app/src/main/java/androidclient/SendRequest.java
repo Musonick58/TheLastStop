@@ -11,6 +11,8 @@ import andoridserver.androidData.*;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import com.example.laststop.thelaststop.Main;
+
 
 /**
  * Created by nichi on 10/02/2016.
@@ -19,12 +21,21 @@ import android.content.DialogInterface;
 public class SendRequest implements AndroidDataRequest {
 
     private Socket socket;
+    
     public SendRequest(){
         try {
             socket = new Socket("52.33.218.151",1313);
         } catch (IOException e) {
             e.printStackTrace();
             //TODO: aggiungere popup per errore connessione.
+            new AlertDialog.Builder(NON HO IDEA DI COSA METTERE QUI DENTRO)
+                    .setTitle("Errore")
+                    .setMessage("Controlla la tua connessione!")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    }).show();
         }
 
     }
