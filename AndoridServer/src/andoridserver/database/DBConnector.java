@@ -25,9 +25,9 @@ public class DBConnector implements DBInterface{
     private Connection con;
     private static DBConnector ref=null;
     public static final int POSTGRESPORT = 5492;
-    public final String DRIVER="postgresql";
-    public final String ADDRESS = "52.33.218.151";
-    public final int PORT = 5492;
+    public static final String DRIVER="postgresql";
+    public static final String ADDRESS = "52.33.218.151";
+      
     
     private DBConnector(){
     }    
