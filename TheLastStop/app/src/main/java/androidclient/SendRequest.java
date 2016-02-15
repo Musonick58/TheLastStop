@@ -21,7 +21,7 @@ public class SendRequest implements AndroidDataRequest {
     private Socket socket;
     public SendRequest(){
         try {
-            socket = new Socket("52.33.218.51",1313);
+            socket = new Socket("52.33.218.151",1313);
         } catch (IOException e) {
             e.printStackTrace();
             //TODO: aggiungere popup per errore connessione.
@@ -41,7 +41,7 @@ public class SendRequest implements AndroidDataRequest {
         OutputStream os;
         AndroidDataInterface inputData=null;
         try {
-            String request="DataRequest:Lines"+servizio;
+            String request="DataRequest:Lines:"+servizio;
             os = this.socket.getOutputStream();
             PrintStream ps = new PrintStream(os);
             ps.println(request);
@@ -56,7 +56,6 @@ public class SendRequest implements AndroidDataRequest {
             isobj.close();
             ps.close();
             os.close();
-            socket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,7 +82,6 @@ public class SendRequest implements AndroidDataRequest {
             isobj.close();
             ps.close();
             os.close();
-            socket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,7 +108,6 @@ public class SendRequest implements AndroidDataRequest {
             isobj.close();
             ps.close();
             os.close();
-            socket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,7 +134,6 @@ public class SendRequest implements AndroidDataRequest {
             isobj.close();
             ps.close();
             os.close();
-            socket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -151,5 +147,6 @@ public class SendRequest implements AndroidDataRequest {
         send.askAllStops("","");
         send.askAvgDelay("","","");
         send.askTimeTable("","","");
+        send.closeSendData();
     }
 }
