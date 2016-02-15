@@ -3,31 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< Updated upstream
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/AndoridServer.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/CSVReader/CSVReader.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/CSVReader/ParseString.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/CSVReader/CSVThread.java</file>
-=======
-<<<<<<< Updated upstream
-            <file>file:/C:/Users/Nicola/Documents/GitHub/TheLastStop/AndoridServer/src/CSVReader/CSVReader.java</file>
-            <file>file:/C:/Users/Nicola/Documents/GitHub/TheLastStop/AndoridServer/src/CSVReader/CSVThread.java</file>
-            <file>file:/C:/Users/Nicola/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/androidData/fakeClient.java</file>
-            <file>file:/C:/Users/Nicola/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/AndoridServer.java</file>
-            <file>file:/C:/Users/Nicola/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/database/DBConnector.java</file>
-            <file>file:/C:/Users/Nicola/Documents/GitHub/TheLastStop/AndoridServer/src/webpagereader/Checker.java</file>
-            <file>file:/C:/Users/Nicola/Documents/GitHub/TheLastStop/AndoridServer/src/webpagereader/PageReader.java</file>
-            <file>file:/C:/Users/Nicola/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/androidData/SendData.java</file>
-            <file>file:/C:/Users/Nicola/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/database/DBInterface.java</file>
-=======
-            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/andoridserver/androidData/AndroidDataInterface.java</file>
-            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/webpagereader/Checker.java</file>
+            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/andoridclient/androidData/AndroidDataRequest.java</file>
+            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/andoridserver/database/ChooseDBType.java</file>
             <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/andoridserver/androidData/SendData.java</file>
-            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/andoridserver/androidData/fakeClient.java</file>
-            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/webpagereader/PageReader.java</file>
-            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/andoridserver/androidData/AndroidData.java</file>
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/CSVReader/CSVReader.java</file>
+            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/andoridserver/AndoridServer.java</file>
         </group>
     </open-files>
 </project-private>

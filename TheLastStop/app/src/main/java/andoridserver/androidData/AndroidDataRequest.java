@@ -9,11 +9,11 @@ public interface AndroidDataRequest {
      AndroidDataInterface askLines(String servizio); //tutte le linee navigazione o autobus
 
      //Es -> DataRequest:Stops:2:bus
-     //Es -> DataRequest:Stops:2:navig
+     //Es -> DataRequest:Stops:32:navig
      AndroidDataInterface askAllStops(String linesNumber, String servizio); //lista di tutte le fermate!
 
-     //Es -> DataRequest:Timetable:2:bus
-     //Es -> DataRequest:Timetable:2:navig
+     //Es -> DataRequest:Timetable:2:fermata:bus
+     //Es -> DataRequest:Timetable:2:fermata:navig
      AndroidDataInterface askTimeTable(String linesNumber, String servizio, String fermata); //orario della linea selezionata
 
      //Es -> DataRequest:Delay:2:Stop:bus
