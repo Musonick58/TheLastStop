@@ -21,7 +21,7 @@ public class SendRequest implements AndroidDataRequest {
     private Socket socket;
     public SendRequest(){
         try {
-            socket = new Socket("52.36.66.44",1313);
+            socket = new Socket("52.33.218.51",1313);
         } catch (IOException e) {
             e.printStackTrace();
             //TODO: aggiungere popup per errore connessione.
@@ -148,5 +148,8 @@ public class SendRequest implements AndroidDataRequest {
     public static void main(String[] args){
         SendRequest send = new SendRequest();
         send.askLines("bus");
+        send.askAllStops("","");
+        send.askAvgDelay("","","");
+        send.askTimeTable("","","");
     }
 }
