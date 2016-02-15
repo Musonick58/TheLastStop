@@ -105,7 +105,24 @@ public class CSVReader {
         
    
 }
+<<<<<<< Updated upstream
  
+=======
+  /*  public static String[]  mergeStringArray(String[] first, String[] second) {
+        String[] ret=null;
+        List<String> both = new ArrayList<String>(first.length + second.length);
+        for(String x : first)
+            both.add(x);
+        for(String x : second)
+            both.add(x);
+        ret=both.toArray(new String[both.size()]);
+        both.clear();
+        both=null;
+       System.out.println("Merged");
+       return ret;  
+    } */ //Non dovrebbe più servire
+    
+>>>>>>> Stashed changes
     public static void main(String[] args) {   
         int navCount=0;
         String barra = System.getProperty("file.separator");

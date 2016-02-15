@@ -35,7 +35,7 @@ public class AcceptDataRequest extends Thread {
         } catch (java.util.NoSuchElementException ex) {
            
         } catch(IOException ex){
-            ex.getMessage();
+           System.out.println(ex.getMessage());
         }
     }
     
@@ -61,8 +61,8 @@ public class AcceptDataRequest extends Thread {
         String lineStr = null;
         String[] lines=null;
         String serviceType=null;
-        AndroidDataInterface info; 
-        if (request!=null && request.startsWith("DataRequest:")) {
+        AndroidDataInterface info;
+         if (request!=null && request.startsWith("DataRequest:")) {
             System.out.println("Data Request: Processing");
             //System.out.println(request);
             System.out.println(!request.equalsIgnoreCase("DataRequest:AllLinesNumber"));
