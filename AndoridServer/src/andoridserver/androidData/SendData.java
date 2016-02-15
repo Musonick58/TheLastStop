@@ -20,14 +20,18 @@ import java.util.logging.Logger;
  */
 public class SendData implements Serializable {
     private Socket socket;
-    private String query;
+    private String serviceType,stopName,lineNum;
     private DBInterface database;
+    public DBAsk query;
     private AndroidDataInterface data;
     
-    public SendData(Socket socket, String query,DBInterface db){
-        this.query=query;
+    public SendData(Socket socket, String serviceType,String stopName,String lineNum, DBInterface db){
         this.socket=socket;
+        this.serviceType=serviceType;
+        this.stopName=stopName;
+        this.lineNum=lineNum;
         this.database=db;
+        query=new DBAsk();
     }
     
         public void closeAll(){
@@ -46,20 +50,19 @@ public class SendData implements Serializable {
             dataToSend.addData("%h:30".replaceAll("%h",""+i));
         return dataToSend;
     }
+    
+    public void toSend(AndroidDataInterface adi){
+        data=adi;
+    }
 
     public void send(){
         System.out.println("you call Send");
         try {
             OutputStream os = socket.getOutputStream();
             ObjectOutputStream osobj = new ObjectOutputStream(os);
-            //FileOutputStream fos = new FileOutputStream("temp.dat");
-            //ObjectOutputStream oout = new ObjectOutputStream(fos);
-            //oout.writeObject(getDataFromDB());
-            osobj.writeObject(getDataFromDB());
+            osobj.writeObject(data);
             osobj.flush();
-            //oout.flush();
             System.out.println("data Sent");
-            //oout.close();
             closeAll();
         } catch (IOException ex) {
             Logger.getLogger(SendData.class.getName()).log(Level.SEVERE, null, ex);

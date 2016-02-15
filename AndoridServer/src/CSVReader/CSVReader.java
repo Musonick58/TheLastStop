@@ -105,9 +105,8 @@ public class CSVReader {
         
    
 }
-<<<<<<< Updated upstream
- 
-=======
+
+
   /*  public static String[]  mergeStringArray(String[] first, String[] second) {
         String[] ret=null;
         List<String> both = new ArrayList<String>(first.length + second.length);
@@ -122,7 +121,7 @@ public class CSVReader {
        return ret;  
     } */ //Non dovrebbe più servire
     
->>>>>>> Stashed changes
+
     public static void main(String[] args) {   
         int navCount=0;
         String barra = System.getProperty("file.separator");

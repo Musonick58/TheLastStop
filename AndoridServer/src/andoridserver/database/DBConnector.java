@@ -25,18 +25,18 @@ public class DBConnector implements DBInterface{
     private Connection con;
     private static DBConnector ref=null;
     public static final int POSTGRESPORT = 5492;
+    public final String DRIVER="postgresql";
+    public final String ADDRESS = "52.33.218.151";
+    public final int PORT = 5492;
     
     private DBConnector(){
-    }
-    
-    
+    }    
     public static DBConnector getIstance(){
         if(ref==null){
             ref=new DBConnector();
         }
         return ref;
     }
-
     @Override
     public boolean connect(String dbType, String dbAdress, int dbPort, String resources) {
         boolean connected = false;
@@ -51,12 +51,10 @@ public class DBConnector implements DBInterface{
         }
         return connected;
     }
-
     @Override
     public boolean connect(String dbTipe, String dbAdress, int dbPort, String[] otherParams) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
     @Override
     public void disconnect() {
         try {
@@ -65,7 +63,6 @@ public class DBConnector implements DBInterface{
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     /*da rivedere*/
     @Override
     public String compileQuery(String[] select, String[] from, String[] where, String[] optionalParam) {
@@ -96,8 +93,7 @@ public class DBConnector implements DBInterface{
         
         return query;
     }
-
-    public boolean updateTabe(){
+    public boolean updateTable(){
         Statement statement;
         try {
             statement = con.createStatement();
@@ -112,7 +108,7 @@ public class DBConnector implements DBInterface{
             "	PRIMARY KEY(Agency_id)\n" +
             ");\n";
             int result= statement.executeUpdate(sql);
-            if(result!=1){return false;}
+         
             sql="CREATE TABLE calendar(\n" +
             "	service_id text,\n" +
             "	monday integer, \n" +
@@ -127,7 +123,7 @@ public class DBConnector implements DBInterface{
             "	PRIMARY KEY(service_id)\n" +
             ")";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;}    
+               
             sql="CREATE TABLE calendar_dates(\n" +
             "	service_id text,\n" +
             "	end_date text,\n" +
@@ -135,7 +131,7 @@ public class DBConnector implements DBInterface{
             "	--FOREIGN KEY(service_id) REFERENCES calendar(service_id)\n" +
             ")";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;}         
+               
             sql="CREATE TABLE routes(\n" +
             "	route_id integer,\n" +
             "	agency_id text,\n" +
@@ -150,7 +146,6 @@ public class DBConnector implements DBInterface{
             "	PRIMARY KEY(route_id)\n" +
             ")";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;}
 
             sql="CREATE TABLE stops(\n" +
             "	stop_id integer,\n" +
@@ -170,7 +165,7 @@ public class DBConnector implements DBInterface{
             "	PRIMARY KEY(stop_id)\n" +
             ")";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;} 
+            
             sql="CREATE TABLE trips(\n" +
             "	route_id integer,\n" +
             "	service_id text,\n" +
@@ -191,7 +186,7 @@ public class DBConnector implements DBInterface{
             "	--bisogna modificare la chiave primari di shapes\n" +
             ")";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;} 
+            
             sql="CREATE TABLE stop_times(\n" +
             "	trip_id integer,\n" +
             "	arrival_time time,\n" +
@@ -208,7 +203,7 @@ public class DBConnector implements DBInterface{
             "	--FOREIGN KEY(trip_id) REFERENCES trips(trip_id)\n" +
             ")";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;} 
+            
             sql="CREATE TABLE shapes(\n" +
             "	shape_id text,\n" +
             "	shape_pt_lat double precision,\n" +
@@ -218,7 +213,7 @@ public class DBConnector implements DBInterface{
             "	PRIMARY KEY(shape_id,shape_pt_sequence)\n" +
             ")";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;} 
+
             sql="CREATE TABLE trips_shape(\n" +
             "	trip_id integer,\n" +
             "	shape_id text,\n" +
@@ -228,68 +223,56 @@ public class DBConnector implements DBInterface{
             "	PRIMARY KEY(trip_id,shape_id,shape_pt_sequence)\n" +
             ")";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;}
+            /*
             sql="ALTER TABLE stop_times ADD	FOREIGN KEY(stop_id) REFERENCES stops(stop_id);";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;}
+            
             sql="ALTER TABLE stop_times ADD FOREIGN KEY(trip_id) REFERENCES trips(trip_id);";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;}
+            
             sql="ALTER TABLE trips ADD FOREIGN KEY(route_id) REFERENCES routes(route_id);";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;}
+            
             sql="ALTER TABLE trips ADD FOREIGN KEY(service_id) REFERENCES calendar(service_id);";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;}
+            
             sql="ALTER TABLE routes ADD FOREIGN KEY(agency_id) REFERENCES agency(agency_id);";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;}
+            
             sql="ALTER TABLE calendar_dates ADD FOREIGN KEY(service_id) REFERENCES calendar(service_id);";
             result= statement.executeUpdate(sql);
-            if(result!=1){return false;}
+            */
         } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
     }
-    
     public boolean dropDB(){
         try {
             Statement statement=con.createStatement();
             String sql="DROP TABLE agency CASCADE;";
             int result=statement.executeUpdate(sql);
-            if(result!=1) {return false;};
             sql="DROP TABLE calendar CASCADE;";
             result=statement.executeUpdate(sql);
-            if(result!=1) {return false;};
             sql="DROP TABLE calendar_dates CASCADE;";
             result=statement.executeUpdate(sql);
-            if(result!=1) {return false;};
             sql="DROP TABLE routes CASCADE;";
             result=statement.executeUpdate(sql);
-            if(result!=1) {return false;};
             sql="DROP TABLE shapes CASCADE;";
             result=statement.executeUpdate(sql);
-            if(result!=1) {return false;};
             sql="DROP TABLE stops CASCADE;";
             result=statement.executeUpdate(sql);
-            if(result!=1) {return false;};
             sql="DROP TABLE trips CASCADE;";
             result=statement.executeUpdate(sql);
-            if(result!=1) {return false;};
             sql="DROP TABLE stop_times CASCADE;";
             result=statement.executeUpdate(sql);
-            if(result!=1) {return false;};
             sql="DROP TABLE trips_shape CASCADE;";
-           
+            result=statement.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
     }
-    
-    
-    
     /*da sistemere per vesatilita*/
     @Override
     public AndroidDataInterface executeQuery(String compiledQuery) {
@@ -311,7 +294,6 @@ public class DBConnector implements DBInterface{
         }
         return adi;
     }
-    
     @Override
     public boolean updateDelayQuery(String lineNumber, int minRitardo) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -321,12 +303,28 @@ public class DBConnector implements DBInterface{
     public static void main(String[] args){
         DBConnector db = DBConnector.getIstance();
         System.out.println("Trying to connect...");
-        System.out.println(db.connect("postgresql", "52.36.66.44", 5432, "nicola"));
-        System.out.println(db.executeQuery("SELECT * FROM nick").getDataAsList().get(0));     
+        System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "nicola"));
+        //System.out.println(db.executeQuery("SELECT * FROM nick").getDataAsList().get(0));     
         System.out.println("Disconecting!! Bye");
+        
+        
+        if(!db.updateTable()){
+            System.out.println("costruzione non riouscita");
+        }
+        
+        /*
+        if( !db.dropDB() ){
+            System.out.println("le tabelle sono state tolte");
+        }else{
+            System.out.println("le tabelle sono state eliminate");
+        }
+        */
         db.disconnect();
-    
-    
+    }
+
+    @Override
+    public String compileQuery(String query) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
  

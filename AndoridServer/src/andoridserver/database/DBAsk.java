@@ -14,10 +14,10 @@ public class DBAsk implements DBAskInterface{
     //devo rivederle
     @Override
     public String dbLinee(){
-        String str="SELECT(a.route_short_name,a.route_lomg_name)"
-                + "FROM routes a,routes b "
-                + "WHERE a.route_lomg_name=b.route_long_name"
-                + "ORDER BY a.route_short_name";
+        String str="SELECT route_short_name,route_long_name"
+                + "FROM routes"
+                + "ORDER BY route_short_name,route_long_name"
+                + "GROUP BY route_short_name,route_long_name";
         
         return str;
                 
