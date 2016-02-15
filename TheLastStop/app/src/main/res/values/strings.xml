@@ -3,4 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_linea_bus">lineaBus</string>
     <string name="title_activity_linea_bat">lineaBat</string>
+    <string name="title_activity_orari_bus">orariBus</string>
+    <string name="title_activity_linee">linee</string>
+    <string name="title_activity_orari">orari</string>
 </resources>

@@ -18,22 +18,23 @@ public class Main extends ActionBarActivity {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(getResources(), R.id.busbut, options);
-        int imageHeight = options.outHeight;
-        int imageWidth = options.outWidth;
-        String imageType = options.outMimeType;
+
+
         ImageButton imgBus = (ImageButton)findViewById(R.id.busbut);
         ImageButton imgBat = (ImageButton)findViewById(R.id.batbut);
-
+        final Intent line = new Intent(Main.this, linee.class);
         imgBus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Main.this, lineaBus.class));
+                line.putExtra("Trasporto", "Bus");
+                startActivity(line);
             }
         });
         imgBat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Main.this, lineaBat.class));
+                line.putExtra("Trasporto", "Battelli");
+                startActivity(line);
             }
         });
     }

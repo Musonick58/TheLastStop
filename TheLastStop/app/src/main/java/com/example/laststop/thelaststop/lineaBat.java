@@ -6,7 +6,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.List;
-import com.example.laststop.thelaststop.R;
 
 import java.util.ArrayList;
 

@@ -33,6 +33,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.laststop.thelaststop.Main" />
         </activity>
+        <activity
+            android:name=".linee"
+            android:label="@string/title_activity_linee"
+            android:parentActivityName=".Main">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.laststop.thelaststop.Main" />
+        </activity>
+        <activity
+            android:name=".orari"
+            android:label="@string/title_activity_orari"
+            android:parentActivityName=".linee">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.laststop.thelaststop.linee" />
+        </activity>
     </application>
 
 </manifest>
