@@ -16,7 +16,7 @@ public class linee extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String trasporto = getIntent().getExtras().getString("Trasporto");
         setTitle("Linee " + trasporto);
-        List<String> lines = new ArrayList<>();
+        List<String> lines = new ArrayList<>(); //TODO: da riempire da John con nome delle linee(es.31,32,ecc)
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lines);
         ListView listView = (ListView) findViewById(R.id.listaLinee);
