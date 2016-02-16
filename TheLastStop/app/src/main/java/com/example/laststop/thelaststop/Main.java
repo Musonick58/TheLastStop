@@ -1,5 +1,7 @@
 package com.example.laststop.thelaststop;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -9,8 +11,10 @@ import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class Main extends ActionBarActivity {
+import android.content.DialogInterface.*;
 
+public class Main extends ActionBarActivity {
+    public Main _this=this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,4 +64,6 @@ public class Main extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

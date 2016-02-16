@@ -8,10 +8,8 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.List;
 import andoridserver.androidData.*;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 
-import com.example.laststop.thelaststop.Main;
+import com.example.laststop.thelaststop.linee;
 
 
 /**
@@ -21,21 +19,14 @@ import com.example.laststop.thelaststop.Main;
 public class SendRequest implements AndroidDataRequest {
 
     private Socket socket;
-    
+    private linee ln = new linee();
     public SendRequest(){
         try {
             socket = new Socket("52.33.218.151",1313);
         } catch (IOException e) {
             e.printStackTrace();
-            //TODO: aggiungere popup per errore connessione.
-            new AlertDialog.Builder(NON HO IDEA DI COSA METTERE QUI DENTRO)
-                    .setTitle("Errore")
-                    .setMessage("Controlla la tua connessione!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    }).show();
+            //TODO: aggiungere popup per errore connessione
+            ln.newErrDialog();
         }
 
     }
