@@ -38,6 +38,7 @@ public class Main extends ActionBarActivity {
                 ArrayList<String> l = new ArrayList<>();
                 l.add("2");
                 l.add("3");
+                l.add(new SendRequest().askLines("bus"));
                 line.putStringArrayListExtra("lineearr", l);
                 startActivity(line);
             }
@@ -49,6 +50,7 @@ public class Main extends ActionBarActivity {
                 ArrayList<String> l = new ArrayList<>();
                 l.add("1");
                 l.add("5.1");
+                l.add(new SendRequest().askLines("navig"));
                 line.putStringArrayListExtra("lineearr", l);
                 startActivity(line);
             }
