@@ -40,9 +40,9 @@ public class SendRequest implements AndroidDataRequest {
         }
     }
 
-    public AndroidDataInterface askLines(String servizio){ //tutte le linee di tipo 'servizio'
+    public String askLines(String servizio){ //tutte le linee di tipo 'servizio'
         OutputStream os;
-        AndroidDataInterface inputData=null;
+        String inputData=null;
         try {
             String request="DataRequest:Lines:"+servizio;
             os = this.socket.getOutputStream();
@@ -51,18 +51,15 @@ public class SendRequest implements AndroidDataRequest {
             ps.flush();
             os.flush();
             InputStream is = this.socket.getInputStream();
-            ObjectInputStream isobj = new ObjectInputStream(is);
-            inputData = (AndroidDataInterface) isobj.readObject();
-            System.out.println(inputData.getNameObject());
-            List<String> dati = inputData.getDataAsList();
-            System.out.println(dati);
+            Scanner isobj = new Scanner(is);
+            inputData= isobj.nextLine();
             isobj.close();
             ps.close();
             os.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    return inputData;
+        return inputData;
     }
 
     public String  askTimeTable(String linesNumber, String servizio, String fermata){//orario della linea selezionata
@@ -90,7 +87,7 @@ public class SendRequest implements AndroidDataRequest {
 
     public String askAllStops(String linesNumber, String servizio){ //lista di tutte le fermate!
         OutputStream os;
-        AndroidDataInterface inputData=null;
+        String inputData=null;
         try {
             //Es request3 -> DataRequest:Stops:32:navig
             String request="DataRequest:Stops:"+linesNumber+":"+servizio;
@@ -100,11 +97,8 @@ public class SendRequest implements AndroidDataRequest {
             ps.flush();
             os.flush();
             InputStream is = this.socket.getInputStream();
-            ObjectInputStream isobj = new ObjectInputStream(is);
-            inputData = (AndroidDataInterface) isobj.readObject();
-            System.out.println(inputData.getNameObject());
-            List<String> dati = inputData.getDataAsList();
-            System.out.println(dati);
+            Scanner isobj = new Scanner(is);
+            inputData= isobj.nextLine();
             isobj.close();
             ps.close();
             os.close();
@@ -116,7 +110,7 @@ public class SendRequest implements AndroidDataRequest {
 
     public String askAvgDelay(String linesNumber, String fermata, String servizio){ //orario medio di ritardo
         OutputStream os;
-        AndroidDataInterface inputData=null;
+        String inputData=null;
         try {
             //Es request -> DataRequest:Delay:2:Stop:navig
             String request="DataRequest:Delay:"+linesNumber+":"+fermata+":"+servizio;
@@ -126,11 +120,8 @@ public class SendRequest implements AndroidDataRequest {
             ps.flush();
             os.flush();
             InputStream is = this.socket.getInputStream();
-            ObjectInputStream isobj = new ObjectInputStream(is);
-            inputData = (AndroidDataInterface) isobj.readObject();
-            System.out.println(inputData.getNameObject());
-            List<String> dati = inputData.getDataAsList();
-            System.out.println(dati);
+            Scanner isobj = new Scanner(is);
+            inputData= isobj.nextLine();
             isobj.close();
             ps.close();
             os.close();
