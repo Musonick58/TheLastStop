@@ -60,9 +60,43 @@ public interface DBInterface {
      *
      * @param compiledQuery query compilata con il metodo compile query o a mano
      * @return un oggetto popolato di tipo ADI con il result della query 
-     * Es -> ListaLinee, Linea, Orari
+     * 
      */
     AndroidDataInterface executeQuery(String compiledQuery);
+    
+    
+    /**
+     *
+     * @param compiledQuery query compilata con il metodo compile query o a mano
+     * @return un oggetto popolato di tipo ADI con gli orari 
+     * 
+     */
+    AndroidDataInterface executeTimetable(String compiledQuery);
+    
+     /**
+     *
+     * @param compiledQuery query compilata con il metodo compile query o a mano
+     * @return un oggetto popolato di tipo ADI con il numero della linea 
+     * 
+     */
+    AndroidDataInterface executeLines(String compiledQuery);
+         /**
+     *
+     * @param compiledQuery query compilata con il metodo compile query o a mano
+     * @return un oggetto popolato di tipo ADI il ritardo della linea
+     * 
+     */
+    AndroidDataInterface executeDealay(String compiledQuery);
+    
+    /**
+     *
+     * @param compiledQuery query compilata con il metodo compile query o a mano
+     * @return un oggetto popolato di tipo ADI con i nomi della fermata di quella linea 
+     * 
+     */
+    AndroidDataInterface executeAllStopNames(String compiledQuery);
+    
+    
     
     /**
      *

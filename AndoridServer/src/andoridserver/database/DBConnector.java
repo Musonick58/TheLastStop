@@ -338,7 +338,7 @@ public class DBConnector implements DBInterface{
         }
         return adi;
     }
-
+    /*TODO: fare la parte legata al db*/
     @Override
     public AndroidDataInterface executeDealay(String compiledQuery) {
         AndroidDataInterface adi = new AndroidDataDelay();
