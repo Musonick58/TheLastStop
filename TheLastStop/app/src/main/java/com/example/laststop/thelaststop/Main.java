@@ -3,6 +3,7 @@ package com.example.laststop.thelaststop;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -13,8 +14,11 @@ import android.widget.ImageButton;
 
 import android.content.DialogInterface.*;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 
+import androidclient.AsyncDownload;
 import androidclient.SendRequest;
 
 public class Main extends ActionBarActivity {
@@ -27,7 +31,8 @@ public class Main extends ActionBarActivity {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(getResources(), R.id.busbut, options);
 
-
+        AsyncDownload asd = new AsyncDownload();
+        asd.execute(new Socket());
         ImageButton imgBus = (ImageButton)findViewById(R.id.busbut);
         ImageButton imgBat = (ImageButton)findViewById(R.id.batbut);
         final Intent line = new Intent(Main.this, linee.class);
@@ -38,7 +43,7 @@ public class Main extends ActionBarActivity {
                 ArrayList<String> l = new ArrayList<>();
                 l.add("2");
                 l.add("3");
-                l.add(new SendRequest().askLines("bus"));
+                //l.add(new SendRequest().askLines("bus"));
                 line.putStringArrayListExtra("lineearr", l);
                 startActivity(line);
             }
@@ -50,7 +55,7 @@ public class Main extends ActionBarActivity {
                 ArrayList<String> l = new ArrayList<>();
                 l.add("1");
                 l.add("5.1");
-                l.add(new SendRequest().askLines("navig"));
+               // l.add(new SendRequest().askLines("navig"));
                 line.putStringArrayListExtra("lineearr", l);
                 startActivity(line);
             }
