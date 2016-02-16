@@ -23,8 +23,6 @@ public class linee extends ActionBarActivity {
         setTitle("Linee " + trasporto);
 
         List<String> lines = new ArrayList<>(); //TODO: da riempire da John con nome delle linee(es.31,32,ecc)
-
-
         if (trasporto.equals("Bus")){
 
         }

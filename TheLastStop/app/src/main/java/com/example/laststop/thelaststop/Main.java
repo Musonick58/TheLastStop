@@ -13,8 +13,12 @@ import android.widget.ImageButton;
 
 import android.content.DialogInterface.*;
 
+import java.util.ArrayList;
+
+import androidclient.SendRequest;
+
 public class Main extends ActionBarActivity {
-    public Main _this=this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,7 @@ public class Main extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 line.putExtra("Trasporto", "Bus");
+                line.putStringArrayListExtra("lineearr", new ArrayList<String>(new SendRequest().askLines("bus").getDataAsList()));
                 startActivity(line);
             }
         });
