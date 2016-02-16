@@ -11,6 +11,8 @@ import andoridserver.androidData.*;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import com.example.laststop.thelaststop.Main;
+
 
 /**
  * Created by nichi on 10/02/2016.
@@ -19,31 +21,21 @@ import android.content.DialogInterface;
 public class SendRequest implements AndroidDataRequest {
 
     private Socket socket;
+    
     public SendRequest(){
         try {
-            socket = new Socket("52.36.66.44",1313);
+            socket = new Socket("52.33.218.151",1313);
         } catch (IOException e) {
             e.printStackTrace();
             //TODO: aggiungere popup per errore connessione.
-            AlertDialog.Builder err = new AlertDialog.Builder(this);
-            err.setMessage("Controlla la tua connessione!");
-            err.setTitle("Errore");
-
-            err.setCancelable(false);
-            err.setButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    tv.setText("Ho cliccato il tasto SI");
-                }
-            });
-
-            err.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    tv.setText("Ho cliccato il tasto NO");
-                }
-            });
-
-            AlertDialog alert = miaAlert.create();
-            alert.show();
+            new AlertDialog.Builder(NON HO IDEA DI COSA METTERE QUI DENTRO)
+                    .setTitle("Errore")
+                    .setMessage("Controlla la tua connessione!")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    }).show();
         }
 
     }
@@ -56,11 +48,11 @@ public class SendRequest implements AndroidDataRequest {
         }
     }
 
-    public AndroidDataInterface askLines(String servizio){
+    public AndroidDataInterface askLines(String servizio){ //tutte le linee di tipo 'servizio'
         OutputStream os;
         AndroidDataInterface inputData=null;
         try {
-            String request="DataRequest:Lines"+servizio;
+            String request="DataRequest:Lines:"+servizio;
             os = this.socket.getOutputStream();
             PrintStream ps = new PrintStream(os);
             ps.println(request);
@@ -68,7 +60,6 @@ public class SendRequest implements AndroidDataRequest {
             os.flush();
             InputStream is = this.socket.getInputStream();
             ObjectInputStream isobj = new ObjectInputStream(is);
-            //System.out.println(isobj.available());
             inputData = (AndroidDataInterface) isobj.readObject();
             System.out.println(inputData.getNameObject());
             List<String> dati = inputData.getDataAsList();
@@ -80,20 +71,93 @@ public class SendRequest implements AndroidDataRequest {
             e.printStackTrace();
         }
     return inputData;
+    }
 
-    } //tutte le linee
+    public AndroidDataInterface askTimeTable(String linesNumber, String servizio, String fermata){//orario della linea selezionata
+        OutputStream os;
+        AndroidDataInterface inputData=null;
+        try {
+            //Es request -> DataRequest:Timetable:2:fermata:navig
+            String request="DataRequest:TimeTable:"+linesNumber+":"+fermata+":"+servizio;
+            os = this.socket.getOutputStream();
+            PrintStream ps = new PrintStream(os);
+            ps.println(request);
+            ps.flush();
+            os.flush();
+            InputStream is = this.socket.getInputStream();
+            ObjectInputStream isobj = new ObjectInputStream(is);
+            inputData = (AndroidDataInterface) isobj.readObject();
+            System.out.println(inputData.getNameObject());
+            List<String> dati = inputData.getDataAsList();
+            System.out.println(dati);
+            isobj.close();
+            ps.close();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inputData;
+    }
 
-    public AndroidDataInterface askLines(String linesNumber, String servizio){return null;} //il numero della linea e il tipo di servizio
+    public AndroidDataInterface askAllStops(String linesNumber, String servizio){ //lista di tutte le fermate!
+        OutputStream os;
+        AndroidDataInterface inputData=null;
+        try {
+            //Es request3 -> DataRequest:Stops:32:navig
+            String request="DataRequest:Stops:"+linesNumber+":"+servizio;
+            os = this.socket.getOutputStream();
+            PrintStream ps = new PrintStream(os);
+            ps.println(request);
+            ps.flush();
+            os.flush();
+            InputStream is = this.socket.getInputStream();
+            ObjectInputStream isobj = new ObjectInputStream(is);
+            inputData = (AndroidDataInterface) isobj.readObject();
+            System.out.println(inputData.getNameObject());
+            List<String> dati = inputData.getDataAsList();
+            System.out.println(dati);
+            isobj.close();
+            ps.close();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inputData;
+    }
 
-    public AndroidDataInterface askTimeTable(String linesNumber, String servizio, String fermata){return null;} //orario della linea selezionata
-
-    public AndroidDataInterface askAllStops(String servizio){return null;} //lista di tutte le fermate!
-
-    public AndroidDataInterface askAvgDelay(String linesNumber, String fermata, String servizio){return null;} //orario medio di ritardo
+    public AndroidDataInterface askAvgDelay(String linesNumber, String fermata, String servizio){ //orario medio di ritardo
+        OutputStream os;
+        AndroidDataInterface inputData=null;
+        try {
+            //Es request -> DataRequest:Delay:2:Stop:navig
+            String request="DataRequest:Delay:"+linesNumber+":"+fermata+":"+servizio;
+            os = this.socket.getOutputStream();
+            PrintStream ps = new PrintStream(os);
+            ps.println(request);
+            ps.flush();
+            os.flush();
+            InputStream is = this.socket.getInputStream();
+            ObjectInputStream isobj = new ObjectInputStream(is);
+            inputData = (AndroidDataInterface) isobj.readObject();
+            System.out.println(inputData.getNameObject());
+            List<String> dati = inputData.getDataAsList();
+            System.out.println(dati);
+            isobj.close();
+            ps.close();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inputData;
+    }
 
 
     public static void main(String[] args){
         SendRequest send = new SendRequest();
         send.askLines("bus");
+        send.askAllStops("","");
+        send.askAvgDelay("","","");
+        send.askTimeTable("","","");
+        send.closeSendData();
     }
 }

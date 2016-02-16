@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidclient.SendRequest;
+import andoridserver.androidData.*;
+
 public class linee extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -33,7 +33,7 @@ public class Main extends ActionBarActivity {
         imgBat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                line.putExtra("Trasporto", "Battelli");
+                line.putExtra("Trasporto", "navig");
                 startActivity(line);
             }
         });
