@@ -31,7 +31,7 @@ public class linee extends ActionBarActivity {
         listView.setAdapter(adapter);
     }
 
-    public void newErrDialog() {
+    public void newErrDialog() { //AlertDialog che compare quando non riesce a stabilire una connessione
         AlertDialog.Builder err = new AlertDialog.Builder(this);
         err.setMessage("Controlla la tua connessione!");
         err.setTitle("Errore");
