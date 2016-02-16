@@ -10,9 +10,13 @@ import andoridserver.database.*;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.Serializable;
+import java.io.StringWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import json.*;
 
 /**
  *
@@ -54,18 +58,43 @@ public class SendData implements Serializable {
     public void toSend(AndroidDataInterface adi){
         data=adi;
     }
+    
+    public String toJson(){
+        List<String> list = data.getDataAsList();
+        String json = data.getNameObject()+":[";
+        for(String txt : data.getDataAsList()){        
+            json=json+"\""+txt+"\",";
+        }
+        json=json.substring(0, json.length()-1);
+        json+="]";
+        return json;
+    } 
 
     public void send(){
         System.out.println("you call Send");
         try {
             OutputStream os = socket.getOutputStream();
-            ObjectOutputStream osobj = new ObjectOutputStream(os);
-            osobj.writeObject(data);
-            osobj.flush();
+            PrintStream networkWriter = new PrintStream(os);
+            String str = toJson();
+            networkWriter.println(str);
+            networkWriter.flush();
             System.out.println("data Sent");
             closeAll();
         } catch (IOException ex) {
             Logger.getLogger(SendData.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }    
+
+    
+    public static void main(String... args){
+        AndroidDataLinee linee = new AndroidDataLinee();
+        for(int i=0;i<10;i++)
+            linee.addData(""+i);
+        SendData send = new SendData(null,null,null,null,null);
+        send.toSend(linee);
+        System.out.println(send.toJson());
+        
+        
+    }
+
 }

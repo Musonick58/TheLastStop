@@ -2,12 +2,14 @@ package androidclient;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.List;
 import andoridserver.androidData.*;
+import java.util.*;
 
 import com.example.laststop.thelaststop.linee;
 
@@ -63,9 +65,9 @@ public class SendRequest implements AndroidDataRequest {
     return inputData;
     }
 
-    public AndroidDataInterface askTimeTable(String linesNumber, String servizio, String fermata){//orario della linea selezionata
+    public String  askTimeTable(String linesNumber, String servizio, String fermata){//orario della linea selezionata
         OutputStream os;
-        AndroidDataInterface inputData=null;
+        String inputData=null;
         try {
             //Es request -> DataRequest:Timetable:2:fermata:navig
             String request="DataRequest:TimeTable:"+linesNumber+":"+fermata+":"+servizio;
@@ -75,11 +77,8 @@ public class SendRequest implements AndroidDataRequest {
             ps.flush();
             os.flush();
             InputStream is = this.socket.getInputStream();
-            ObjectInputStream isobj = new ObjectInputStream(is);
-            inputData = (AndroidDataInterface) isobj.readObject();
-            System.out.println(inputData.getNameObject());
-            List<String> dati = inputData.getDataAsList();
-            System.out.println(dati);
+            Scanner isobj = new Scanner(is);
+            inputData= isobj.nextLine();
             isobj.close();
             ps.close();
             os.close();
@@ -89,7 +88,7 @@ public class SendRequest implements AndroidDataRequest {
         return inputData;
     }
 
-    public AndroidDataInterface askAllStops(String linesNumber, String servizio){ //lista di tutte le fermate!
+    public String askAllStops(String linesNumber, String servizio){ //lista di tutte le fermate!
         OutputStream os;
         AndroidDataInterface inputData=null;
         try {
@@ -115,7 +114,7 @@ public class SendRequest implements AndroidDataRequest {
         return inputData;
     }
 
-    public AndroidDataInterface askAvgDelay(String linesNumber, String fermata, String servizio){ //orario medio di ritardo
+    public String askAvgDelay(String linesNumber, String fermata, String servizio){ //orario medio di ritardo
         OutputStream os;
         AndroidDataInterface inputData=null;
         try {

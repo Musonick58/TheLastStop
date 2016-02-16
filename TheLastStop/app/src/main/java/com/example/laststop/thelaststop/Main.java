@@ -35,14 +35,17 @@ public class Main extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 line.putExtra("Trasporto", "Bus");
-                line.putStringArrayListExtra("lineearr", new ArrayList<String>(new SendRequest().askLines("bus").getDataAsList()));
+                ArrayList<String> l = new ArrayList<String>(new SendRequest().askLines("bus").getDataAsList());
+                l.add("ciaoo");
+                line.putStringArrayListExtra("lineearr", l);
                 startActivity(line);
             }
         });
         imgBat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                line.putExtra("Trasporto", "navig");
+                line.putExtra("Trasporto", "Battelli");
+                line.putStringArrayListExtra("lineearr", new ArrayList<String>(new SendRequest().askLines("navig").getDataAsList()));
                 startActivity(line);
             }
         });
