@@ -12,13 +12,13 @@ import java.util.List;
  *
  * @author nichi
  */
-public class AndroidDataStops implements AndroidDataInterface{
-      
-   final String objectName="Stops";
+public class AndroidDataDelay implements AndroidDataInterface{
+
+    final String objectName="delay";
     
     List<String> data;
     
-    public AndroidDataStops(){
+    public AndroidDataDelay(){
        // this.objectName=name;
         this.data=new ArrayList<>();
     }
@@ -43,5 +43,5 @@ public class AndroidDataStops implements AndroidDataInterface{
     public void setData(String s, int index) {
         data.add(index, s); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }
