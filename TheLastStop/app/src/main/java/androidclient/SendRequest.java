@@ -7,12 +7,14 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.List;
-
 import andoridserver.androidData.*;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 
 /**
  * Created by nichi on 10/02/2016.
+ * Updated by John on 15/02/2016
  */
 public class SendRequest implements AndroidDataRequest {
 
@@ -22,6 +24,26 @@ public class SendRequest implements AndroidDataRequest {
             socket = new Socket("52.36.66.44",1313);
         } catch (IOException e) {
             e.printStackTrace();
+            //TODO: aggiungere popup per errore connessione.
+            AlertDialog.Builder err = new AlertDialog.Builder(this);
+            err.setMessage("Controlla la tua connessione!");
+            err.setTitle("Errore");
+
+            err.setCancelable(false);
+            err.setButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    tv.setText("Ho cliccato il tasto SI");
+                }
+            });
+
+            err.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    tv.setText("Ho cliccato il tasto NO");
+                }
+            });
+
+            AlertDialog alert = miaAlert.create();
+            alert.show();
         }
 
     }

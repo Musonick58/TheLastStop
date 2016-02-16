@@ -15,6 +15,10 @@ public class linee extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String trasporto = getIntent().getExtras().getString("Trasporto");
         setTitle("Linee " + trasporto);
+<<<<<<< HEAD
+=======
+        List<String> lines = new ArrayList<>(); //TODO: da riempire da John con nome delle linee(es.31,32,ecc)
+>>>>>>> origin/master
 
         if (trasporto.equals("Bus")){
 
