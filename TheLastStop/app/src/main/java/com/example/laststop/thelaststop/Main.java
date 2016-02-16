@@ -35,8 +35,9 @@ public class Main extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 line.putExtra("Trasporto", "Bus");
-                ArrayList<String> l = new ArrayList<String>(new SendRequest().askLines("bus").getDataAsList());
-                l.add("ciaoo");
+                ArrayList<String> l = new ArrayList<>();
+                l.add("2");
+                l.add("3");
                 line.putStringArrayListExtra("lineearr", l);
                 startActivity(line);
             }
@@ -45,7 +46,10 @@ public class Main extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 line.putExtra("Trasporto", "Battelli");
-                line.putStringArrayListExtra("lineearr", new ArrayList<String>(new SendRequest().askLines("navig").getDataAsList()));
+                ArrayList<String> l = new ArrayList<>();
+                l.add("1");
+                l.add("5.1");
+                line.putStringArrayListExtra("lineearr", l);
                 startActivity(line);
             }
         });
