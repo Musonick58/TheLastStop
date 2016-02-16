@@ -154,6 +154,7 @@ public class SendRequest implements AndroidDataRequest {
 
     public static void main(String[] args){
         SendRequest send = new SendRequest();
+        //test vari invio dati da client a server
         send.askLines("bus");
         send.askAllStops("","");
         send.askAvgDelay("","","");
