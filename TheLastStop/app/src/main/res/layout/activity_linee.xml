@@ -7,14 +7,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.laststop.thelaststop.linee">
+    tools:context="com.example.laststop.thelaststop.linee"
+    android:id="@+id/rel"
+    android:background="#616161">
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listaLinee"
         android:layout_centerHorizontal="true"
-        android:dividerHeight="0.2dp"
-        android:divider="#616161" />
+        android:dividerHeight="2dp"
+        android:divider="#616161"
+        android:backgroundTintMode="src_atop"
+        android:clickable="true"
+        android:background="#91b4ff" />
 
 </RelativeLayout>
