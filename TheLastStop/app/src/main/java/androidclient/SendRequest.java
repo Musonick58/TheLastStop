@@ -25,7 +25,6 @@ public class SendRequest implements AndroidDataRequest {
             socket = new Socket("52.33.218.151",1313);
         } catch (IOException e) {
             e.printStackTrace();
-            //TODO: aggiungere popup per errore connessione
             ln.newErrDialog();
         }
 
