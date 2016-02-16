@@ -277,11 +277,12 @@ public class DBConnector implements DBInterface{
     @Override
     public AndroidDataInterface executeQuery(String compiledQuery) {
         AndroidDataInterface adi = null;
+        DBAsk ask = new DBAsk();
         try {
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(compiledQuery);
             //adesso devo convertire il mio result set nell'oggetto per android
-           adi = new AndroidOrariData();
+
            Array arr=null;
             while (resultSet.next()) {
                 adi.addData(""+resultSet.getInt("intero"));
@@ -294,11 +295,75 @@ public class DBConnector implements DBInterface{
         }
         return adi;
     }
+    
     @Override
     public boolean updateDelayQuery(String lineNumber, int minRitardo) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+    @Override
+    public String compileQuery(String query) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public AndroidDataInterface executeTimetable(String compiledQuery) {
+        AndroidDataInterface adi = new AndroidOrariData();
+        try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(compiledQuery);
+            //adesso devo convertire il mio result set nell'oggetto per android
+            while (resultSet.next()) {
+                adi.addData(resultSet.getString("arrival_time"));
+            }
+            System.out.println(adi.getDataAsList().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return adi;
+    }
+
+    @Override
+    public AndroidDataInterface executeLines(String compiledQuery) {
+        AndroidDataInterface adi = new AndroidDataLinee();
+        try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(compiledQuery);
+            //adesso devo convertire il mio result set nell'oggetto per android
+            while (resultSet.next()) {
+                adi.addData(resultSet.getString("route_short_name"));
+            }
+            System.out.println(adi.getDataAsList().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return adi;
+    }
+
+    @Override
+    public AndroidDataInterface executeDealay(String compiledQuery) {
+        AndroidDataInterface adi = new AndroidDataDelay();
+        adi.addData("10");
+        adi.addData("2");
+        return adi;
+    }
+
+    @Override
+    public AndroidDataInterface executeAllStopNames(String compiledQuery) {
+        AndroidDataInterface adi = new AndroidDataStops();
+            try {
+                Statement statement = con.createStatement();
+                ResultSet resultSet = statement.executeQuery(compiledQuery);
+                //adesso devo convertire il mio result set nell'oggetto per android
+                while (resultSet.next()) {
+                    adi.addData(resultSet.getString("stop_name"));
+                }
+                System.out.println(adi.getDataAsList().toString());
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return adi;  
+    }
+
     
     public static void main(String[] args){
         DBConnector db = DBConnector.getIstance();
@@ -322,10 +387,6 @@ public class DBConnector implements DBInterface{
         db.disconnect();
     }
 
-    @Override
-    public String compileQuery(String query) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
  
 }
