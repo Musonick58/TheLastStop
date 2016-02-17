@@ -65,7 +65,6 @@ public class SendData implements Serializable {
         }
         json=json.substring(0, json.length()-1);
         json+="]";
-        System.out.println(json);
         return json;
     } 
 
@@ -92,8 +91,6 @@ public class SendData implements Serializable {
         SendData send = new SendData(null,null,null,null,null);
         send.toSend(linee);
         System.out.println(send.toJson());
-        
-        
     }
 
 }

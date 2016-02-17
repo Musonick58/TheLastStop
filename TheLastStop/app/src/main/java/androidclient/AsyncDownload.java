@@ -8,10 +8,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * Created by Nicola on 16/02/2016.
+ * Updated by John on 17/02/2016
  */
 public class AsyncDownload extends AsyncTask<Socket, Integer, String> {
 
@@ -45,6 +47,10 @@ public class AsyncDownload extends AsyncTask<Socket, Integer, String> {
             }
         Log.d("ciao",((Boolean)(json!=null)).toString());
         return json;
+    }
+
+    protected ArrayList<String> JSONParser(String input){ //Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
+        return null;
     }
 
 
