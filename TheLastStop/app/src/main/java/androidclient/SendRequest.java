@@ -17,7 +17,8 @@ import com.example.laststop.thelaststop.linee;
 /**
  * Created by nichi on 10/02/2016.
  * Updated by John on 15/02/2016
- */
+ **/
+
 public class SendRequest implements AndroidDataRequest {
 
     private Socket socket;
@@ -62,7 +63,7 @@ public class SendRequest implements AndroidDataRequest {
         return inputData;
     }
 
-    public String  askTimeTable(String linesNumber, String servizio, String fermata){//orario della linea selezionata
+    public String  askTimeTable(String linesNumber, String servizio, String fermata){//orario della linea 'linesNumber'
         OutputStream os;
         String inputData=null;
         try {
@@ -85,7 +86,7 @@ public class SendRequest implements AndroidDataRequest {
         return inputData;
     }
 
-    public String askAllStops(String linesNumber, String servizio){ //lista di tutte le fermate!
+    public String askAllStops(String linesNumber, String servizio){ //lista di TUTTE le fermate!
         OutputStream os;
         String inputData=null;
         try {
