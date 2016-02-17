@@ -3,26 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/androidData/AndroidDataLinee.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/json/JSONTokener.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/database/DBInterface.java</file>
             <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/database/DBAsk.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/json/JSONStringer.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/CSVReader/CSVReader.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/database/ChooseDBType.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/androidData/SendData.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/json/JSONString.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/androidData/AndroidDataStops.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/androidData/AndroidOrariData.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/androidData/AndroidDataInterface.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/json/JSONArray.java</file>
+            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/androidData/fakeClient.java</file>
             <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/AndoridServer.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/json/JSONWriter.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/json/JSONObject.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/CSVReader/ParseString.java</file>
             <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/androidData/AcceptDataRequest.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridclient/androidData/AndroidDataRequest.java</file>
-            <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/CSVReader/CSVThread.java</file>
             <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/database/DBConnector.java</file>
         </group>
     </open-files>

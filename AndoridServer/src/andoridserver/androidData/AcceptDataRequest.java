@@ -133,10 +133,11 @@ public class AcceptDataRequest extends Thread {
                 }else{
                     SendData send = new SendData(socket, null, null, null, DBConnector.getIstance());
                     if(request.endsWith("bus"))
-                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "battelli" );
+                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
                     else 
-                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "battelli" );
+                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
                     info = DBConnector.getIstance().executeLines(send.query.dbLinee());
+                    System.out.println(info.getDataAsList());
                     send.toSend(info); 
                     send.send();  
                 }          

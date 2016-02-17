@@ -30,7 +30,7 @@ public class fakeClient {
     private String json;
     public fakeClient() {
         try {
-            this.s = new Socket(DBConnector.ADDRESS,1313);
+            this.s = new Socket("localhost",1313);
         } catch (IOException ex) {
             Logger.getLogger(fakeClient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -38,7 +38,7 @@ public class fakeClient {
     
     public void request(){
         try {
-            String request="DataRequest:TimeTable:2:bus";
+            String request="DataRequest:Timetable:2:San Basilio:bus";
             OutputStream os = this.s.getOutputStream();
             PrintStream ps = new PrintStream(os);
             ps.println(request);
@@ -46,15 +46,15 @@ public class fakeClient {
             os.flush();
             InputStream is = s.getInputStream();
             Scanner isobj = new Scanner(is);
-            json = isobj.next();
+            json = isobj.nextLine();
             isobj.close();
             ps.close();
             os.close();
             System.out.println("***************************************************************************");
-            System.out.println(json!=null);
+            System.out.println(json);
             //throw new UnsupportedOperationException(json);
             System.out.println("***************************************************************************");
-           
+            s.close();
         } catch (IOException ex) {
             Logger.getLogger(fakeClient.class.getName()).log(Level.SEVERE, null, ex);
         }

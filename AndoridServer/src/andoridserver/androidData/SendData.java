@@ -8,15 +8,13 @@ package andoridserver.androidData;
 import java.net.*;
 import andoridserver.database.*;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
-import java.io.StringWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import json.*;
+
 
 /**
  *
@@ -67,6 +65,7 @@ public class SendData implements Serializable {
         }
         json=json.substring(0, json.length()-1);
         json+="]";
+        System.out.println(json);
         return json;
     } 
 
