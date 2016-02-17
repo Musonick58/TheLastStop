@@ -5,6 +5,7 @@
  */
 package andoridserver.androidData;
 
+import andoridserver.database.DBConnector;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,10 +27,10 @@ import java.util.logging.Logger;
 public class fakeClient {
     
     private Socket s;
-
+    private String json;
     public fakeClient() {
         try {
-            this.s = new Socket("52.36.66.44",1313);
+            this.s = new Socket(DBConnector.ADDRESS,1313);
         } catch (IOException ex) {
             Logger.getLogger(fakeClient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -42,15 +44,18 @@ public class fakeClient {
             ps.println(request);
             ps.flush();
             os.flush();
-            InputStream is = this.s.getInputStream();
-            ObjectInputStream isobj = new ObjectInputStream(is);
-            //System.out.println(isobj.available());
-            AndroidDataInterface inputData= (AndroidDataInterface) isobj.readObject();
-            System.out.println(inputData.getNameObject());
-            for(String a : inputData.getDataAsList())
-                    System.out.println("ora: " + a);
+            InputStream is = s.getInputStream();
+            Scanner isobj = new Scanner(is);
+            json = isobj.next();
+            isobj.close();
+            ps.close();
+            os.close();
+            System.out.println("***************************************************************************");
+            System.out.println(json!=null);
+            //throw new UnsupportedOperationException(json);
+            System.out.println("***************************************************************************");
            
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(fakeClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     
@@ -59,11 +64,9 @@ public class fakeClient {
     
     public static void main(String[] args){
         System.out.println("fake client started");
-        
-        for(int i=0;i<1000;i++){
             fakeClient fake = new fakeClient();
             fake.request();
-        }
+        
     }
     
     

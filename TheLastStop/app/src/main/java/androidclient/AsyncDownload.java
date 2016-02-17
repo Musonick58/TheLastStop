@@ -1,24 +1,25 @@
 package androidclient;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Created by Nicola on 16/02/2016.
  */
 public class AsyncDownload extends AsyncTask<Socket, Integer, String> {
 
-
+    private String json;
 
     @Override
     protected String doInBackground(Socket... params) {
         try {
-            int count = params.length;
-
             Socket s = new Socket("52.33.218.151",1313);
             String request="DataRequest:Lines:bus";
             OutputStream os = s.getOutputStream();
@@ -26,13 +27,26 @@ public class AsyncDownload extends AsyncTask<Socket, Integer, String> {
             ps.println(request);
             ps.flush();
             os.flush();
+            InputStream is = s.getInputStream();
+            Scanner isobj = new Scanner(is);
+            json = isobj.next();
+            isobj.close();
+            ps.close();
+            os.close();
+            System.out.println("***************************************************************************");
+            System.out.println(json!=null);
+            //throw new UnsupportedOperationException(json);
+            System.out.println("***************************************************************************");
+
             //if (isCancelled()) break;
         } catch (IOException e) {
                 e.printStackTrace();
-            }
 
-        return "ciao";
+            }
+        Log.d("ciao",((Boolean)(json!=null)).toString());
+        return json;
     }
+
 
    /* protected void onProgressUpdate(Integer... progress) {
         setProgressPercent(progress[0]);

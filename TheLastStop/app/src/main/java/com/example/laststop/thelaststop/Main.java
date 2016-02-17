@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.graphics.BitmapFactory;
@@ -22,7 +23,7 @@ import androidclient.AsyncDownload;
 import androidclient.SendRequest;
 
 public class Main extends ActionBarActivity {
-
+    private String mString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,8 @@ public class Main extends ActionBarActivity {
 
         AsyncDownload asd = new AsyncDownload();
         asd.execute(new Socket());
+        //mString=asd.getJson();
+        //Log.d("ricevuto da internet",mString);
         ImageButton imgBus = (ImageButton)findViewById(R.id.busbut);
         ImageButton imgBat = (ImageButton)findViewById(R.id.batbut);
         final Intent line = new Intent(Main.this, linee.class);
@@ -43,7 +46,7 @@ public class Main extends ActionBarActivity {
                 ArrayList<String> l = new ArrayList<>();
                 l.add("2");
                 l.add("3");
-                //l.add(new SendRequest().askLines("bus"));
+                //l.add(mString);
                 line.putStringArrayListExtra("lineearr", l);
                 startActivity(line);
             }
