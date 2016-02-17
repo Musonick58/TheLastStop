@@ -94,7 +94,7 @@ public class AcceptDataRequest extends Thread {
                 }//DataRequest:Stops:2:bus
                 
                 if (temp.startsWith("Stops:")) {
-                    System.out.println("time table richiesta ");
+                    System.out.println("stop richiesta");
                     temp = temp.substring("Stops:".length());
                     System.out.println("temp: " + temp);
                     lines = temp.split(":");
@@ -115,8 +115,30 @@ public class AcceptDataRequest extends Thread {
                         info = DBConnector.getIstance().executeAllStopNames(send.query.dbStops(lineStr));
                         send.toSend(info);
                         send.send();
-                }//DataRequest:Stops:2:bus
-                
+                }//DataRequest:Delay:2:Stop:bus
+                 if (temp.startsWith("Delay:")) {
+                    System.out.println("dealy richiesta");
+                    temp = temp.substring("Delay:".length());
+                    System.out.println("temp: " + temp);
+                    lines = temp.split(":");
+                    System.out.println("lunghezza array" + lines.length);
+                    for (String x : lines) {
+                        System.out.println("contenuto" + x);
+                    }
+                    stopName = lines[1];
+                    lineStr = lines[0];
+                    serviceType = lines[2];
+                    SendData send = new SendData(socket, serviceType, null, lineStr, DBConnector.getIstance());
+                    //DBConnector.getIstance().disconnect();
+                    if(serviceType.equals("bus"))
+                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
+                    else 
+                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
+                        System.out.println("******"+lineStr);
+                        info = DBConnector.getIstance().executeAllStopNames(send.query.dbTimesDelay(lineStr,stopName));
+                        send.toSend(info);
+                        send.send();
+                }
                 
                 /* 
                 if (temp.startsWith("Delay:")) {

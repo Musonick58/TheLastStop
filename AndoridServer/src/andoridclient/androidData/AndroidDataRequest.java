@@ -29,8 +29,20 @@ public interface AndroidDataRequest {
 
      //Es -> DataRequest:Delay:2:Stop:bus
      //Es -> DataRequest:Delay:2:Stop:navig
+     /**
+     * @param linesNumber stringa che contiene il nome abbreviato della linea
+     * @param fermata stringa che contiene il nome della fermata
+     * @return un'oggetto popolato con l'interfaccia dei dati android
+     **/
      AndroidDataInterface askAvgDelay(String linesNumber, String fermata, String servizio); //orario medio di ritardo
-
-
+     
+     //Es -> DelaySet:linea:fermata:minuti (decidiamo domani se mettere orari o altro)
+     /**
+     * @param minutes stringa contente i minuti di ritardo della linea
+     * @param linesNumber stringa che contiene il nome abbreviato della linea
+     * @param fermata stringa che contiene il nome della fermata
+     * @return true se l'operazione da parte del server è andata bene, false in caso contrario (popup in caso di connessione)
+     **/
+     boolean sendDelay(String linesNumber, String fermata, String minutes);
 
 }
