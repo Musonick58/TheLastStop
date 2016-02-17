@@ -35,7 +35,7 @@ public class AndoridServer{
     public static void main(String[] args) throws Exception {
     System.out.println("Server Started! v0.3");
     final int PORTNUMBER = 1313;
-    DBConnector.getIstance(); //Inizializzazione del singleton del database
+    System.out.println(DBConnector.getIstance()); //Inizializzazione del singleton del database
     //scarico i file per la prima volta e gli estraggo al loro posto
     /*PageReader pr = new PageReader("http://www.actv.it/opendata/navigazione", "nav");
     String navlink = pr.parse();

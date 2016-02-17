@@ -38,7 +38,7 @@ public class fakeClient {
     
     public void request(){
         try {
-            String request="DataRequest:Timetable:2:San Basilio:bus";
+            String request="DataRequest:Stops:2:bus";//"DataRequest:Timetable:2:Sacca Fisola DX:navig";
             OutputStream os = this.s.getOutputStream();
             PrintStream ps = new PrintStream(os);
             ps.println(request);
@@ -52,7 +52,6 @@ public class fakeClient {
             os.close();
             System.out.println("***************************************************************************");
             System.out.println(json);
-            //throw new UnsupportedOperationException(json);
             System.out.println("***************************************************************************");
             s.close();
         } catch (IOException ex) {

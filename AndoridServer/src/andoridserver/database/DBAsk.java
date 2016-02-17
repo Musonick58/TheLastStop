@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package andoridserver.database;
+
+import java.util.Date;
 
 /**
  *
@@ -11,41 +8,110 @@ package andoridserver.database;
  */
 public class DBAsk implements DBAskInterface{
     
+    Date date= new Date();
+    public int getDate(){
+        return date.getDay();
+    }
+    
+    private String getServiceId(){
+        String str=new String();
+        switch(getDate()){
+            case 0: 
+                str="saturday";
+                break;
+            case 1:
+                str="monday";
+                break;
+            case 2:
+                str="tuesday";
+                break;
+            case 3:
+                str="wednesday";
+                break;
+            case 4:
+                str="thursday";
+                break;
+            case 5:
+                str="friday";
+                break;
+            case 6:
+                str="satuday";
+                break;
+        }
+        String sql="SELECT service_id" +
+                   "FROM    calendar" +
+                   "WHERE   "+str+"='1'";
+        
+        return sql;
+    }
+    
+    public String CreaViewGetServiceId(){
+        String sql;
+        sql = "CREATE VIEW serviceIdGiorno AS"
+                + ""+getServiceId()+";";
+        return sql;
+    }
+    
+    public String DropViewServiceId(){
+        String sql;
+        sql ="DROP VIEW derviceIdGiorno AS"
+                + ""+getServiceId()+";";
+        return sql;
+    }
+    
     //devo rivederle
     @Override
     public String dbLinee(){
-        String str="SELECT route_short_name,route_long_name"
-                + "FROM routes"
-                + "ORDER BY route_short_name,route_long_name"
-                + "GROUP BY route_short_name,route_long_name";
+        String str="SELECT route_short_name\n"
+                +  "FROM routes r,trips t\n"
+                +  "WHERE r.route_id=t.route_id AND"
+                +  "t.service_id IN("+getServiceId()+")"
+                +  "GROUP BY route_short_name\n"
+                +  "ORDER BY route_short_name;";
         
         return str;
                 
     }
     
+    /*inserisco il nome o numero dellla linea*/
     @Override
     public String dbStops(String linea){
-        String str="SELECT DISTINCT(s.stop_id,s.stop_code)"
-                + "FROM trips tr,stop_times st,stop s"
-                + "WHERE tr.route_id="+linea+"AND"
-                + "st.stop_id=s.stop_id AND"
-                + "st.trip_id=tr.trip_id"
-                + "ORDER BY stop_sequence";
+        
+        String str="SELECT s.stop_id,s.stop_name" +
+                    "FROM trips tr,stop_times st,stops s,routes r" +
+                    "WHERE r.route_id=tr.route_id AND" +
+                    "st.stop_id=s.stop_id   AND" +
+                    "st.trip_id=tr.trip_id   AND" +
+                    "r.route_short_name="+linea+"AND"+
+                    "tr.service_id IN("+getServiceId()+")"           +
+                    "GROUP BY s.stop_id,s.stop_name" +
+                    "ORDER BY s.stop_name;";
+        
         return str;
     }
-    
+ 
     @Override
     public String dbTime(String stop,String linea){
-        String str="SELECT"
-                + "FROM trips tr,stop_times st"
-                + "st.stop_id=s.stop_id AND"
-                + "st.trip_id=tr.trip_id"
-                + "st.stop_id="+stop+""
-                + "tr.route_id="+linea+""
-                + "ORDER BY stop_sequence";
+        
+        String str="SELECT st.trip_id,st.arrival_time,st.departure_time" +
+                    "FROM trips tr,stop_times st,stops s,routes r" +
+                    "WHERE r.route_id=tr.route_id AND" +
+                    "st.stop_id=s.stop_id   AND" +
+                    "st.trip_id=tr.trip_id   AND" +
+                    "r.route_short_name='"+linea+"'  AND"
+                +   "tr.service_id=" +
+                    "s.stop_name='"+stop+"';";
         return str;
     }
     
+    public String dbTempoLinea(int trip_id){
+        String str="SELECT st.trip_id,st.arrival_time,st.departure_time" +
+                    "FROM stop_times st"+
+                    "WHERE st.trip_id='"+trip_id+"';";
+        return str;
+    }
+    
+    /*la rivedro più anvanti*/
     @Override
     public String dbFindLinesAtBusStop( String stopId ){
         
@@ -56,28 +122,28 @@ public class DBAsk implements DBAskInterface{
                 + "st.stop_id="+stopId+""
                 + "ORDER BY stop_sequence";
         
-        return "str";
+        return str;
     }
     
     @Override
-    public String dbTimesDelay(String line,String stop){
-        String str="SELECT arrival_time-departure_time"
-                + "FROM stop_time st,trips t"
-                + "WHERE st.trip_id=t.trip_id"
-                + "st.stop_id="+stop+""
-                + "st.route_id="+line;
+    public String dbTimesDelay(String linea,String stop){
+        String str="SELECT st.departure_time" +
+                    "FROM trips tr,stop_times st,stops s,routes r" +
+                    "WHERE r.route_id=tr.route_id AND" +
+                    "st.stop_id=s.stop_id   AND" +
+                    "st.trip_id=tr.trip_id   AND" +
+                    "r.route_short_name='"+linea+"'AND" +
+                    "s.stop_name='"+stop+"';";
         return str;
     };
     
     @Override
-    public String dbSetDelay(String arrival_time,String line,String stop){
-        String str="SELECT"
-                + "FROM stop_time st,trips t"
-                + "WHERE st.trip_id=t.trip:id"
-                + "st.departure_time="+arrival_time+""
-                + "st.route_id="+line+""
-                + "st.stop_id="+stop;
+    public String dbSetDelay(String arrival_time,String delay_time,String trip){
+        String str="UPDATE stop_times"
+                + "SET departure_times"
+                + "WHERE arrival_time="+arrival_time+""
+                + "trip_id="+trip+""
+                + "AND arrival_time"+delay_time+";";
         return str;
     }
-    
 }
