@@ -112,7 +112,7 @@ public class AcceptDataRequest extends Thread {
                     else 
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
                         System.out.println("******"+lineStr);
-                        info = DBConnector.getIstance().executeTimetable(send.query.dbStops(lineStr));
+                        info = DBConnector.getIstance().executeAllStopNames(send.query.dbStops(lineStr));
                         send.toSend(info);
                         send.send();
                 }//DataRequest:Stops:2:bus

@@ -13,7 +13,7 @@ public class DBAsk implements DBAskInterface{
         return date.getDay();
     }
     
-    private String getServiceId(){
+    private String getStringDay(){
         String str=new String();
         switch(getDate()){
             case 0: 
@@ -38,10 +38,13 @@ public class DBAsk implements DBAskInterface{
                 str="satuday";
                 break;
         }
+        return str;
+    }
+    private String getServiceId(){
+        
         String sql="SELECT service_id" +
                    "FROM    calendar" +
-                   "WHERE   "+str+"='1'";
-        
+                   "WHERE   "+getStringDay()+"='1'";
         return sql;
     }
     
@@ -76,16 +79,18 @@ public class DBAsk implements DBAskInterface{
     /*inserisco il nome o numero dellla linea*/
     @Override
     public String dbStops(String linea){
-        
-        String str="SELECT s.stop_id,s.stop_name" +
-                    "FROM trips tr,stop_times st,stops s,routes r" +
-                    "WHERE r.route_id=tr.route_id AND" +
-                    "st.stop_id=s.stop_id   AND" +
-                    "st.trip_id=tr.trip_id   AND" +
-                    "r.route_short_name="+linea+"AND"+
-                    "tr.service_id IN("+getServiceId()+")"           +
-                    "GROUP BY s.stop_id,s.stop_name" +
-                    "ORDER BY s.stop_name;";
+        String day=getStringDay();
+        String str="SELECT s.stop_id,s.stop_name\n" +
+"                    FROM trips tr,stop_times st,stops s,routes r\n" +
+"                    WHERE r.route_id=tr.route_id AND\n" +
+"                    st.stop_id=s.stop_id   AND\n" +
+"                    st.trip_id=tr.trip_id   AND\n" +
+"                    r.route_short_name='"+linea+"'  AND\n" +
+"                    tr.service_id IN(SELECT service_id\n" +
+"          FROM  calendar\n" +
+"          WHERE  "+day+"='1')\n" +
+"                    GROUP BY s.stop_id,s.stop_name\n" +
+"                    ORDER BY s.stop_name;";
         
         return str;
     }
@@ -99,7 +104,7 @@ public class DBAsk implements DBAskInterface{
                     "st.stop_id=s.stop_id   AND" +
                     "st.trip_id=tr.trip_id   AND" +
                     "r.route_short_name='"+linea+"'  AND"
-                +   "tr.service_id=" +
+                +   "tr.service_id IN("+ getServiceId() +")"+
                     "s.stop_name='"+stop+"';";
         return str;
     }
@@ -129,11 +134,12 @@ public class DBAsk implements DBAskInterface{
     public String dbTimesDelay(String linea,String stop){
         String str="SELECT st.departure_time" +
                     "FROM trips tr,stop_times st,stops s,routes r" +
-                    "WHERE r.route_id=tr.route_id AND" +
+"WHERE r.route_id=tr.route_id AND" +
                     "st.stop_id=s.stop_id   AND" +
                     "st.trip_id=tr.trip_id   AND" +
                     "r.route_short_name='"+linea+"'AND" +
-                    "s.stop_name='"+stop+"';";
+                    "s.stop_name='"+stop+"'"
+                +   "tr.service_id IN ("+getServiceId()+")";
         return str;
     };
     
