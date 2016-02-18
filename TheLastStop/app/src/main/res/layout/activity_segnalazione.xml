@@ -14,23 +14,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentTop="true"
         android:id="@+id/descrizione"
         android:textAlignment="center"
-        android:textColor="#ffffff" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/invia"
-        android:layout_below="@+id/descrizione"
-        android:background="#91b4ff"
-        android:padding="16dp"
-        android:paddingLeft="16dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingRight="16dp" />
+        android:textColor="#ffffff"
+        android:textSize="15pt"
+        />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

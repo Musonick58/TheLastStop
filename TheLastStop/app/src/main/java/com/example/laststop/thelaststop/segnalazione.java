@@ -21,7 +21,7 @@ public class segnalazione extends ActionBarActivity {
         String fermata = getIntent().getExtras().getString("Fermata");
         String ora = getIntent().getExtras().getString("Ora").substring(15,19);
 
-        info.setText("Segnalazione ritardo sulla linea " + linea + " fermata di " + fermata + " delle ore " + ora);
+        info.setText("Segnalazione ritardo sulla linea " + linea + " fermata di " + fermata + " delle ore " + ora + ". L'ora della segnalazione sara' rilevata automaticamente");
 
         invia.setOnClickListener(new View.OnClickListener() {
             @Override
