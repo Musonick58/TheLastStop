@@ -133,14 +133,14 @@ public class DBAsk implements DBAskInterface{
     
     @Override
     public String dbTimesDelay(String linea,String stop){
-        String str="SELECT st.departure_time"
-                +    "FROM trips tr,stop_times st,stops s,routes r"
-                +    "WHERE r.route_id=tr.route_id AND"
-                +    "st.stop_id=s.stop_id   AND"
-                +    "st.trip_id=tr.trip_id   AND"
-                +    "r.route_short_name='"+linea+"'AND"
-                +    "s.stop_name='"+stop+"' AND "
-                +   "tr.service_id IN ("+getServiceId()+");";
+        String str="SELECT st.departure_time\n" +
+"                FROM trips tr,stop_times st,stops s,routes r\n" +
+"                WHERE r.route_id=tr.route_id AND\n" +
+"                st.stop_id=s.stop_id   AND\n" +
+"                st.trip_id=tr.trip_id   AND\n" +
+"                r.route_short_name='"+linea+"'	AND\n" +
+"                s.stop_name='"+stop+"' AND\n" +
+"                tr.service_id IN ("+getServiceId()+");";
         return str;
     };
     
