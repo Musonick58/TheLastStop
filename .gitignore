@@ -1,16 +1,12 @@
-/AndoridServer/dist/
-/AndoridServer/nbproject/private/
-/AndoridServer/build/
-/AndoridServer/nbbuild/
-/AndoridServer/dist/
-/AndoridServer/nbdist/
+/AndoridServer/dist/*.*
+/AndoridServer/nbproject/private/*.*
+/AndoridServer/build/*.*
+/AndoridServer/nbbuild/*.*
+/AndoridServer/nbdist/*.*
 /AndoridServer/nbactions.xml
-.nb-gradle/
+.nb-gradle/*.*
 *.class
 **.class
-
-
-TheLastStop/app/src/main/AndroidManifest.xml
 
 TheLastStop/.idea/runConfigurations.xml
 
