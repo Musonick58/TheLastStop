@@ -2,6 +2,10 @@ package androidclient;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.laststop.thelaststop.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,30 +19,47 @@ import java.util.Scanner;
  * Created by Nicola on 16/02/2016.
  * Updated by John on 17/02/2016
  */
-public class AsyncDownload extends AsyncTask<Socket, Integer, String> {
+public class AsyncDownload extends AsyncTask<String, Integer, String>{
 
     private String json;
 
+    public String getJson(){
+
+
+        return json;
+    }
+
+
     @Override
-    protected String doInBackground(Socket... params) {
+    protected String doInBackground(String... params) {
         try {
             Socket s = new Socket("52.33.218.151",1313);
-            String request="DataRequest:Lines:bus";
+            String request="DataRequest:Stops:2:bus";
+                    //params[0];
+            Log.d("json:","chiedo dati");
             OutputStream os = s.getOutputStream();
             PrintStream ps = new PrintStream(os);
             ps.println(request);
+            Log.d("json:", "mandato request");
             ps.flush();
             os.flush();
+            Log.d("json:", "flushato tutto");
             InputStream is = s.getInputStream();
             Scanner isobj = new Scanner(is);
-            json = isobj.next();
+            Log.d("json:", "inizializzo scanner");
+            json = isobj.nextLine();
+            Log.d("json:", "messo next line in json");
             isobj.close();
             ps.close();
             os.close();
-            System.out.println("***************************************************************************");
-            System.out.println(json!=null);
+            Log.d("json:", "chiuso tutto");
+            Log.d("json:", "***************************************************************************");
+            Log.d("json:", ((Boolean) (json != null)).toString());
+            Log.d("json:",json);
             //throw new UnsupportedOperationException(json);
-            System.out.println("***************************************************************************");
+            Log.d("json:", "***************************************************************************");
+            s.close();
+
 
             //if (isCancelled()) break;
         } catch (IOException e) {
@@ -50,6 +71,7 @@ public class AsyncDownload extends AsyncTask<Socket, Integer, String> {
     }
 
     protected ArrayList<String> JSONParser(String input){ //Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
+        
         return null;
     }
 
