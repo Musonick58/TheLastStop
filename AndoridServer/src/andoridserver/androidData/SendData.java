@@ -59,7 +59,7 @@ public class SendData implements Serializable {
     
     public String toJson(){
         List<String> list = data.getDataAsList();
-        String json = data.getNameObject()+":[";
+        String json ="["; //data.getNameObject()+":[";
         for(String txt : data.getDataAsList()){        
             json=json+"\""+txt+"\",";
         }

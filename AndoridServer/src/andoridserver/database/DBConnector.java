@@ -6,6 +6,7 @@
 package andoridserver.database;
 
 import andoridserver.androidData.*;
+import java.io.File;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -276,6 +277,27 @@ public class DBConnector implements DBInterface{
         return true;
     }
     /*da sistemere per vesatilita*/
+    
+    
+    public static boolean updateServer(File f){
+        
+        if(DBConnector.getIstance().dropDB() ){
+            System.out.println("le tabelle sono state tolte");
+            if(DBConnector.getIstance().updateTable()){
+                
+        }
+        
+        }else{
+          
+        }
+        
+    
+        return false;
+    }
+    
+    
+    
+    
     @Override
     public AndroidDataInterface executeQuery(String compiledQuery) {
         AndroidDataInterface adi = null;
