@@ -45,6 +45,7 @@ public class DBAsk implements DBAskInterface{
         String sql="SELECT service_id" +
                    "FROM    calendar" +
                    "WHERE   "+getStringDay()+"='1'";
+        
         return sql;
     }
     
@@ -80,16 +81,16 @@ public class DBAsk implements DBAskInterface{
     @Override
     public String dbStops(String linea){
         String day=getStringDay();
-        String str="SELECT s.stop_id,s.stop_name\n" +
-"                    FROM trips tr,stop_times st,stops s,routes r\n" +
-"                    WHERE r.route_id=tr.route_id AND\n" +
-"                    st.stop_id=s.stop_id   AND\n" +
-"                    st.trip_id=tr.trip_id   AND\n" +
-"                    r.route_short_name='"+linea+"'  AND\n" +
-"                    tr.service_id IN(SELECT service_id\n" +
-"          FROM  calendar\n" +
-"          WHERE  "+day+"='1')\n" +
-"                    GROUP BY s.stop_id,s.stop_name\n" +
+        String str="SELECT s.stop_id,s.stop_name" +
+"                    FROM trips tr,stop_times st,stops s,routes r" +
+"                    WHERE r.route_id=tr.route_id AND" +
+"                    st.stop_id=s.stop_id 	AND" +
+"                    st.trip_id=tr.trip_id 	AND" +
+"                    r.route_short_name='"+linea+"'	AND" +
+"                    tr.service_id IN(SELECT service_id" +
+"					FROM	calendar" +
+"					WHERE	"+day+"='1')" +
+"                    GROUP BY s.stop_id,s.stop_name" +
 "                    ORDER BY s.stop_name;";
         
         return str;
@@ -98,12 +99,12 @@ public class DBAsk implements DBAskInterface{
     @Override
     public String dbTime(String stop,String linea){
         
-        String str="SELECT st.trip_id,st.arrival_time,st.departure_time" +
-                    "FROM trips tr,stop_times st,stops s,routes r" +
-                    "WHERE r.route_id=tr.route_id AND" +
-                    "st.stop_id=s.stop_id   AND" +
-                    "st.trip_id=tr.trip_id   AND" +
-                    "r.route_short_name='"+linea+"'  AND"
+        String str="SELECT st.trip_id,st.arrival_time,st.departure_time"
+                +    "FROM trips tr,stop_times st,stops s,routes r"
+                +    "WHERE r.route_id=tr.route_id AND"
+                +    "st.stop_id=s.stop_id   AND"
+                +    "st.trip_id=tr.trip_id   AND"
+                +    "r.route_short_name='"+linea+"'  AND"
                 +   "tr.service_id IN("+ getServiceId() +")"+
                     "s.stop_name='"+stop+"';";
         return str;
@@ -132,24 +133,35 @@ public class DBAsk implements DBAskInterface{
     
     @Override
     public String dbTimesDelay(String linea,String stop){
-        String str="SELECT st.departure_time" +
-                    "FROM trips tr,stop_times st,stops s,routes r" +
-"WHERE r.route_id=tr.route_id AND" +
-                    "st.stop_id=s.stop_id   AND" +
-                    "st.trip_id=tr.trip_id   AND" +
-                    "r.route_short_name='"+linea+"'AND" +
-                    "s.stop_name='"+stop+"'"
+        String str="SELECT st.departure_time"
+                +    "FROM trips tr,stop_times st,stops s,routes r"
+                +    "WHERE r.route_id=tr.route_id AND"
+                +    "st.stop_id=s.stop_id   AND"
+                +    "st.trip_id=tr.trip_id   AND"
+                +    "r.route_short_name='"+linea+"'AND"
+                +    "s.stop_name='"+stop+"' "
                 +   "tr.service_id IN ("+getServiceId()+")";
         return str;
     };
     
     @Override
-    public String dbSetDelay(String arrival_time,String delay_time,String trip){
-        String str="UPDATE stop_times"
-                + "SET departure_times"
-                + "WHERE arrival_time="+arrival_time+""
-                + "trip_id="+trip+""
-                + "AND arrival_time"+delay_time+";";
+    public String dbSetDelay(String arrival_time,String delay_time,String line,String stop){
+        String str="UPDATE stop_times\n"
+                +    "SET departure_time='"+delay_time+"'\n"
+                +    "WHERE arrival_time='"+arrival_time+"' AND\n"
+                +    "trip_id IN (SELECT st.trip_id\n"
+                +    "           FROM trips tr,stop_times st,stops s,routes r\n"
+                +    "           WHERE r.route_id=tr.route_id AND\n"
+                +    "           st.stop_id=s.stop_id 	AND\n"
+                +    "           st.trip_id=tr.trip_id 	AND\n"
+                +    "           r.route_short_name='"+line+"'  AND\n"
+                +    "		s.stop_name='"+stop+"'"
+                + "             tr.service_id IN("+getServiceId()+")";
         return str;
+    }
+
+    @Override
+    public String dbSetDelay(String delay, String line, String stop) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
