@@ -25,7 +25,7 @@ import androidclient.AsyncDownload;
 import androidclient.SendRequest;
 
 public class Main extends ActionBarActivity {
-    private String mString;
+    private ArrayList<String> mString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,7 @@ public class Main extends ActionBarActivity {
             e.printStackTrace();
         }
         TextView text = (TextView) findViewById(R.id.jwm);
-        text.setText(mString);
+        text.setText(mString.toString());
         //mString=asd.getJson();
         //Log.d("json",mString);
         ImageButton imgBus = (ImageButton)findViewById(R.id.busbut);

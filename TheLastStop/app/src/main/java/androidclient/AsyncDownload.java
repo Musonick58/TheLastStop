@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 import com.example.laststop.thelaststop.R;
 
@@ -19,7 +22,7 @@ import java.util.Scanner;
  * Created by Nicola on 16/02/2016.
  * Updated by John on 17/02/2016
  */
-public class AsyncDownload extends AsyncTask<String, Integer, String>{
+public class AsyncDownload extends AsyncTask<String, Integer, ArrayList<String>>{
 
     private String json;
 
@@ -31,7 +34,7 @@ public class AsyncDownload extends AsyncTask<String, Integer, String>{
 
 
     @Override
-    protected String doInBackground(String... params) {
+    protected ArrayList<String> doInBackground(String... params) {
         try {
             Socket s = new Socket("52.33.218.151",1313);
             String request="DataRequest:Stops:2:bus";
@@ -68,13 +71,28 @@ public class AsyncDownload extends AsyncTask<String, Integer, String>{
 
             }
         Log.d("ciao",((Boolean)(json!=null)).toString());
-        return json;
+        return jsonToArrayList(json);
     }
 
-    protected ArrayList<String> JSONParser(String input){ //Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
-        
-        return null;
-    }
+
+    protected ArrayList<String> jsonToArrayList(String input){
+        ArrayList<String> stringArray=null;
+        try {
+            stringArray = new ArrayList<>();
+            JSONArray jArray = null;
+
+                jArray = new JSONArray(input);
+
+            for (int i = 0; i < jArray.length(); i++) {
+                stringArray.add(jArray.getString(i));
+                Log.d("jsonArray "+i+":", stringArray.toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("jsonArray:", stringArray.toString());
+        return stringArray;
+    }//Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
 
 
    /* protected void onProgressUpdate(Integer... progress) {
