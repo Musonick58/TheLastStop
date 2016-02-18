@@ -42,8 +42,8 @@ public class DBAsk implements DBAskInterface{
     }
     private String getServiceId(){
         
-        String sql="SELECT service_id" +
-                   "FROM    calendar" +
+        String sql="SELECT service_id " +
+                   "FROM    calendar " +
                    "WHERE   "+getStringDay()+"='1'";
         
         return sql;
@@ -82,15 +82,15 @@ public class DBAsk implements DBAskInterface{
     public String dbStops(String linea){
         String day=getStringDay();
         String str="SELECT s.stop_id,s.stop_name" +
-"                    FROM trips tr,stop_times st,stops s,routes r" +
-"                    WHERE r.route_id=tr.route_id AND" +
-"                    st.stop_id=s.stop_id 	AND" +
-"                    st.trip_id=tr.trip_id 	AND" +
+"                    FROM trips tr,stop_times st,stops s,routes r " +
+"                    WHERE r.route_id=tr.route_id AND " +
+"                    st.stop_id=s.stop_id 	AND " +
+"                    st.trip_id=tr.trip_id 	AND " +
 "                    r.route_short_name='"+linea+"'	AND" +
-"                    tr.service_id IN(SELECT service_id" +
-"					FROM	calendar" +
+"                    tr.service_id IN (SELECT service_id " +
+"					FROM	calendar " +
 "					WHERE	"+day+"='1')" +
-"                    GROUP BY s.stop_id,s.stop_name" +
+"                    GROUP BY s.stop_id,s.stop_name " +
 "                    ORDER BY s.stop_name;";
         
         return str;
