@@ -139,8 +139,8 @@ public class DBAsk implements DBAskInterface{
                 +    "st.stop_id=s.stop_id   AND"
                 +    "st.trip_id=tr.trip_id   AND"
                 +    "r.route_short_name='"+linea+"'AND"
-                +    "s.stop_name='"+stop+"' "
-                +   "tr.service_id IN ("+getServiceId()+")";
+                +    "s.stop_name='"+stop+"' AND "
+                +   "tr.service_id IN ("+getServiceId()+");";
         return str;
     };
     
