@@ -133,18 +133,21 @@ public class DBAsk implements DBAskInterface{
     
     @Override
     public String dbTimesDelay(String linea,String stop){
+        String day = getStringDay();
         String str="SELECT st.departure_time"
                 +    "FROM trips tr,stop_times st,stops s,routes r"
-+    "WHERE r.route_id=tr.route_id AND"
-                +    "st.stop_id=s.stop_id   AND"
-                +    "st.trip_id=tr.trip_id   AND"
-                +    "r.route_short_name='"+linea+"'AND"
-                +    "s.stop_name='"+stop+"' "
-                +   "tr.service_id IN ("+getServiceId()+")";
+                +    "WHERE r.route_id=tr.route_id AND"
+                +    "st.stop_id=s.stop_id AND"
+                +    "st.trip_id=tr.trip_id AND"
+                +    "r.route_short_name='"+linea+"' AND"
+                +    "s.stop_name='"+stop+"' AND"
+                +    "tr.service_id IN( SELECT service_id " 
+                +    "FROM  calendar\n" 
+                +    "WHERE  "+day+"='1');";
         return str;
     };
     
-    
+    @Override
     public String dbSetDelay(String arrival_time,String delay_time,String line,String stop){
         String str="UPDATE stop_times\n"
                 +    "SET departure_time='"+delay_time+"'\n"

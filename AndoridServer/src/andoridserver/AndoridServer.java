@@ -52,7 +52,7 @@ public class AndoridServer {
         for (String str : args) {
             if (str.startsWith("sp:")) {
                 serverPort = Integer.parseInt(str.substring("sp:".length(), str.length()));
-            
+                
             }
             if (str.startsWith("hdb:")) {
                 databaseHostAddress = str.substring("hdb:".length(), str.length());
@@ -71,12 +71,13 @@ public class AndoridServer {
 
     public static void main(String[] args) throws Exception {
         System.out.println("Server Started! v0.7");
-        final int PORTNUMBER = serverPort;
-        DBConnector.ADDRESS = databaseHostAddress;
-        DBConnector.POSTGRESPORT = databasePortNumber;
-        DBConnector.getIstance();
+        int PORTNUMBER=1313;
         if (args != null && args.length == 4) {
             parseArgs(args);
+            PORTNUMBER = serverPort;
+            DBConnector.ADDRESS = databaseHostAddress;
+            DBConnector.POSTGRESPORT = databasePortNumber;
+            DBConnector.getIstance();
             if (lite==false){
                 //Inizializzazione del singleton del database
                 //scarico i file per la prima volta e gli estraggo al loro posto

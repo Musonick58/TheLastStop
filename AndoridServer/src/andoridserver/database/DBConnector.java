@@ -343,9 +343,18 @@ public class DBConnector implements DBInterface{
     /*TODO: fare la parte legata al db*/
     @Override
     public AndroidDataInterface executeDealay(String compiledQuery) {
-        AndroidDataInterface adi = new AndroidDataDelay();
-        adi.addData("10");
-        adi.addData("2");
+        AndroidDataInterface adi = new AndroidDataDelay(); 
+       try{
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(compiledQuery);
+            //adesso devo convertire il mio result set nell'oggetto per android
+            while (resultSet.next()) {
+                adi.addData(resultSet.getString("departure_time"));
+            }
+            System.out.println(adi.getDataAsList().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return adi;
     }
 

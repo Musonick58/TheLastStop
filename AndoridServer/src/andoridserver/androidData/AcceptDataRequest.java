@@ -125,17 +125,20 @@ public class AcceptDataRequest extends Thread {
                     for (String x : lines) {
                         System.out.println("contenuto" + x);
                     }
-                    stopName = lines[1];
                     lineStr = lines[0];
+                    System.out.println("linea: "+lineStr);
+                    stopName = lines[1];
+                    System.out.println("StopName: "+stopName);
                     serviceType = lines[2];
+                    System.out.println("Servizio: "+serviceType);
                     SendData send = new SendData(socket, serviceType, null, lineStr, DBConnector.getIstance());
                     //DBConnector.getIstance().disconnect();
                     if(serviceType.equals("bus"))
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
                     else 
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
-                        System.out.println("******"+lineStr);
-                        info = DBConnector.getIstance().executeAllStopNames(send.query.dbTimesDelay(lineStr,stopName));
+                        System.out.println("******"+lineStr);//2:Stop:navig
+                        info = DBConnector.getIstance().executeDealay(send.query.dbTimesDelay(lineStr,stopName));
                         send.toSend(info);
                         send.send();
                 }
