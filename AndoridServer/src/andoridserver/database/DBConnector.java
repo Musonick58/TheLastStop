@@ -10,6 +10,7 @@ import java.io.File;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.*;
 
 
 /**
@@ -284,7 +285,7 @@ public class DBConnector implements DBInterface{
         if(DBConnector.getIstance().dropDB() ){
             System.out.println("le tabelle sono state tolte");
             if(DBConnector.getIstance().updateTable()){
-                
+                Scanner filereader = new Scanner(new FileInputStream(f));
         }
         
         }else{
