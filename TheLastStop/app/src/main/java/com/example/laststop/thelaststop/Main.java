@@ -14,12 +14,10 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import android.content.DialogInterface.*;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import androidclient.AsyncDownload;
 import androidclient.SendRequest;
@@ -35,6 +33,7 @@ public class Main extends ActionBarActivity {
         BitmapFactory.decodeResource(getResources(), R.id.busbut, options);
 
         AsyncDownload asd = new AsyncDownload();
+<<<<<<< HEAD
         asd.execute("DataRequest:Lines:bus");
         try {
             mString=asd.get();
@@ -45,12 +44,13 @@ public class Main extends ActionBarActivity {
         }
         TextView text = (TextView) findViewById(R.id.jwm);
         text.setText(mString.toString());
+=======
+        asd.execute(new Socket());
+>>>>>>> origin/master
         //mString=asd.getJson();
-        //Log.d("json",mString);
+        //Log.d("ricevuto da internet",mString);
         ImageButton imgBus = (ImageButton)findViewById(R.id.busbut);
         ImageButton imgBat = (ImageButton)findViewById(R.id.batbut);
-        //TextView text = (TextView) findViewById(R.id.textView);
-        //text.setText("ciao");
         final Intent line = new Intent(Main.this, linee.class);
         imgBus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +61,6 @@ public class Main extends ActionBarActivity {
                 l.add("3");
                 //l.add(mString);
                 line.putStringArrayListExtra("lineearr", l);
-
                 startActivity(line);
             }
         });
