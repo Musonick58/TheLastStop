@@ -7,24 +7,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.laststop.thelaststop.orari"
+    tools:context="com.example.laststop.thelaststop.fermate"
     android:background="#616161">
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listaOrari"
-        android:background="#91b4ff"
+        android:id="@+id/listaFermate"
+        android:layout_centerHorizontal="true"
+        android:dividerHeight="2dp"
         android:divider="#616161"
-        android:dividerHeight="2dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Per segnalare un ritardo tocca molto sensualmente l'orario interessato"
-        android:id="@+id/segnala"
-        android:textAlignment="center"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
+        android:backgroundTintMode="src_atop"
+        android:clickable="true"
+        android:background="#91b4ff" />
 </RelativeLayout>

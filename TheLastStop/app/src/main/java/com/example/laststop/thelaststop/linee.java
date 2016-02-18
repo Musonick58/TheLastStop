@@ -28,7 +28,7 @@ public class linee extends ActionBarActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lines);
         ListView listView = (ListView) findViewById(R.id.listaLinee);
         listView.setAdapter(adapter);
-        final Intent x = new Intent(linee.this, orari.class);
+        final Intent x = new Intent(linee.this, fermate.class);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
