@@ -160,8 +160,4 @@ public class DBAsk implements DBAskInterface{
         return str;
     }
 
-    @Override
-    public String dbSetDelay(String delay, String line, String stop) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
