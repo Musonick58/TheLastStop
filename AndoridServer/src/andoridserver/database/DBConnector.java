@@ -24,13 +24,15 @@ public class DBConnector implements DBInterface{
      
     private Connection con;
     private static DBConnector ref=null;
-    public static final int POSTGRESPORT = 5432;
-    public static final String DRIVER="postgresql";
-    public static final String ADDRESS = "52.33.218.151";
+    public static int POSTGRESPORT;
+    public static String DRIVER="postgresql";
+    public static String ADDRESS;
       
     
     private DBConnector(){
-    }    
+    }   
+    
+    
     public static DBConnector getIstance(){
         if(ref==null){
             ref=new DBConnector();

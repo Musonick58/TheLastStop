@@ -21,6 +21,6 @@ public interface DBAskInterface {
     
     public String dbTimesDelay(String line,String stop);
     
-    public String dbSetDelay(String delay,String line,String stop);
+    public String dbSetDelay(String arrival_time,String delay_time,String line,String stop);
     
 }
