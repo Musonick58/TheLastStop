@@ -30,11 +30,13 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/textView"
-        android:layout_below="@+id/busbut"
-        android:layout_alignRight="@+id/batbut"
-        android:layout_alignEnd="@+id/batbut" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="New Text"
+        android:id="@+id/jwm"
+        android:layout_toRightOf="@+id/busbut"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/batbut" />
 
 </RelativeLayout>

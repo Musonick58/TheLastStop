@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import androidclient.AsyncDownload;
 import androidclient.SendRequest;
@@ -35,6 +36,15 @@ public class Main extends ActionBarActivity {
 
         AsyncDownload asd = new AsyncDownload();
         asd.execute("DataRequest:Lines:bus");
+        try {
+            mString=asd.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        TextView text = (TextView) findViewById(R.id.jwm);
+        text.setText(mString);
         //mString=asd.getJson();
         //Log.d("json",mString);
         ImageButton imgBus = (ImageButton)findViewById(R.id.busbut);

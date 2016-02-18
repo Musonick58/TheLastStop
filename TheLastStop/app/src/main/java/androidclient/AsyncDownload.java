@@ -60,6 +60,7 @@ public class AsyncDownload extends AsyncTask<String, Integer, String>{
             Log.d("json:", "***************************************************************************");
             s.close();
 
+           // TextView michele = (TextView)
 
             //if (isCancelled()) break;
         } catch (IOException e) {
