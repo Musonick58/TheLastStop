@@ -88,7 +88,8 @@ public class AcceptDataRequest extends Thread {
                     else 
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
                         System.out.println(stopName+"******"+lineStr);
-                        info = DBConnector.getIstance().executeTimetable(send.query.dbTime(stopName,lineStr));
+                        //System.out.println(send.query.dbTime(stopName,lineStr));
+                        info = DBConnector.getIstance().executeTimetable(send.query.dbTime(lineStr,stopName));
                         send.toSend(info);
                         send.send();
                 }//DataRequest:Stops:2:bus

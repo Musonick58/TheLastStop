@@ -310,12 +310,15 @@ public class DBConnector implements DBInterface{
     @Override
     public AndroidDataInterface executeTimetable(String compiledQuery) {
         AndroidDataInterface adi = new AndroidOrariData();
+        String s="";
         try {
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(compiledQuery);
             //adesso devo convertire il mio result set nell'oggetto per android
             while (resultSet.next()) {
-                adi.addData(resultSet.getString("arrival_time"));
+                s=resultSet.getString("arrival_time");
+                //System.out.println(s);
+                adi.addData(s);
             }
             System.out.println(adi.getDataAsList().toString());
         } catch (SQLException ex) {

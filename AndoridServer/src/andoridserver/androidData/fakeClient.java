@@ -5,6 +5,7 @@
  */
 package andoridserver.androidData;
 
+import andoridserver.database.DBConnector;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -25,7 +26,7 @@ public class fakeClient {
     private String json;
     public fakeClient() {
         try {
-            this.s = new Socket("localhost",1313);
+            this.s = new Socket("52.33.218.151",1313);
         } catch (IOException ex) {
             Logger.getLogger(fakeClient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -33,7 +34,7 @@ public class fakeClient {
     
     public void request(){
         try {
-            String request="DataRequest:Delay:2:S. Basilio:navig";//"DataRequest:Timetable:2:Sacca Fisola DX:navig";
+            String request="DataRequest:TimeTable:2:S. Basilio:bus";//"DataRequest:Timetable:2:Sacca Fisola DX:navig";
             OutputStream os = this.s.getOutputStream();
             PrintStream ps = new PrintStream(os);
             ps.println(request);

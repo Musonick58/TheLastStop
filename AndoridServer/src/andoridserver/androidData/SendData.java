@@ -64,7 +64,7 @@ public class SendData implements Serializable {
             json=json+"\""+txt+"\",";
         }
         json=json.substring(0, json.length()-1);
-        json+="]";
+        json+="]\n";
         return json;
     } 
 
