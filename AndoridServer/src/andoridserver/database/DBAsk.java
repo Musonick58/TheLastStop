@@ -66,7 +66,7 @@ public class DBAsk implements DBAskInterface{
     //devo rivederle
     @Override
     public String dbLinee(){
-        String str="SELECT r.route_short_name,t.trip_headsign" +
+        String str="SELECT r.route_short_name,t.trip_headsign \n" +
                     "FROM routes r,trips t\n" +
                     "WHERE r.route_id=t.route_id AND \n" +
                     "t.service_id IN( "+getServiceId()+" ) \n" +
@@ -83,8 +83,8 @@ public class DBAsk implements DBAskInterface{
                 + "WHERE r.route_id=t.route_id"
                 + "r.short_name='"+numeroLinea+"' AND"
                 + "t.service_id IN( "+getServiceId()+" ) \n"
-                + "GROUP BY t.trip_headsign"
-                + "ORDER BY t.trip_headsign";
+                + "GROUP BY t.trip_headsign "
+                + "ORDER BY t.trip_headsign; ";
                 
         return str;
     }
