@@ -33,9 +33,6 @@ public class Main extends ActionBarActivity {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(getResources(), R.id.busbut, options);
-        ArrayList<String> list = new ArrayList<>();
-        AsyncDownload asd = new AsyncDownload();
-        final AsyncDownload fasd = asd;
         //text.setText(list.toString());
         //mString=asd.getJson();
         //Log.d("json",mString);
@@ -48,9 +45,10 @@ public class Main extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    AsyncDownload asd = new AsyncDownload();
                     line.putExtra("Trasporto", "Bus");
-                    fasd.execute("DataRequest:Lines:bus");
-                    final ArrayList<String> michelelist =  fasd.get();
+                    asd.execute("DataRequest:Lines:bus");
+                    ArrayList<String> michelelist =  asd.get();
                     line.putStringArrayListExtra("lineearr", michelelist);
                     startActivity(line);
                 } catch (Exception e) {
@@ -62,9 +60,10 @@ public class Main extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    AsyncDownload asd = new AsyncDownload();
                     line.putExtra("Trasporto", "Battelli");
-                    fasd.execute("DataRequest:Lines:navig");
-                    final ArrayList<String> michelelist =  fasd.get();
+                    asd.execute("DataRequest:Lines:navig");
+                    final ArrayList<String> michelelist =  asd.get();
                     line.putStringArrayListExtra("lineearr", michelelist);
                     startActivity(line);
                 } catch (Exception e) {
