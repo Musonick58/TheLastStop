@@ -91,14 +91,15 @@ public class DBAsk implements DBAskInterface{
     
     /*inserisco il nome o numero dellla linea*/
     @Override
-    public String dbStops(String linea){
+    public String dbStops(String linea,String headSign){
         String day=getStringDay();
         String str="SELECT s.stop_id,s.stop_name " +
         "            FROM trips tr,stop_times st,stops s,routes r " +
         "        WHERE r.route_id=tr.route_id AND " +
         "        st.stop_id=s.stop_id   AND " +
         "        st.trip_id=tr.trip_id   AND " +
-        "        r.route_short_name='"+linea+"'  AND " +
+        "        r.route_short_name='"+linea+"'  AND "+
+        "        t.trip_headsign='"+headSign+"'  AND " +
         "        tr.service_id IN(SELECT service_id " +
         "          FROM  calendar " +
         "          WHERE  "+day+"='1') " +
@@ -109,7 +110,7 @@ public class DBAsk implements DBAskInterface{
     }
  
     @Override
-    public String dbTime(String stop,String linea){
+    public String dbTime(String stop,String linea,String headSign){
         
         String str="SELECT st.arrival_time,st.departure_time\n" +
                 "FROM trips tr,stop_times st,stops s,routes r \n" +
@@ -117,6 +118,7 @@ public class DBAsk implements DBAskInterface{
                 "st.stop_id=s.stop_id   AND\n" +
                 "st.trip_id=tr.trip_id   AND\n" +
                 "r.route_short_name='"+linea+"'  AND\n" +
+                "t.trip_headsign='"+headSign+"' AND  " +
                 "s.stop_name='"+stop+"' AND\n" +
                 "tr.service_id IN("+getServiceId()+")" +
                 "GROUP BY st.arrival_time,st.departure_time;";
@@ -144,30 +146,33 @@ public class DBAsk implements DBAskInterface{
     }
     
     @Override
-    public String dbTimesDelay(String linea,String stop){
+    public String dbTimesDelay(String linea,String stop,String headSign){
         String str="SELECT st.departure_time\n" +
 "                FROM trips tr,stop_times st,stops s,routes r\n" +
 "                WHERE r.route_id=tr.route_id AND\n" +
 "                st.stop_id=s.stop_id   AND\n" +
 "                st.trip_id=tr.trip_id   AND\n" +
 "                r.route_short_name='"+linea+"'  AND\n" +
+"                t.trip_headsign='"+headSign+"' AND  \n" +             
+"                public String dbTime(String stop,String linea,String headSign)" +
 "                s.stop_name='"+stop+"' AND\n" +
 "                tr.service_id IN ("+getServiceId()+");";
         return str;
     };
     
     @Override
-    public String dbSetDelay(String arrival_time,String delay_time,String line,String stop){
+    public String dbSetDelay(String arrival_time,String delay_time,String line,String stop,String headSign){
         String str="UPDATE stop_times\n"
                 +    "SET departure_time='"+delay_time+"'\n"
                 +    "WHERE arrival_time='"+arrival_time+"' AND\n"
                 +    "trip_id IN (SELECT st.trip_id\n"
-                +    "           FROM trips tr,stop_times st,stops s,routes r\n"
-                +    "           WHERE r.route_id=tr.route_id AND\n"
-                +    "           st.stop_id=s.stop_id   AND\n"
-                +    "           st.trip_id=tr.trip_id   AND\n"
-                +    "           r.route_short_name='"+line+"'  AND\n"
-                +    "    s.stop_name='"+stop+"'"
+                +    "          FROM trips tr,stop_times st,stops s,routes r\n"
+                +    "          WHERE r.route_id=tr.route_id AND\n"
+                +    "          st.stop_id=s.stop_id   AND\n"
+                +    "          st.trip_id=tr.trip_id   AND\n"
+                +    "          r.route_short_name='"+line+"'  AND\n"
+                +    "          t.trip_headsign='"+headSign+"' AND  \n" +
+                +    "          s.stop_name='"+stop+"' AND \n"
                 + "             tr.service_id IN("+getServiceId()+")";
         return str;
     }

@@ -15,14 +15,14 @@ public interface DBAskInterface {
     
     public String dbNomeLineeDatoNumero(String numeroLinea);
     
-    public String dbStops(String linea);
+    public String dbStops(String linea,String headSign);
     
-    public String dbTime(String stop,String linea);
+    public String dbTime(String stop,String linea,String headSign);
     
     public String dbFindLinesAtBusStop(String stopId);
     
-    public String dbTimesDelay(String line,String stop);
+    public String dbTimesDelay(String linea,String stop,String deadSign);
     
-    public String dbSetDelay(String arrival_time,String delay_time,String line,String stop);
+    public String dbSetDelay(String arrival_time,String delay_time,String line,String stop,String headSign);
     
 }
