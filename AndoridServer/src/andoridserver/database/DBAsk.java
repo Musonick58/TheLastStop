@@ -49,14 +49,14 @@ public class DBAsk implements DBAskInterface{
         return sql;
     }
     
-    public String CreaViewGetServiceId(){
+    public String creaViewGetServiceId(){
         String sql;
         sql = "CREATE VIEW serviceIdGiorno AS "
                 + ""+getServiceId()+"; ";
         return sql;
     }
     
-    public String DropViewServiceId(){
+    public String dropViewServiceId(){
         String sql;
         sql ="DROP VIEW derviceIdGiorno AS "
                 + ""+getServiceId()+"; ";
@@ -66,15 +66,23 @@ public class DBAsk implements DBAskInterface{
     //devo rivederle
     @Override
     public String dbLinee(){
-        String str="SELECT route_short_name\n "
-                +  "FROM routes r,trips t\n "
-                +  "WHERE r.route_id=t.route_id AND "
-                +  "t.service_id IN("+getServiceId()+") "
-                +  "GROUP BY route_short_name\n "
-                +  "ORDER BY route_short_name;";
+        String str="SELECT r.route_short_name " +
+                    "FROM routes r,trips t\n" +
+                    "WHERE r.route_id=t.route_id AND \n" +
+                    "t.service_id IN( "+getServiceId()+" ) \n" +
+                    "GROUP BY r.route_short_name \n" +
+                    "ORDER BY r.route_short_name;";
         
         return str;
+    }
+        
+    @Override
+    public String dbNomeLineeDatoNumero(String numeroLinea){
+        String str="SELECT t.trip_headsign "
+                + "FROM trips t"
+                + "WHERE t.route_id='"+numeroLinea+"' ";
                 
+        return str;
     }
     
     /*inserisco il nome o numero dellla linea*/

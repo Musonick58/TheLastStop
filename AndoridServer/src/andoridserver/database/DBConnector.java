@@ -230,25 +230,6 @@ public class DBConnector implements DBInterface {
                     + "	PRIMARY KEY(trip_id,shape_id,shape_pt_sequence)\n"
                     + ")";
             result = statement.executeUpdate(sql);
-            /*
-            sql="ALTER TABLE stop_times ADD	FOREIGN KEY(stop_id) REFERENCES stops(stop_id);";
-            result= statement.executeUpdate(sql);
-            
-            sql="ALTER TABLE stop_times ADD FOREIGN KEY(trip_id) REFERENCES trips(trip_id);";
-            result= statement.executeUpdate(sql);
-            
-            sql="ALTER TABLE trips ADD FOREIGN KEY(route_id) REFERENCES routes(route_id);";
-            result= statement.executeUpdate(sql);
-            
-            sql="ALTER TABLE trips ADD FOREIGN KEY(service_id) REFERENCES calendar(service_id);";
-            result= statement.executeUpdate(sql);
-            
-            sql="ALTER TABLE routes ADD FOREIGN KEY(agency_id) REFERENCES agency(agency_id);";
-            result= statement.executeUpdate(sql);
-            
-            sql="ALTER TABLE calendar_dates ADD FOREIGN KEY(service_id) REFERENCES calendar(service_id);";
-            result= statement.executeUpdate(sql);
-             */
         } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }

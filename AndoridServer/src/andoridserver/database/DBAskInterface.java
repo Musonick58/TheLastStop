@@ -13,6 +13,8 @@ public interface DBAskInterface {
     
     public String dbLinee();
     
+    public String dbNomeLineeDatoNumero(String numeroLinea);
+    
     public String dbStops(String linea);
     
     public String dbTime(String stop,String linea);
