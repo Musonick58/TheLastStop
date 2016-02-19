@@ -26,7 +26,7 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
     protected ArrayList<String> doInBackground(String... params) {
         try {
             Socket s = new Socket("52.33.218.151",1313);
-            String request=params[0];
+            String request = params[0];
                     //params[0];
             Log.d("json:","chiedo dati");
             OutputStream os = s.getOutputStream();
