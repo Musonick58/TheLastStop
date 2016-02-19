@@ -407,10 +407,10 @@ public class DBConnector implements DBInterface {
         //System.out.println(db.executeQuery("SELECT * FROM nick").getDataAsList().get(0));     
        
         System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "autobus"));
-        if (!db.updateTable()) {
+        /*if (!db.dropDB()) {
             System.out.println("costruzione non riouscita");
-        }
-        System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "battelli"));
+        }*/
+      //  System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "battelli"));
         if (!db.updateTable()) {
             System.out.println("costruzione non riouscita");
         }
