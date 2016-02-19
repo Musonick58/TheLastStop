@@ -2,10 +2,6 @@ package androidclient;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.laststop.thelaststop.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,11 +17,10 @@ import org.json.*;
  * Created by Nicola on 16/02/2016.
  * Updated by John on 17/02/2016
  */
+
 public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String> >{
 
     private String json;
-
-
 
     @Override
     protected ArrayList<String> doInBackground(String... params) {
@@ -53,41 +48,30 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
             Log.d("json:", "***************************************************************************");
             Log.d("json:", ((Boolean) (json != null)).toString());
             Log.d("json:",json);
-            //throw new UnsupportedOperationException(json);
             Log.d("json:", "***************************************************************************");
             s.close();
-
-           // TextView michele = (TextView)
-
-            //if (isCancelled()) break;
         } catch (IOException e) {
                 e.printStackTrace();
 
-            }
+        }
         Log.d("ciao",((Boolean)(json!=null)).toString());
-        return jsonToArrayList(json);
+        return jsonToArrayList(json); //TODO controllare perche` e` null
     }
-
-
-
 
     protected ArrayList<String> jsonToArrayList(String input){
-    ArrayList<String> stringArray=null;
-    try {
-    stringArray = new ArrayList<>();
-    JSONArray jArray = null;
-
-    jArray = new JSONArray(input);
-
-    for (int i = 0; i < jArray.length(); i++) {
-    stringArray.add(jArray.getString(i));
-    Log.d("jsonArray "+i+":", stringArray.toString());
-    }
-    } catch (JSONException e) {
-    e.printStackTrace();
-    }
-    Log.d("jsonArray:", stringArray.toString());
-    return stringArray;
+        ArrayList<String> stringArray = new ArrayList<>();
+        JSONArray jArray = null;
+        try {
+            jArray = new JSONArray(input);
+            for (int i = 0; i < jArray.length(); i++) {
+                stringArray.add(jArray.getString(i));
+                Log.d("jsonArray "+i+":", stringArray.toString());
+            }
+        } catch (JSONException e) {
+        e.printStackTrace();
+        }
+        Log.d("jsonArray:", stringArray.toString());
+        return stringArray;
     }//Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
 
 

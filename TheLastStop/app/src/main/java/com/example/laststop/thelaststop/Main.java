@@ -37,10 +37,8 @@ public class Main extends ActionBarActivity {
         AsyncDownload asd = new AsyncDownload();
         asd.execute("DataRequest:Lines:bus");
         try {
-           list=asd.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+           list = asd.get();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         TextView text = (TextView) findViewById(R.id.jwm);
