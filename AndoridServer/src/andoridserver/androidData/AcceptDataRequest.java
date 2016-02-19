@@ -144,40 +144,29 @@ public class AcceptDataRequest extends Thread {
                         send.send();
                 }
                 
-                /* 
-                if (temp.startsWith("Delay:")) {
-                    temp = temp.substring("Delay:".length());
+                
+                if (temp.startsWith("Lines:")) {
+                    temp = temp.substring("Lines:".length());
                     System.out.println("temp: " + temp);
                     lines = temp.split(":");
                     System.out.println("lunghezza array" + lines.length);
                     for (String x : lines) {
                         System.out.println("contenuto" + x);
                     }
-                    lineStr = lines[0];
-                    stopName = lines[1];
-                    serviceType = lines[2];//jj
-                    SendData send = new SendData(socket, serviceType, stopName, lineStr, DBConnector.getIstance());
-                    DBConnector.getIstance().disconnect();
+                    // lineStr = lines[0];
+                    // stopName = lines[1];
+                    serviceType = lines[0];//jj
+                    SendData send = new SendData(socket, serviceType, null, null, DBConnector.getIstance());
                     if(serviceType.equals("bus"))
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "autobus" );
                     else 
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "battelli" );
-                    info = DBConnector.getIstance().executeDealay(send.query.dbTimesDelay(lineStr,stopName));
-                    send.toSend(info);
-                    send.send(); */
-                }else{
-                    SendData send = new SendData(socket, null, null, null, DBConnector.getIstance());
-                    if(request.endsWith("bus"))
-                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
-                    else 
-                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
                     info = DBConnector.getIstance().executeLines(send.query.dbLinee());
-                    System.out.println(info.getDataAsList());
-                    send.toSend(info); 
-                    send.send();  
-                }          
+                    send.toSend(info);
+                    send.send(); 
+                }       
             }
-        
+        }
     }
    
     public static void main(String[] args) {
