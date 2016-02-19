@@ -99,7 +99,7 @@ public class DBAsk implements DBAskInterface{
         "        st.stop_id=s.stop_id   AND " +
         "        st.trip_id=tr.trip_id   AND " +
         "        r.route_short_name='"+linea+"'  AND "+
-        "        t.trip_headsign='"+headSign+"'  AND " +
+        "        tr.trip_headsign='"+headSign+"'  AND " +
         "        tr.service_id IN(SELECT service_id " +
         "          FROM  calendar " +
         "          WHERE  "+day+"='1') " +
@@ -118,7 +118,7 @@ public class DBAsk implements DBAskInterface{
                 "st.stop_id=s.stop_id   AND\n" +
                 "st.trip_id=tr.trip_id   AND\n" +
                 "r.route_short_name='"+linea+"'  AND\n" +
-                "t.trip_headsign='"+headSign+"' AND  " +
+                "tr.trip_headsign='"+headSign+"' AND  " +
                 "s.stop_name='"+stop+"' AND\n" +
                 "tr.service_id IN("+getServiceId()+")" +
                 "GROUP BY st.arrival_time,st.departure_time;";
@@ -153,7 +153,7 @@ public class DBAsk implements DBAskInterface{
 "                st.stop_id=s.stop_id   AND\n" +
 "                st.trip_id=tr.trip_id   AND\n" +
 "                r.route_short_name='"+linea+"'  AND\n" +
-"                t.trip_headsign='"+headSign+"' AND  \n" +             
+"                tr.trip_headsign='"+headSign+"' AND  \n" +             
 "                public String dbTime(String stop,String linea,String headSign)" +
 "                s.stop_name='"+stop+"' AND\n" +
 "                tr.service_id IN ("+getServiceId()+");";
@@ -171,7 +171,7 @@ public class DBAsk implements DBAskInterface{
                 +    "          st.stop_id=s.stop_id   AND\n"
                 +    "          st.trip_id=tr.trip_id   AND\n"
                 +    "          r.route_short_name='"+line+"'  AND\n"
-                +    "          t.trip_headsign='"+headSign+"' AND  \n"
+                +    "          tr.trip_headsign='"+headSign+"' AND  \n"
                 +    "          s.stop_name='"+stop+"' AND \n  "
                 + "             tr.service_id IN("+getServiceId()+");";
         return str;
