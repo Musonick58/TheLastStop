@@ -6,6 +6,7 @@
  */
 package CSVReader;
 
+import andoridserver.database.DBConnector;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
@@ -65,6 +66,11 @@ FilePrinter sqlBus;
             //System.out.println(navCount);
             String[] busFilesName = dirAutobus.list(textFilter);
             System.out.println("[CSVReader]: FILES TO PROCESS -> "+(navCount+busFilesName.length));
+            DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "battelli");
+            if(!DBConnector.getIstance().dropDB())
+                throw new IllegalStateException("NON SONO RIUSCITO DROPPARE LE TABELLE");
+            if(!DBConnector.getIstance().updateTable())
+                throw new IllegalStateException("NON SONO RIUSCITO RICREARE LE TABELLE");
             CSVReader csvrNAV[] = new CSVReader[filesName.length];
             for (int i = 0; i < filesName.length; i++) {
                 csvrNAV[i] = new CSVReader(NAV + filesName[i]);
@@ -75,6 +81,11 @@ FilePrinter sqlBus;
             }
             sqlNav.close();
             sqlNav.destroy();
+            DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT,"autobus");
+            if(!DBConnector.getIstance().dropDB())
+                throw new IllegalStateException("NON SONO RIUSCITO DROPPARE LE TABELLE");
+            if(!DBConnector.getIstance().updateTable())
+                throw new IllegalStateException("NON SONO RIUSCITO RICREARE LE TABELLE");
             CSVReader csvrBUS[] = new CSVReader[busFilesName.length];
             for (int i = 0; i < busFilesName.length; i++) {
                 csvrBUS[i] = new CSVReader(AUTOBUS + busFilesName[i]);

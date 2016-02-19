@@ -283,33 +283,17 @@ public class DBConnector implements DBInterface {
     }
 
     /*da sistemere per vesatilita*/
-
-    public boolean updateDatabaseServer(File f) {
+    public boolean updateDatabaseServer(String insertInto) {
+        boolean ret ;//= false;
         try {
             Statement statement = con.createStatement();
-            if (DBConnector.getIstance().dropDB()) {
-                System.out.println("le tabelle sono state tolte");
-                if (DBConnector.getIstance().updateTable()) {
-                    try {
-                        Scanner filereader = new Scanner(new FileInputStream(f));
-                        while (filereader.hasNext()) {
-                            ResultSet resultSet = statement.executeQuery(filereader.nextLine());
-                            resultSet.toString();
-                        }
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    return true;
-                }
-
-            } else {
-                return false;
-            }
+            ResultSet resultSet = statement.executeQuery(insertInto);
+            resultSet.toString();
+            ret = true;
         } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            ret = false;
         }
-
-        return false;
+        return ret;
     }
 
     @Override
@@ -419,14 +403,17 @@ public class DBConnector implements DBInterface {
     public static void main(String[] args) {
         DBConnector db = DBConnector.getIstance();
         System.out.println("Trying to connect...");
-        System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "nicola"));
+        //System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "autobus"));
         //System.out.println(db.executeQuery("SELECT * FROM nick").getDataAsList().get(0));     
-        System.out.println("Disconecting!! Bye");
-
+       
+        System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "autobus"));
         if (!db.updateTable()) {
             System.out.println("costruzione non riouscita");
         }
-
+        System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "battelli"));
+        if (!db.updateTable()) {
+            System.out.println("costruzione non riouscita");
+        }
         /*
         if( !db.dropDB() ){
             System.out.println("le tabelle sono state tolte");

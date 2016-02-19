@@ -5,6 +5,7 @@
  */
 package CSVReader;
 
+import andoridserver.database.DBConnector;
 import andoridserver.database.DatabaseUpdater;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,6 +44,7 @@ public class FilePrinter {
             //DatabaseUpdater dbupdate = DatabaseUpdater.getIstance();
             String toWrite;
             toWrite=(DatabaseUpdater.updateTables2(filesName.substring(0, filesName.length()-4),csvr.getTableNames(), s))+"\n";            
+            DBConnector.getIstance().updateDatabaseServer(toWrite);
             stampante.write(toWrite); 
         }
         System.out.println("[CSVReader]: END "+filesName);

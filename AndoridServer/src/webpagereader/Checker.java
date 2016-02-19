@@ -71,7 +71,7 @@ public class Checker extends Thread {
                     Thread t = new CSVThread(); //chiamo il CSVReader per far aggiornare il file di query
                     t.start();//avvio il thread
                 }
-                this.sleep(60000 * 24);//un giorno di attesa prima di cercare aggiornamenti e scaricarli!
+                this.sleep(86400000);//un giorno di attesa prima di cercare aggiornamenti e scaricarli!
             }
         } catch (InterruptedException | IOException ex ) {
             Logger.getLogger(Checker.class.getName()).log(Level.SEVERE, null, ex);
