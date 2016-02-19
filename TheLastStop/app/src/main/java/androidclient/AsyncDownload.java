@@ -26,7 +26,7 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
     protected ArrayList<String> doInBackground(String... params) {
         try {
             Socket s = new Socket("52.33.218.151",1313);
-            String request="DataRequest:Stops:2:bus";
+            String request=params[0];
                     //params[0];
             Log.d("json:","chiedo dati");
             OutputStream os = s.getOutputStream();
@@ -55,7 +55,7 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
 
         }
         Log.d("ciao",((Boolean)(json!=null)).toString());
-        return jsonToArrayList(json); //TODO controllare perche` e` null
+        return jsonToArrayList("[\"ciao\"]"); //TODO controllare perche` e` null
     }
 
     protected ArrayList<String> jsonToArrayList(String input){
@@ -67,8 +67,9 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
                 stringArray.add(jArray.getString(i));
                 Log.d("jsonArray "+i+":", stringArray.toString());
             }
-        } catch (JSONException e) {
-        e.printStackTrace();
+        } catch (Exception e) {
+            Log.d("Exeption: ", e.getMessage());
+            e.printStackTrace();
         }
         Log.d("jsonArray:", stringArray.toString());
         return stringArray;
