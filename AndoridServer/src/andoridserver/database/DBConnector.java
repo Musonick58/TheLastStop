@@ -337,7 +337,7 @@ public class DBConnector implements DBInterface {
             ResultSet resultSet = statement.executeQuery(compiledQuery);
             //adesso devo convertire il mio result set nell'oggetto per android
             while (resultSet.next()) {
-                adi.addData(resultSet.getString("route_short_name"));
+                adi.addData(resultSet.getString("route_short_name")+" "+resultSet.getString("trip_headsign"));
             }
             System.out.println(adi.getDataAsList().toString());
         } catch (SQLException ex) {
