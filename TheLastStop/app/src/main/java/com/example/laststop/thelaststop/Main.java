@@ -35,13 +35,7 @@ public class Main extends ActionBarActivity {
         BitmapFactory.decodeResource(getResources(), R.id.busbut, options);
         ArrayList<String> list = new ArrayList<>();
         AsyncDownload asd = new AsyncDownload();
-        asd.execute("DataRequest:Lines:bus");
-        try {
-           list = asd.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        TextView text = (TextView) findViewById(R.id.jwm);
+        final AsyncDownload fasd = asd;
         //text.setText(list.toString());
         //mString=asd.getJson();
         //Log.d("json",mString);
@@ -49,31 +43,33 @@ public class Main extends ActionBarActivity {
         ImageButton imgBat = (ImageButton)findViewById(R.id.batbut);
         //TextView text = (TextView) findViewById(R.id.textView);
         //text.setText("ciao");
-        final ArrayList<String> michelelist = list;
         final Intent line = new Intent(Main.this, linee.class);
         imgBus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                line.putExtra("Trasporto", "Bus");
-                ArrayList<String> l = new ArrayList<>();
-                l.add("2");
-                l.add("3");
-                //l.add(mString);
-                line.putStringArrayListExtra("lineearr", michelelist);
-
-                startActivity(line);
+                try {
+                    line.putExtra("Trasporto", "Bus");
+                    fasd.execute("DataRequest:Lines:bus");
+                    final ArrayList<String> michelelist =  fasd.get();
+                    line.putStringArrayListExtra("lineearr", michelelist);
+                    startActivity(line);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         imgBat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                line.putExtra("Trasporto", "Battelli");
-                ArrayList<String> l = new ArrayList<>();
-                l.add("1");
-                l.add("5.1");
-               // l.add(new SendRequest().askLines("navig"));
-                line.putStringArrayListExtra("lineearr", michelelist);
-                startActivity(line);
+                try {
+                    line.putExtra("Trasporto", "Battelli");
+                    fasd.execute("DataRequest:Lines:navig");
+                    final ArrayList<String> michelelist =  fasd.get();
+                    line.putStringArrayListExtra("lineearr", michelelist);
+                    startActivity(line);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

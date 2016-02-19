@@ -55,7 +55,7 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
 
         }
         Log.d("ciao",((Boolean)(json!=null)).toString());
-        return jsonToArrayList("[\"ciao\"]"); //TODO controllare perche` e` null
+        return jsonToArrayList(json); //TODO controllare perche` e` null
     }
 
     protected ArrayList<String> jsonToArrayList(String input){

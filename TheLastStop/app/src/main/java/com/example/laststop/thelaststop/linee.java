@@ -14,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidclient.AsyncDownload;
+
 public class linee extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +27,9 @@ public class linee extends ActionBarActivity {
 
         final String aux = trasporto;
 
+        AsyncDownload asd = new AsyncDownload();
         List<String> lines = getIntent().getExtras().getStringArrayList("lineearr"); //TODO: da riempire da John con nome delle linee(es.31,32,ecc)
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lines);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lines);
         ListView listView = (ListView) findViewById(R.id.listaLinee);
         listView.setAdapter(adapter);
         final Intent x = new Intent(linee.this, fermate.class);
