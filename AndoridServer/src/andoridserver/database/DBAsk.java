@@ -66,11 +66,11 @@ public class DBAsk implements DBAskInterface{
     //devo rivederle
     @Override
     public String dbLinee(){
-        String str="SELECT r.route_short_name " +
+        String str="SELECT r.route_short_name,t.trip_headsign" +
                     "FROM routes r,trips t\n" +
                     "WHERE r.route_id=t.route_id AND \n" +
                     "t.service_id IN( "+getServiceId()+" ) \n" +
-                    "GROUP BY r.route_short_name \n" +
+                    "GROUP BY r.route_short_name,t.trip_headsign \n" +
                     "ORDER BY r.route_short_name;";
         
         return str;
@@ -79,8 +79,12 @@ public class DBAsk implements DBAskInterface{
     @Override
     public String dbNomeLineeDatoNumero(String numeroLinea){
         String str="SELECT t.trip_headsign "
-                + "FROM trips t"
-                + "WHERE t.route_id='"+numeroLinea+"' ";
+                + "FROM trips t,routes r"
+                + "WHERE r.route_id=t.route_id"
+                + "r.short_name='"+numeroLinea+"' AND"
+                + "t.service_id IN( "+getServiceId()+" ) \n"
+                + "GROUP BY t.trip_headsign"
+                + "ORDER BY t.trip_headsign";
                 
         return str;
     }
@@ -90,16 +94,16 @@ public class DBAsk implements DBAskInterface{
     public String dbStops(String linea){
         String day=getStringDay();
         String str="SELECT s.stop_id,s.stop_name " +
-"                    FROM trips tr,stop_times st,stops s,routes r " +
-"                    WHERE r.route_id=tr.route_id AND " +
-"                    st.stop_id=s.stop_id   AND " +
-"                    st.trip_id=tr.trip_id   AND " +
-"                    r.route_short_name='"+linea+"'  AND " +
-"                    tr.service_id IN(SELECT service_id " +
-"          FROM  calendar " +
-"          WHERE  "+day+"='1') " +
-"                    GROUP BY s.stop_id,s.stop_name " +
-"                    ORDER BY s.stop_name;";
+        "            FROM trips tr,stop_times st,stops s,routes r " +
+        "        WHERE r.route_id=tr.route_id AND " +
+        "        st.stop_id=s.stop_id   AND " +
+        "        st.trip_id=tr.trip_id   AND " +
+        "        r.route_short_name='"+linea+"'  AND " +
+        "        tr.service_id IN(SELECT service_id " +
+        "          FROM  calendar " +
+        "          WHERE  "+day+"='1') " +
+        "                    GROUP BY s.stop_id,s.stop_name " +
+        "                    ORDER BY s.stop_name;";
         
         return str;
     }
