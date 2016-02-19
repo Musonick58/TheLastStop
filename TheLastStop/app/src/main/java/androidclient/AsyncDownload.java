@@ -15,6 +15,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.json.*;
+
 /**
  * Created by Nicola on 16/02/2016.
  * Updated by John on 17/02/2016
@@ -63,40 +65,40 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
 
             }
         Log.d("ciao",((Boolean)(json!=null)).toString());
-        return JSONParser(json);
+        return jsonToArrayList(json);
     }
 
 
 
 
-protected ArrayList<String> jsonToArrayList(String input){
-ArrayList<String> stringArray=null;
-try {
-stringArray = new ArrayList<>();
-JSONArray jArray = null;
+    protected ArrayList<String> jsonToArrayList(String input){
+    ArrayList<String> stringArray=null;
+    try {
+    stringArray = new ArrayList<>();
+    JSONArray jArray = null;
 
-jArray = new JSONArray(input);
+    jArray = new JSONArray(input);
 
-for (int i = 0; i < jArray.length(); i++) {
-stringArray.add(jArray.getString(i));
-Log.d("jsonArray "+i+":", stringArray.toString());
-}
-} catch (JSONException e) {
-e.printStackTrace();
-}
-Log.d("jsonArray:", stringArray.toString());
-return stringArray;
-}//Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
-
-
+    for (int i = 0; i < jArray.length(); i++) {
+    stringArray.add(jArray.getString(i));
+    Log.d("jsonArray "+i+":", stringArray.toString());
+    }
+    } catch (JSONException e) {
+    e.printStackTrace();
+    }
+    Log.d("jsonArray:", stringArray.toString());
+    return stringArray;
+    }//Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
 
 
-   /* protected void onProgressUpdate(Integer... progress) {
-        setProgressPercent(progress[0]);
-    }*/
 
-   /* protected void onPostExecute(Long result) {
-        showDialog("Downloaded " + result + " bytes");
-    }*/
 
-}
+       /* protected void onProgressUpdate(Integer... progress) {
+            setProgressPercent(progress[0]);
+        }*/
+
+       /* protected void onPostExecute(Long result) {
+            showDialog("Downloaded " + result + " bytes");
+        }*/
+
+    }
