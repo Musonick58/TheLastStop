@@ -86,7 +86,7 @@ public interface DBInterface {
      * @return un oggetto popolato di tipo ADI il ritardo della linea
      * 
      */
-    AndroidDataInterface executeDealay(String compiledQuery);
+    AndroidDataInterface executeDelay(String compiledQuery);
     
     /**
      *

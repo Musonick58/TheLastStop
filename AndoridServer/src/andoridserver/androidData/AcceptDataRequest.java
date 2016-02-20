@@ -63,6 +63,7 @@ public class AcceptDataRequest extends Thread {
         String[] lines = null;
         String serviceType = null;
         String stopName = null;
+        String headsign = null;
         AndroidDataInterface info;
         if (request != null && request.startsWith("DataRequest:")) {
             System.out.println("[ACCEPTDATAREQUEST] Data Request: Processing");
@@ -78,9 +79,13 @@ public class AcceptDataRequest extends Thread {
                     for (String x : lines) {
                         System.out.println("contenuto" + x);
                     }
-                    stopName = lines[0];
-                    lineStr = lines[1];
-                    serviceType = lines[2];
+                    //2:headsign:fermata:navig
+                    
+                    lineStr = lines[0];
+                    headsign = lines[1];
+                    stopName = lines[2];
+                    serviceType = lines[3];
+                    
                     SendData send = new SendData(socket, serviceType, null, lineStr, DBConnector.getIstance());
                     //DBConnector.getIstance().disconnect();
                     if(serviceType.equals("bus"))
@@ -89,7 +94,7 @@ public class AcceptDataRequest extends Thread {
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
                         System.out.println(stopName+"******"+lineStr);
                         //System.out.println(send.query.dbTime(stopName,lineStr));
-                        info = DBConnector.getIstance().executeTimetable(send.query.dbTime(lineStr,stopName));
+                        info = DBConnector.getIstance().executeTimetable(send.query.dbTime(lineStr,stopName,headsign));
                         send.toSend(info);
                         send.send();
                 }//DataRequest:Stops:2:bus
@@ -104,8 +109,10 @@ public class AcceptDataRequest extends Thread {
                         System.out.println("contenuto" + x);
                     }
                     //stopName = lines[0];
-                    lineStr = lines[0];
-                    serviceType = lines[1];
+                    //32:headsign:bus
+                    lineStr = lines[0];//32
+                    headsign = lines[1];//headsign
+                    serviceType = lines[2];//bus
                     SendData send = new SendData(socket, serviceType, null, lineStr, DBConnector.getIstance());
                     //DBConnector.getIstance().disconnect();
                     if(serviceType.equals("bus"))
@@ -113,7 +120,7 @@ public class AcceptDataRequest extends Thread {
                     else 
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
                         System.out.println("******"+lineStr);
-                        info = DBConnector.getIstance().executeAllStopNames(send.query.dbStops(lineStr));
+                        info = DBConnector.getIstance().executeAllStopNames(send.query.dbStops(lineStr,headsign));
                         send.toSend(info);
                         send.send();
                 }//DataRequest:Delay:2:Stop:bus
@@ -126,11 +133,11 @@ public class AcceptDataRequest extends Thread {
                     for (String x : lines) {
                         System.out.println("contenuto" + x);
                     }
-                    lineStr = lines[0];
-                    System.out.println("linea: "+lineStr);
-                    stopName = lines[1];
-                    System.out.println("StopName: "+stopName);
-                    serviceType = lines[2];
+                    //2:headsign:Stop:navig
+                    lineStr = lines[0];//2
+                    headsign = lines[1];//headsign
+                    stopName = lines[2];//stopname
+                    serviceType = lines[3];//servicetype
                     System.out.println("Servizio: "+serviceType);
                     SendData send = new SendData(socket, serviceType, null, lineStr, DBConnector.getIstance());
                     //DBConnector.getIstance().disconnect();
@@ -139,7 +146,7 @@ public class AcceptDataRequest extends Thread {
                     else 
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "nicola" );
                         System.out.println("******"+lineStr);//2:Stop:navig
-                        info = DBConnector.getIstance().executeDealay(send.query.dbTimesDelay(lineStr,stopName));
+                        info = DBConnector.getIstance().executeDelay(send.query.dbTimesDelay(lineStr,stopName,headsign));
                         send.toSend(info);
                         send.send();
                 }

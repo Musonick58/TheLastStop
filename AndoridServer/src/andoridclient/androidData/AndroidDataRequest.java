@@ -16,19 +16,21 @@ import andoridserver.androidData.AndroidDataInterface;
 
 public interface AndroidDataRequest {
      //Es -> DataRequest:Lines:bus
-     //Es -> DataRequest:Lines:navig
+     //Es -> DataRequest:Lines:navig  
+    //  queste ok!
      AndroidDataInterface askLines(String servizio); //tutte le linee navigazione o autobus
 
-     //Es -> DataRequest:Stops:2:bus
-     //Es -> DataRequest:Stops:32:navig
+     //Es -> DataRequest:Stops:2:headsign:bus
+     //Es -> DataRequest:Stops:32:headsign:navig
+     
      AndroidDataInterface askAllStops(String linesNumber, String servizio); //lista di tutte le fermate!
 
      //Es -> DataRequest:Timetable:2:fermata:bus
-     //Es -> DataRequest:Timetable:2:fermata:navig
+     //Es -> DataRequest:Timetable:2:headsign:fermata:navig
      AndroidDataInterface askTimeTable(String linesNumber, String servizio, String fermata); //orario della linea selezionata
 
      //Es -> DataRequest:Delay:2:Stop:bus
-     //Es -> DataRequest:Delay:2:Stop:navig
+     //Es -> DataRequest:Delay:2:headsign:Stop:navig
      /**
      * @param linesNumber stringa che contiene il nome abbreviato della linea
      * @param fermata stringa che contiene il nome della fermata

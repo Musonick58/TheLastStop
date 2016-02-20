@@ -21,12 +21,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listaLinee"
-        android:layout_centerHorizontal="true"
         android:dividerHeight="2dp"
         android:divider="#616161"
         android:backgroundTintMode="src_atop"
         android:clickable="true"
-        android:background="#91b4ff" />
+        android:background="#91b4ff"
+        android:layout_below="@+id/capolinea"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/linee"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="43dp"
+        android:layout_marginStart="43dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/Capolinea"
+        android:id="@+id/textView2"
+        android:layout_marginRight="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_alignTop="@+id/capolinea"
+        android:layout_alignRight="@+id/capolinea"
+        android:layout_alignEnd="@+id/capolinea" />
 
 
 </RelativeLayout>

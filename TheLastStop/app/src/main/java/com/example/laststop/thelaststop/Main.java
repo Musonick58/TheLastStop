@@ -1,5 +1,6 @@
 package com.example.laststop.thelaststop;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,10 +16,12 @@ import android.widget.ImageButton;
 
 import android.content.DialogInterface.*;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.concurrent.ExecutionException;
 
 import androidclient.AsyncDownload;
@@ -28,6 +31,9 @@ public class Main extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StackPointerContainer.getInstance().addMain(this);
+       // Boolean b = this==StackPointerContainer.getInstance().getMainPointer();
+       // Log.d("pointer", b.toString());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -36,6 +42,7 @@ public class Main extends ActionBarActivity {
         //text.setText(list.toString());
         //mString=asd.getJson();
         //Log.d("json",mString);
+        //popup(StackPointerContainer.getInstance().getMainPointer());
         ImageButton imgBus = (ImageButton)findViewById(R.id.busbut);
         ImageButton imgBat = (ImageButton)findViewById(R.id.batbut);
         //TextView text = (TextView) findViewById(R.id.textView);
@@ -49,8 +56,14 @@ public class Main extends ActionBarActivity {
                     line.putExtra("Trasporto", "Bus");
                     asd.execute("DataRequest:Lines:bus");
                     ArrayList<String> michelelist =  asd.get();
-                    line.putStringArrayListExtra("lineearr", michelelist);
-                    startActivity(line);
+                    Boolean bool = michelelist==null;
+                    Log.d("ziojack:", "michelelist=" + bool.toString());
+                    if(michelelist!=null){
+                        line.putStringArrayListExtra("lineearr", michelelist);
+                        startActivity(line);
+                    }else{
+                        popup(StackPointerContainer.getInstance().getMainPointer(),costanti.CON_SERVER_ERR_MSG,costanti.CON_TOAST_ERR_MSG);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -63,9 +76,15 @@ public class Main extends ActionBarActivity {
                     AsyncDownload asd = new AsyncDownload();
                     line.putExtra("Trasporto", "Battelli");
                     asd.execute("DataRequest:Lines:navig");
-                    final ArrayList<String> michelelist =  asd.get();
-                    line.putStringArrayListExtra("lineearr", michelelist);
-                    startActivity(line);
+                    ArrayList<String> michelelist =  asd.get();
+                    Boolean bool = michelelist==null;
+                    Log.d("ziojack:","michelelist=" + bool.toString() );
+                    if(michelelist!=null){
+                        line.putStringArrayListExtra("lineearr", michelelist);
+                        startActivity(line);
+                    }else{
+                        popup(StackPointerContainer.getInstance().getMainPointer(),costanti.CON_SERVER_ERR_MSG,costanti.CON_TOAST_ERR_MSG);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -95,5 +114,23 @@ public class Main extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void popup(Activity pointer,String msg, String toast){
+        final Activity anonymousClassPointer = pointer;
+        final String toastMsg=toast;
+        AlertDialog.Builder builder = new AlertDialog.Builder(pointer);
+        builder.setMessage(msg);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Toast.makeText(anonymousClassPointer, toastMsg, Toast.LENGTH_LONG).show();
+            }
+        });
+       /* builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });*/
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
 }

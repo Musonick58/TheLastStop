@@ -29,55 +29,26 @@ public class linee extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String trasporto = getIntent().getExtras().getString("Trasporto");
         setTitle("Linee " + trasporto);
-
+        StackPointerContainer.getInstance().addLinee(this);
         final String aux = trasporto;
-
-        AsyncDownload asd = new AsyncDownload();
-
-
-
+       // AsyncDownload asd = new AsyncDownload();
         //JOHN : modifica il metodo populate per passare i dati alla lista
-
-
-
         List<String> lines = getIntent().getExtras().getStringArrayList("lineearr"); //TODO: da riempire da John con nome delle linee(es.31,32,ecc)
-
-
-        populate(trasporto);
-
-
-
-        twoColumn adapter = new twoColumn(this, mezzi);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lines);
         ListView listView = (ListView) findViewById(R.id.listaLinee);
         listView.setAdapter(adapter);
-        final Intent x = new Intent(linee.this, fermate.class);
+        final Intent stops = new Intent(linee.this, fermate.class);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                                                 String entry= parent.getAdapter().getItem(position).toString();
-                                                x.putExtra("Linea", entry);
-                                                x.putExtra("Trasporto", aux);
-
-                                                startActivity(x);
+                                                stops.putExtra("Linea", entry);
+                                                stops.putExtra("Trasporto", aux);
+                                                startActivity(stops);
                                             }
                                         }
         );
-    }
-
-    public void newErrDialog() { //AlertDialog che compare quando non riesce a stabilire una connessione
-        AlertDialog.Builder err = new AlertDialog.Builder(this);
-        err.setMessage("Controlla la tua connessione!");
-        err.setTitle("Errore");
-        err.setCancelable(false);
-        err.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog alert = err.create();
-        alert.show();
     }
 
     @Override

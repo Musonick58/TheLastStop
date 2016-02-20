@@ -8,4 +8,7 @@
     <string name="title_activity_orari">orari</string>
     <string name="title_activity_segnalazione">segnalazione</string>
     <string name="title_activity_fermate">fermate</string>
+    <string name="linee">Linea</string>
+    <string name="Capolinea">Capolinea</string>
+
 </resources>

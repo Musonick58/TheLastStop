@@ -3,6 +3,8 @@ package androidclient;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.laststop.thelaststop.StackPointerContainer;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -25,7 +27,9 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
     @Override
     protected ArrayList<String> doInBackground(String... params) {
         try {
-            Socket s = new Socket("52.33.218.151",1313);
+            //Log.d("ziojack:","creo errore socket");
+            Socket s = new Socket("52.33.218.151",1313 );
+           // s.setSoTimeout(100);
             String request = params[0];
                     //params[0];
             Log.d("json:","chiedo dati");
@@ -50,8 +54,15 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
             Log.d("json:",json);
             Log.d("json:", "***************************************************************************");
             s.close();
-        } catch (IOException e) {
-                e.printStackTrace();
+        } catch (Exception e) {
+
+            //StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getMainPointer());
+           //e.printStackTrace();
+            Log.d("ziojack: ", e.getMessage());
+            //e.printStackTrace();
+           // this.cancel(true);
+            return null;
+
 
         }
         Log.d("ciao",((Boolean)(json!=null)).toString());
@@ -65,10 +76,10 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
             jArray = new JSONArray(input);
             for (int i = 0; i < jArray.length(); i++) {
                 stringArray.add(jArray.getString(i));
-                Log.d("jsonArray "+i+":", stringArray.toString());
+               // Log.d("jsonArray "+i+":", stringArray.toString());
             }
         } catch (Exception e) {
-            Log.d("Exeption: ", e.getMessage());
+          //  Log.d("Exception: ", e.getMessage());
             e.printStackTrace();
         }
         Log.d("jsonArray:", stringArray.toString());
