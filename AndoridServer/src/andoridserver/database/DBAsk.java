@@ -35,7 +35,7 @@ public class DBAsk implements DBAskInterface{
                 str="friday";
                 break;
             case 6:
-                str="satuday";
+                str="saturday";
                 break;
         }
         return str;
@@ -94,17 +94,15 @@ public class DBAsk implements DBAskInterface{
     public String dbStops(String linea,String headSign){
         String day=getStringDay();
         String str="SELECT s.stop_id,s.stop_name " +
-        "            FROM trips tr,stop_times st,stops s,routes r " +
+        "        FROM trips tr,stop_times st,stops s,routes r " +
         "        WHERE r.route_id=tr.route_id AND " +
         "        st.stop_id=s.stop_id   AND " +
         "        st.trip_id=tr.trip_id   AND " +
         "        r.route_short_name='"+linea+"'  AND "+
         "        tr.trip_headsign='"+headSign+"'  AND " +
-        "        tr.service_id IN(SELECT service_id " +
-        "          FROM  calendar " +
-        "          WHERE  "+day+"='1') " +
-        "                    GROUP BY s.stop_id,s.stop_name " +
-        "                    ORDER BY s.stop_name;";
+        "        tr.service_id IN("+getServiceId()+") " +
+        "        GROUP BY s.stop_id,s.stop_name " +
+        "        ORDER BY s.stop_name;";
         
         return str;
     }
