@@ -108,7 +108,7 @@ public class DBAsk implements DBAskInterface{
     }
  
     @Override
-    public String dbTime(String stop,String linea,String headSign){
+    public String dbTime(String linea,String stop,String headSign){
         
         String str="SELECT st.arrival_time,st.departure_time\n" +
                 "FROM trips tr,stop_times st,stops s,routes r \n" +
