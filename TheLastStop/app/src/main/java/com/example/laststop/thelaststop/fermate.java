@@ -23,6 +23,7 @@ public class fermate extends ActionBarActivity {
         final String aux = line;
         setTitle("Linea " + line + " con capolinea " + capoln);
         ListView stop = (ListView)findViewById(R.id.listaFermate);
+        String lines = getIntent().getExtras().getString("Linea");
 
         ArrayList<String> list = getIntent().getStringArrayListExtra("fermate");
         /*list.add("Via Torino0");

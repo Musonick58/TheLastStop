@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -14,18 +13,11 @@ import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageButton;
 
-import android.content.DialogInterface.*;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Stack;
-import java.util.concurrent.ExecutionException;
 
 import androidclient.AsyncDownload;
-import androidclient.SendRequest;
 
 public class Main extends ActionBarActivity {
 
@@ -55,7 +47,7 @@ public class Main extends ActionBarActivity {
                     AsyncDownload asd = new AsyncDownload();
                     line.putExtra("Trasporto", "Bus");
                     line.putExtra("serviceType","bus");
-                    asd.execute("DataRequest:Lines:bus");
+                    asd.execute("DataRequest:Timetable:1:Civico 1227:fermata:bus"); //DataRequest:Lines:bus
                     ArrayList<String> michelelist =  asd.get();
                     Boolean bool = michelelist==null;
                     Log.d("ziojack:", "michelelist==null? " + bool.toString());

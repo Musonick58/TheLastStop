@@ -25,7 +25,6 @@ public interface AndroidDataRequest {
      
      AndroidDataInterface askAllStops(String linesNumber, String servizio); //lista di tutte le fermate!
 
-     //Es -> DataRequest:Timetable:2:fermata:bus
      //Es -> DataRequest:Timetable:2:headsign:fermata:navig
      AndroidDataInterface askTimeTable(String linesNumber, String servizio, String fermata); //orario della linea selezionata
 
