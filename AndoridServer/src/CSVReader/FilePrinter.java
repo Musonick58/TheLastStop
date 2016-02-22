@@ -46,10 +46,12 @@ public class FilePrinter {
             String toWrite;
             toWrite=(DatabaseUpdater.updateTables2(filesName.substring(0, filesName.length()-4),csvr.getTableNames(), s))+"\n";            
             DBConnector.getIstance().updateDatabaseServer(toWrite);
-            //stampante.write(toWrite); 
+            stampante.write(toWrite); 
             stringList.clear();
+            stringList=null;
             toWrite=null;
             s=null;
+            
         }
         System.out.println("[CSVReader]: END "+filesName);
         }catch(Exception e){ 

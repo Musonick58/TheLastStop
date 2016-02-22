@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
  *
  * @author Nicola
@@ -40,10 +41,6 @@ public class Checker extends Thread {
                     navpr.updateFiles(); //chiamo il metodo che estrare lo zip aggiornato nelle cartelle
                     //Dobbiamo far partire il csv reader e da li poi aggiornare il database
                     System.out.println("["+this.getName()+"]: Update dei CSV"+navpr.parse());
-                    //Thread t = new CSVThread("nav"); //chiamo il CSVReader per far aggiornare il file di query
-                    //t.start();//avvio il thread
-                    //while(t.isAlive()){ this.sleep(180000);}//busy waiting
-                    //salvo il nome dell'ultimo archivo in modo da poterlo confrontare se cambia 
                     oldStringNav=navpr.parse();
                     changed=true;
                 }else{              
@@ -55,10 +52,6 @@ public class Checker extends Thread {
                     buspr.updateFiles();//come sopra
                     //Dobbiamo far partire il csv reader e da li poi aggiornare il database
                     System.out.println("["+this.getName()+"]: Update dei CSV"+buspr.parse());
-                    //Thread t = new CSVThread("bus"); //chiamo il CSVReader per far aggiornare il file di query
-                    //t.start();//avvio il thread
-                    //while(t.isAlive()){ this.sleep(180000);}//busy waiting
-                    //salvo il nome dell'ultimo archivo in modo da poterlo confrontare se cambia 
                     oldStringBus=buspr.parse();
                     changed=true;
                 }else{
@@ -68,6 +61,8 @@ public class Checker extends Thread {
                 buspr = null;
                 if(changed==true){
                     changed=false;
+                    System.out.println("[CHECKER]: son cambiati gli opendata");
+                   // Logger.getLogger(oldStringNav)
                     Thread t = new CSVThread(); //chiamo il CSVReader per far aggiornare il file di query
                     t.start();//avvio il thread
                 }

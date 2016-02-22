@@ -131,9 +131,12 @@ public class PageReader {
             unzip.unZipIt();
             unzip=null;
             File archivio = new File(fileName);
+            
             if(archivio.exists())
                 archivio.delete();
+                archivio=null;
             }
+            
     }
 
 }

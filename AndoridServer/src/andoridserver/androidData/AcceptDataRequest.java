@@ -7,6 +7,7 @@ package andoridserver.androidData;
 
 import andoridserver.database.DBConnector;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.*;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -172,6 +173,17 @@ public class AcceptDataRequest extends Thread {
                     send.toSend(info);
                     send.send(); 
                 }       
+            }
+        }else{
+            try {
+                PrintStream ps = new PrintStream(socket.getOutputStream());
+                ps.println("[\"nothing to send\"]");
+                ps.flush();
+                ps.close();
+                ps=null;
+                
+            } catch (IOException ex) {
+                Logger.getLogger(AcceptDataRequest.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

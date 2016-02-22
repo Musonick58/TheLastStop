@@ -104,7 +104,7 @@ public class DatabaseUpdater {
          for(int i=0;i<values.length;i++){
              //System.out.println("i: "+i+" lunghezza totale"+values.length);
              if(tableName.equals("routes") && i==9) break; //patch per il vettore di navigazione routes
-			 if(tableName.equals("stops") && i==12) break; //patch per il vettore bus stops
+	     if(tableName.equals("stops") && i==12) break; //patch per il vettore bus stops
               String type=cdb.getType(i, tableName);
               String x = values[i];
               x = castType(type,x);

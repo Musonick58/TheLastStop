@@ -72,13 +72,15 @@ FilePrinter sqlBus;
             if(!DBConnector.getIstance().updateTable())
                 throw new IllegalStateException("NON SONO RIUSCITO RICREARE LE TABELLE");
             CSVReader csvrNAV[] = new CSVReader[filesName.length];
+             System.out.println("[CSVThread]: NAVIG FILES");
             for (int i = 0; i < filesName.length; i++) {
+                System.out.println("[CSVThread]: FILES TO PROCESS -> "+filesName[i]);
                 csvrNAV[i] = new CSVReader(NAV + filesName[i]);
                 csvrNAV[i].readFile();
                 sqlNav.writeQuery(filesName[i], csvrNAV[i]);
                 csvrNAV[i].destroy();
                 csvrNAV[i] = null;
-                this.sleep(1);
+                //this.sleep(1);
             }
             sqlNav.close();
             sqlNav.destroy();
@@ -89,13 +91,15 @@ FilePrinter sqlBus;
             if(!DBConnector.getIstance().updateTable())
                 throw new IllegalStateException("NON SONO RIUSCITO RICREARE LE TABELLE");
             CSVReader csvrBUS[] = new CSVReader[busFilesName.length];
+             System.out.println("[CSVThread]: BUS FILES");
             for (int i = 0; i < busFilesName.length; i++) {
+                System.out.println("[CSVThread]: FILES TO PROCESS -> "+filesName[i]);
                 csvrBUS[i] = new CSVReader(AUTOBUS + busFilesName[i]);
                 csvrBUS[i].readFile();
                 sqlBus.writeQuery(busFilesName[i], csvrBUS[i]);
                 csvrBUS[i].destroy();
                 csvrBUS[i] = null;
-                this.sleep(1);
+                //this.sleep(1);
             }
             sqlBus.close();
             sqlBus.destroy();
@@ -103,9 +107,9 @@ FilePrinter sqlBus;
             //Logger.getLogger(CSVReader.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("[CSVReader]: ERRORE NELL'ESECUZIONE");
             return;
-        } catch (InterruptedException ex) {
+        } catch (Exception ex) {
         Logger.getLogger(CSVThread.class.getName()).log(Level.SEVERE, null, ex);
     }
-        System.out.println("[CSVReader]: FINE DELL'ESECUZIONE");
+        System.out.println("[CSVThread]: FINE DELL'ESECUZIONE");
     }
 }

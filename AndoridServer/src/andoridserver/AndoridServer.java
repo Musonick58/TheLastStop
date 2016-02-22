@@ -82,11 +82,10 @@ public class AndoridServer {
                 PORTNUMBER = serverPort;
                 DBConnector.ADDRESS = databaseHostAddress;
                 DBConnector.POSTGRESPORT = databasePortNumber;
-                DBConnector.getIstance();
+                DBConnector.getIstance();//Inizializzazione del singleton del database
                 //Checker updater;
                 if (lite==false){
                     try {
-                        //Inizializzazione del singleton del database
                         //scarico i file per la prima volta e gli estraggo al loro posto
                         PageReader pr = new PageReader("http://www.actv.it/opendata/navigazione", "nav");
                         String navlink = pr.parse();
@@ -96,6 +95,7 @@ public class AndoridServer {
                         String buslink = pr.parse();
                         System.out.println("[MAIN]: LINK AUTOMOBILISTICO -> " + pr.download(buslink));
                         pr.updateFiles(); //SI OCCUPA DI UNZIPARE I FILE
+                        pr=null;
                         CSVThread csvstart = new CSVThread();//faccio partire i primi csv da trasformare
                         csvstart.start();
                         updater = new Checker("CSV online Checker", navlink, buslink);// avvio il thread che check il sito
@@ -110,7 +110,7 @@ public class AndoridServer {
             }
             ServerSocket serverSocket = new ServerSocket(PORTNUMBER);
             System.out.println("[MAIN]: Listen on port: " + PORTNUMBER);
-          
+            
             while (true) {
                 Socket clientSocket = serverSocket.accept();//attendo che qualcuno si connetta
                 //Inizializzano il gestore delle richieste della connessione
