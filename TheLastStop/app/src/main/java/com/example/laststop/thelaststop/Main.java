@@ -54,10 +54,11 @@ public class Main extends ActionBarActivity {
                 try {
                     AsyncDownload asd = new AsyncDownload();
                     line.putExtra("Trasporto", "Bus");
+                    line.putExtra("serviceType","bus");
                     asd.execute("DataRequest:Lines:bus");
                     ArrayList<String> michelelist =  asd.get();
                     Boolean bool = michelelist==null;
-                    Log.d("ziojack:", "michelelist=" + bool.toString());
+                    Log.d("ziojack:", "michelelist==null? " + bool.toString());
                     if(michelelist!=null){
                         line.putStringArrayListExtra("lineearr", michelelist);
                         startActivity(line);
@@ -75,6 +76,7 @@ public class Main extends ActionBarActivity {
                 try {
                     AsyncDownload asd = new AsyncDownload();
                     line.putExtra("Trasporto", "Battelli");
+                    line.putExtra("serviceType","navig");
                     asd.execute("DataRequest:Lines:navig");
                     ArrayList<String> michelelist =  asd.get();
                     Boolean bool = michelelist==null;

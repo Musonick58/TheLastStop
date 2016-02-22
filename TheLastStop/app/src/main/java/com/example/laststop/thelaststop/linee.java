@@ -28,6 +28,7 @@ public class linee extends ActionBarActivity {
         setContentView(R.layout.activity_linee);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String trasporto = getIntent().getExtras().getString("Trasporto");
+        final String serviceType = getIntent().getExtras().getString("serviceType");
         setTitle("Linee " + trasporto);
         StackPointerContainer.getInstance().addLinee(this);
         final String aux = trasporto;
@@ -37,19 +38,53 @@ public class linee extends ActionBarActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lines);
         ListView listView = (ListView) findViewById(R.id.listaLinee);
         listView.setAdapter(adapter);
+
         final Intent stops = new Intent(linee.this, fermate.class);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                                                String entry= parent.getAdapter().getItem(position).toString();
-                                                stops.putExtra("Linea", entry);
-                                                stops.putExtra("Trasporto", aux);
-                                                startActivity(stops);
+                                               try{
+                                                    AsyncDownload asd = new AsyncDownload();
+                                                    String entry = parent.getAdapter().getItem(position).toString();
+                                                    String[] splitedString = splitLineFromHeadsign(entry);
+                                                    asd.execute("DataRequest:Stops:" + splitedString[0] + ":" + splitedString[1] + ":" + serviceType);
+                                                    ArrayList<String> fermate = asd.get();
+                                                    Log.d("ziojack:", "Linea: " + splitedString[0] + " capolinea:" + splitedString[1]);
+                                                    stops.putExtra("Linea", entry);
+                                                    stops.putExtra("Trasporto", aux);
+
+                                                   if(fermate!=null){
+                                                       stops.putStringArrayListExtra("fermate", fermate);
+                                                       startActivity(stops);
+                                                   }else{
+                                                       StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getLineePointer(),costanti.CON_SERVER_ERR_MSG,costanti.CON_TOAST_ERR_MSG);
+                                                   }
+
+                                                }catch(Exception e){
+
+                                                    e.printStackTrace();
+                                                }
                                             }
+
+                                            public String[] splitLineFromHeadsign(String s){
+                                                String[] aux=s.split(" ");
+                                                String[] ret = new String[2];
+                                                ret[0]=aux[0];
+                                                ret[1]="";
+                                                for(int i=1; i < aux.length; i++){
+                                                   // Log.d("ziojack:",aux[i]);
+                                                    ret[1]+=aux[i]+" ";
+                                                }
+                                                ret[1]=ret[1].substring(0,ret[1].length()-1);//tolgo l'ultimo spazzio inutile
+                                                return ret;
+                                            }
+
                                         }
         );
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

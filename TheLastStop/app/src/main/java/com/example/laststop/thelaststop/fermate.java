@@ -23,19 +23,17 @@ public class fermate extends ActionBarActivity {
         setTitle("Linea " + line);
         ListView stop = (ListView)findViewById(R.id.listaFermate);
 
-        ArrayList<String> list = new ArrayList<>();
-        list.add("Via Torino0");
+        ArrayList<String> list = getIntent().getStringArrayListExtra("fermate");
+        /*list.add("Via Torino0");
         list.add("Via Torino1");
         list.add("Via Torino2");
         list.add("Via Torino3");
         list.add("Via Torino4");
         list.add("Via Torino5");
         list.add("Via Torino6");
-        list.add("Via Torino7");
+        list.add("Via Torino7");*/
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         stop.setAdapter(adapter);
-
-
         stop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

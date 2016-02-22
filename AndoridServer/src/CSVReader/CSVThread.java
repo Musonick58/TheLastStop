@@ -53,7 +53,7 @@ FilePrinter sqlBus;
                 @Override
                 public boolean accept(File dir, String name) {
                     String lowercaseName = name.toLowerCase();
-                    if (lowercaseName.endsWith(".txt")) {
+                    if (lowercaseName.endsWith(".txt") && !lowercaseName.equals("shapes.txt")) {
                         return true;
                     } else {
                         return false;
@@ -78,9 +78,11 @@ FilePrinter sqlBus;
                 sqlNav.writeQuery(filesName[i], csvrNAV[i]);
                 csvrNAV[i].destroy();
                 csvrNAV[i] = null;
+                this.sleep(1);
             }
             sqlNav.close();
             sqlNav.destroy();
+            
             DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT,"autobus");
             if(!DBConnector.getIstance().dropDB())
                 throw new IllegalStateException("NON SONO RIUSCITO DROPPARE LE TABELLE");
@@ -93,6 +95,7 @@ FilePrinter sqlBus;
                 sqlBus.writeQuery(busFilesName[i], csvrBUS[i]);
                 csvrBUS[i].destroy();
                 csvrBUS[i] = null;
+                this.sleep(1);
             }
             sqlBus.close();
             sqlBus.destroy();
@@ -100,7 +103,9 @@ FilePrinter sqlBus;
             //Logger.getLogger(CSVReader.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("[CSVReader]: ERRORE NELL'ESECUZIONE");
             return;
-        }
+        } catch (InterruptedException ex) {
+        Logger.getLogger(CSVThread.class.getName()).log(Level.SEVERE, null, ex);
+    }
         System.out.println("[CSVReader]: FINE DELL'ESECUZIONE");
     }
 }

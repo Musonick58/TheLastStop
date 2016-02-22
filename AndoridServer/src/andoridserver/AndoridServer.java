@@ -8,9 +8,12 @@ package andoridserver;
 import CSVReader.CSVThread;
 import andoridserver.androidData.*;
 import andoridserver.database.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import webpagereader.Checker;
 import webpagereader.PageReader;
 
@@ -69,43 +72,54 @@ public class AndoridServer {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        System.out.println("Server Started! v0.7");
-        int PORTNUMBER=1313;
-        if (args != null && args.length == 4) {
-            parseArgs(args);
-            PORTNUMBER = serverPort;
-            DBConnector.ADDRESS = databaseHostAddress;
-            DBConnector.POSTGRESPORT = databasePortNumber;
-            DBConnector.getIstance();
-            if (lite==false){
-                //Inizializzazione del singleton del database
-                //scarico i file per la prima volta e gli estraggo al loro posto
-                PageReader pr = new PageReader("http://www.actv.it/opendata/navigazione", "nav");
-                String navlink = pr.parse();
-                System.out.println("[MAIN]: LINK NAVIGAZIONE -> " + pr.download(navlink));
-                pr.updateFiles(); //SI OCCUPA DI UNZIPARE I FILE
-                pr = new PageReader("http://www.actv.it/opendata/automobilistico", "bus");
-                String buslink = pr.parse();
-                System.out.println("[MAIN]: LINK AUTOMOBILISTICO -> " + pr.download(buslink));
-                pr.updateFiles(); //SI OCCUPA DI UNZIPARE I FILE
-                CSVThread csvstart = new CSVThread();//faccio partire i primi csv da trasformare
-                csvstart.start();
-                Checker updater = new Checker("CSV online Checker", navlink, buslink);// avvio il thread che check il sito
-                //Inizializzo la classe la quale si occupa di attendere una connessione alla porta PORTNUMBER
+    public static void main(String[] args){
+       Checker updater=null;
+        try {
+            System.out.println("Server Started! v0.7");
+            int PORTNUMBER=1313;
+            if (args != null && args.length == 4) {
+                parseArgs(args);
+                PORTNUMBER = serverPort;
+                DBConnector.ADDRESS = databaseHostAddress;
+                DBConnector.POSTGRESPORT = databasePortNumber;
+                DBConnector.getIstance();
+                //Checker updater;
+                if (lite==false){
+                    try {
+                        //Inizializzazione del singleton del database
+                        //scarico i file per la prima volta e gli estraggo al loro posto
+                        PageReader pr = new PageReader("http://www.actv.it/opendata/navigazione", "nav");
+                        String navlink = pr.parse();
+                        System.out.println("[MAIN]: LINK NAVIGAZIONE -> " + pr.download(navlink));
+                        pr.updateFiles(); //SI OCCUPA DI UNZIPARE I FILE
+                        pr = new PageReader("http://www.actv.it/opendata/automobilistico", "bus");
+                        String buslink = pr.parse();
+                        System.out.println("[MAIN]: LINK AUTOMOBILISTICO -> " + pr.download(buslink));
+                        pr.updateFiles(); //SI OCCUPA DI UNZIPARE I FILE
+                        CSVThread csvstart = new CSVThread();//faccio partire i primi csv da trasformare
+                        csvstart.start();
+                        updater = new Checker("CSV online Checker", navlink, buslink);// avvio il thread che check il sito
+                        updater.start();//avvio il thread per scansionare la pagina web, per vedere se i dati sono cambiati
+                        //Inizializzo la classe la quale si occupa di attendere una connessione alla porta PORTNUMBER
+                    } catch (IOException ex) {
+                        Logger.getLogger(AndoridServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else {
+                usages();
             }
-        } else {
-            usages();
-        }
-        ServerSocket serverSocket = new ServerSocket(PORTNUMBER);
-        System.out.println("[MAIN]: Listen on port: " + PORTNUMBER);
-        //updater.start();//avvio il thread per scansionare la pagina web, per vedere se i dati sono cambiati
-        while (true) {
-            Socket clientSocket = serverSocket.accept();//attendo che qualcuno si connetta
-            //Inizializzano il gestore delle richieste della connessione
-            AcceptDataRequest serviceThread = new AcceptDataRequest(clientSocket);
-            //Avvio il thread per la gestione delle richieste
-            serviceThread.start();
+            ServerSocket serverSocket = new ServerSocket(PORTNUMBER);
+            System.out.println("[MAIN]: Listen on port: " + PORTNUMBER);
+          
+            while (true) {
+                Socket clientSocket = serverSocket.accept();//attendo che qualcuno si connetta
+                //Inizializzano il gestore delle richieste della connessione
+                AcceptDataRequest serviceThread = new AcceptDataRequest(clientSocket);
+                //Avvio il thread per la gestione delle richieste
+                serviceThread.start();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(AndoridServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

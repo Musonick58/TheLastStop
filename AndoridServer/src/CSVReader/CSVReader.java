@@ -98,6 +98,7 @@ public class CSVReader {
             }
             this.numberOfTables=wordCount;
             fileReader.close();
+            fileReader=null;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CSVReader.class.getName()).log(Level.SEVERE, null, ex);
         }

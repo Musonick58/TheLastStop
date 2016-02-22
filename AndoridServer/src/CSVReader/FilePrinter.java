@@ -38,6 +38,7 @@ public class FilePrinter {
     }
     
     public void writeQuery(String filesName,CSVReader csvr){
+        try{
         for(int i=0;i<csvr.getValues().size();i++){
             List<String> stringList = csvr.getValues().get(i);
             String[] s = stringList.toArray(new String[stringList.size()]);
@@ -45,10 +46,16 @@ public class FilePrinter {
             String toWrite;
             toWrite=(DatabaseUpdater.updateTables2(filesName.substring(0, filesName.length()-4),csvr.getTableNames(), s))+"\n";            
             DBConnector.getIstance().updateDatabaseServer(toWrite);
-            stampante.write(toWrite); 
+            //stampante.write(toWrite); 
+            stringList.clear();
+            toWrite=null;
+            s=null;
         }
         System.out.println("[CSVReader]: END "+filesName);
-        
+        }catch(Exception e){ 
+            e.printStackTrace();
+                
+        }
     }
     
     public void flush(){
