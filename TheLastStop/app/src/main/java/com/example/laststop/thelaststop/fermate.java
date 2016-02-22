@@ -19,8 +19,9 @@ public class fermate extends ActionBarActivity {
         setContentView(R.layout.activity_fermate);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String line = getIntent().getExtras().getString("Linea");
+        final String capoln = getIntent().getExtras().getString("Capolinea");
         final String aux = line;
-        setTitle("Linea " + line);
+        setTitle("Linea " + line + " con capolinea " + capoln);
         ListView stop = (ListView)findViewById(R.id.listaFermate);
 
         ArrayList<String> list = getIntent().getStringArrayListExtra("fermate");
@@ -38,8 +39,11 @@ public class fermate extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String fermata = parent.getAdapter().getItem(position).toString();
+
                 Intent x = new Intent(getApplicationContext(), orari.class);
+
                 x.putExtra("Fermata", fermata);
+                x.putExtra("Capolinea", capoln);
                 x.putExtra("Linea", aux);
                 startActivity(x);
             }
