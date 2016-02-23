@@ -39,7 +39,7 @@ public class segnalazione extends ActionBarActivity {
                 AsyncDownload asd = new AsyncDownload();
                 // Es -> DataRequest:Delay:linea:capolinea:fermata:servizio:ora(hh.mm.00):ritardo(hh.mm.00)
                 String ritardo = systemTime();
-                String richiesta = "DataRequest:Delay:"+linea+":"+capoln+":"+fermata+":"+servizio+":"+ora+".00:"+ritardo;
+                String richiesta = "DataRequest:SetDelay:"+linea+":"+capoln+":"+fermata+":"+servizio+":"+ora+".00:"+ritardo;
                 Log.d("richiesta", richiesta);
                 asd.execute(richiesta);
             }
