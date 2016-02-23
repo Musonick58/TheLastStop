@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class orari extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orari);
+        StackPointerContainer.getInstance().addOrari(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String linea = getIntent().getExtras().getString("Linea");
         String fermata = getIntent().getExtras().getString("Fermata");
@@ -46,10 +48,18 @@ public class orari extends ActionBarActivity {
         orari.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent nuovo = new Intent (getApplicationContext(),segnalazione.class);
-                String ora = parent.getAdapter().getItem(position).toString();
-                nuovo.putExtra("Linea",aux1);
+               Intent nuovo = new Intent (getApplicationContext(),segnalazione.class);
+               String ora = parent.getAdapter().getItem(position).toString();
+                Log.d("tipo:",parent.getAdapter().getItem(position).getClass().getName());
+                //ArrayList<HashMap<String,String>> map = (ArrayList)parent.getAdapter().getItem(position);
+                HashMap<String,String> map = (HashMap) parent.getAdapter().getItem(position);
+                Log.d("tipo:",map.toString());
+                Log.d("tipo:",map.get("Ritardo"));
+                Log.d("tipo:",map.get("Ora Partenza"));
+                Log.d("tipo:",map.get("Ora Arrivo"));
+                nuovo.putExtra("Linea", aux1);
                 nuovo.putExtra("Fermata", aux2);
+
                 nuovo.putExtra("Ora", ora);
                 nuovo.putExtra("Capolinea", capoln);
                 nuovo.putExtra("serviceType", serviceType);
