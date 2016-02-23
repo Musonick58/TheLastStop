@@ -52,6 +52,7 @@ public class Main extends ActionBarActivity {
                     asd.execute("DataRequest:Lines:bus"); //DataRequest:Lines:bus
 
                     ArrayList<String> michelelist =  asd.get();
+                    Thread.sleep(3000);
                     Boolean bool = michelelist==null;
                     Log.d("ziojack:", "michelelist==null? " + bool.toString());
                     if(michelelist!=null){
@@ -75,6 +76,7 @@ public class Main extends ActionBarActivity {
                     line.putExtra("serviceType","navig");
                     asd.execute("DataRequest:Lines:navig");
                     ArrayList<String> michelelist =  asd.get();
+                    Thread.sleep(3000);
                     Boolean bool = michelelist==null;
                     Log.d("ziojack:","michelelist=" + bool.toString() );
                     if(michelelist!=null){

@@ -92,9 +92,6 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
         return localTime;
     }
 
-
-
-
        /* protected void onProgressUpdate(Integer... progress) {
             setProgressPercent(progress[0]);
         }*/
