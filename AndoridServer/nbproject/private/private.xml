@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< Updated upstream
             <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/database/DatabaseUpdater.java</file>
             <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/database/DBAsk.java</file>
             <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/AndoridServer.java</file>
@@ -15,6 +16,10 @@
             <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/androidData/AcceptDataRequest.java</file>
             <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/CSVReader/CSVThread.java</file>
             <file>file:/C:/Users/nichi/Documents/GitHub/TheLastStop/AndoridServer/src/andoridserver/database/DBConnector.java</file>
+=======
+            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/andoridclient/androidData/AndroidDataRequest.java</file>
+            <file>file:/Users/John/Documents/TheLastStop/AndoridServer/src/andoridserver/androidData/AcceptDataRequest.java</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>

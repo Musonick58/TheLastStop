@@ -6,8 +6,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.text.*;
-
-
 import org.json.*;
 
 /**
@@ -15,7 +13,7 @@ import org.json.*;
  * Updated by John on 17/02/2016
  */
 
-public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String> >{
+public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String> > {
 
     private String json;
 
@@ -23,11 +21,11 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
     protected ArrayList<String> doInBackground(String... params) {
         try {
             //Log.d("ziojack:","creo errore socket");
-            Socket s = new Socket("52.33.218.151",1313 );
-           // s.setSoTimeout(100);
+            Socket s = new Socket("52.33.218.151", 1313);
+            // s.setSoTimeout(100);
             String request = params[0];
-                    //params[0];
-            Log.d("json:","chiedo dati");
+            //params[0];
+            Log.d("json:", "chiedo dati");
             OutputStream os = s.getOutputStream();
             PrintStream ps = new PrintStream(os);
             ps.println(request);
@@ -46,41 +44,41 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
             Log.d("json:", "chiuso tutto");
             Log.d("json:", "***************************************************************************");
             Log.d("json:", ((Boolean) (json != null)).toString());
-            Log.d("json:",json);
+            Log.d("json:", json);
             Log.d("json:", "***************************************************************************");
             s.close();
         } catch (Exception e) {
 
             //StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getMainPointer());
-           //e.printStackTrace();
+            //e.printStackTrace();
             Log.d("ziojack: ", e.getMessage());
             //e.printStackTrace();
-           // this.cancel(true);
+            // this.cancel(true);
             return null;
 
 
         }
-        Log.d("ciao",((Boolean)(json!=null)).toString());
+        Log.d("ciao", ((Boolean) (json != null)).toString());
         return jsonToArrayList(json);
     }
 
-    protected ArrayList<String> jsonToArrayList(String input){
+    protected ArrayList<String> jsonToArrayList(String input) {
         ArrayList<String> stringArray = new ArrayList<>();
         JSONArray jArray = null;
         try {
             jArray = new JSONArray(input);
             for (int i = 0; i < jArray.length(); i++) {
                 stringArray.add(jArray.getString(i));
-               // Log.d("jsonArray "+i+":", stringArray.toString());
+                // Log.d("jsonArray "+i+":", stringArray.toString());
             }
         } catch (Exception e) {
-          //  Log.d("Exception: ", e.getMessage());
+            //  Log.d("Exception: ", e.getMessage());
             e.printStackTrace();
         }
         Log.d("jsonArray:", stringArray.toString());
         return stringArray;
     }//Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
-
+    
     protected String systemTime(){
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
         Date currentLocalTime = cal.getTime();
@@ -96,6 +94,7 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
 
 
 
+
        /* protected void onProgressUpdate(Integer... progress) {
             setProgressPercent(progress[0]);
         }*/
@@ -104,4 +103,5 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
             showDialog("Downloaded " + result + " bytes");
         }*/
 
-    }
+}
+

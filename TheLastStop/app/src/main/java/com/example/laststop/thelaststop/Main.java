@@ -48,7 +48,9 @@ public class Main extends ActionBarActivity {
                     AsyncDownload asd = new AsyncDownload();
                     line.putExtra("Trasporto", "Bus");
                     line.putExtra("serviceType","bus");
+
                     asd.execute("DataRequest:Lines:bus"); //DataRequest:Lines:bus
+
                     ArrayList<String> michelelist =  asd.get();
                     Boolean bool = michelelist==null;
                     Log.d("ziojack:", "michelelist==null? " + bool.toString());

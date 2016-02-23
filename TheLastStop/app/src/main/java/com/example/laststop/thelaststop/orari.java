@@ -3,12 +3,19 @@ package com.example.laststop.thelaststop;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 
 public class orari extends ActionBarActivity {
@@ -66,5 +73,20 @@ public class orari extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public String systemTime() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
+        Date currentLocalTime = cal.getTime();
+        DateFormat date = new SimpleDateFormat("HH:mm a");
+        // you can get seconds by adding  "...:ss" to it
+        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+
+        String localTime = date.format(currentLocalTime) + ":00";
+        //int currentHour = cal.get(Calendar.HOUR);
+        //int currentMinutes = cal.get(Calendar.MINUTE);
+        //int currentSeconds = cal.get(Calendar.SECOND);
+        Log.d("orario corrente:", localTime);
+        return localTime;
     }
 }
