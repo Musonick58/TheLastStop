@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import androidclient.AsyncDownload;
+
 public class segnalazione extends ActionBarActivity {
 
     @Override
@@ -34,10 +36,12 @@ public class segnalazione extends ActionBarActivity {
         invia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Es -> DataRequest:Delay:linea:capolinea:fermata:servizio:ora:ritardo(hh.mm.ss)
+                AsyncDownload asd = new AsyncDownload();
+                // Es -> DataRequest:Delay:linea:capolinea:fermata:servizio:ora(hh.mm.00):ritardo(hh.mm.00)
                 String ritardo = systemTime();
                 String richiesta = "DataRequest:Delay:"+linea+":"+capoln+":"+fermata+":"+servizio+":"+ora+".00:"+ritardo;
                 Log.d("richiesta", richiesta);
+                asd.execute(richiesta);
             }
         });
 
