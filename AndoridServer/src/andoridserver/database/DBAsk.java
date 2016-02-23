@@ -158,20 +158,35 @@ public class DBAsk implements DBAskInterface{
         return str;
     };
     
+    /*UPDATE stop_times   
+                     SET departure_time='19:25:00'   
+                     WHERE arrival_time='19:23:00' AND   
+                     trip_id IN ( SELECT st.trip_id   
+                     FROM trips tr,stop_times st,stops s,routes r   
+                     WHERE r.route_id=tr.route_id AND   
+                     st.stop_id=s.stop_id   AND   
+                     st.trip_id=tr.trip_id   AND   
+                     r.route_short_name='2'  AND   
+                     tr.trip_headsign='Rialto D' AND    
+                     s.stop_name='S. Basilio' AND     
+                     tr.service_id IN ( SELECT service_id  
+                   FROM    calendar 
+                   WHERE   monday='1' ) );*/
+    
     @Override
     public String dbSetDelay(String arrival_time,String delay_time,String line,String stop,String headSign){
-        String str="UPDATE stop_times\n"
-                +    "SET departure_time='"+delay_time+"'\n"
-                +    "WHERE arrival_time='"+arrival_time+"' AND\n"
-                +    "trip_id IN (SELECT st.trip_id\n"
-                +    "          FROM trips tr,stop_times st,stops s,routes r\n"
-                +    "          WHERE r.route_id=tr.route_id AND\n"
-                +    "          st.stop_id=s.stop_id   AND\n"
-                +    "          st.trip_id=tr.trip_id   AND\n"
-                +    "          r.route_short_name='"+line+"'  AND\n"
+        String str="UPDATE stop_times \n"
+                +    "SET departure_time='"+delay_time+"' \n"
+                +    "WHERE arrival_time='"+arrival_time+"' AND \n"
+                +    "trip_id IN (SELECT st.trip_id \n"
+                +    "          FROM trips tr,stop_times st,stops s,routes r \n"
+                +    "          WHERE r.route_id=tr.route_id AND \n"
+                +    "          st.stop_id=s.stop_id   AND \n"
+                +    "          st.trip_id=tr.trip_id   AND \n"
+                +    "          r.route_short_name='"+line+"'  AND \n"
                 +    "          tr.trip_headsign='"+headSign+"' AND  \n"
                 +    "          s.stop_name='"+stop+"' AND \n  "
-                + "             tr.service_id IN("+getServiceId()+");";
+                + "             tr.service_id IN("+getServiceId()+") );";
         return str;
     }
 
