@@ -51,6 +51,8 @@ public class orari extends ActionBarActivity {
                 nuovo.putExtra("Linea",aux1);
                 nuovo.putExtra("Fermata", aux2);
                 nuovo.putExtra("Ora", ora);
+                nuovo.putExtra("Capolinea", capoln);
+                nuovo.putExtra("serviceType", serviceType);
                 startActivity(nuovo);
             }
         });
@@ -89,7 +91,6 @@ public class orari extends ActionBarActivity {
          timedifference=Calendar.getInstance();
          timedifference.setTimeInMillis(timediff);
          //timedifference.get
-         timedifference;
     }
     return null;
     }

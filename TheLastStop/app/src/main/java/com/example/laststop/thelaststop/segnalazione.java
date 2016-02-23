@@ -27,7 +27,7 @@ public class segnalazione extends ActionBarActivity {
         TextView info = (TextView)findViewById(R.id.descrizione);
         final String linea = getIntent().getExtras().getString("Linea");
         final String fermata = getIntent().getExtras().getString("Fermata");
-        final String servizio = getIntent().getExtras().getString("Servizio");
+        final String servizio = getIntent().getExtras().getString("serviceType");
         final String capoln = getIntent().getExtras().getString("Capolinea");
         final String ora = getIntent().getExtras().getString("Ora").substring(15,19).replace(':', '.');
 
