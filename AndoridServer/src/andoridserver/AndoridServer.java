@@ -87,11 +87,11 @@ public class AndoridServer {
                 if (lite==false){
                     try {
                         //scarico i file per la prima volta e gli estraggo al loro posto
-                        PageReader pr = new PageReader("http://www.actv.it/opendata/navigazione", "nav");
+                        PageReader pr = new PageReader("http://actv.avmspa.it/sites/default/files/attachments/opendata/navigazione/", "nav");
                         String navlink = pr.parse();
                         System.out.println("[MAIN]: LINK NAVIGAZIONE -> " + pr.download(navlink));
                         pr.updateFiles(); //SI OCCUPA DI UNZIPARE I FILE
-                        pr = new PageReader("http://www.actv.it/opendata/automobilistico", "bus");
+                        pr = new PageReader("http://actv.avmspa.it/sites/default/files/attachments/opendata/automobilistico/", "bus");
                         String buslink = pr.parse();
                         System.out.println("[MAIN]: LINK AUTOMOBILISTICO -> " + pr.download(buslink));
                         pr.updateFiles(); //SI OCCUPA DI UNZIPARE I FILE

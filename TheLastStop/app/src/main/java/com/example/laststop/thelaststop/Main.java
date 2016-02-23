@@ -44,10 +44,11 @@ public class Main extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    Log.d("autobus:","ho cliccato bus");
                     AsyncDownload asd = new AsyncDownload();
                     line.putExtra("Trasporto", "Bus");
                     line.putExtra("serviceType","bus");
-                    asd.execute("DataRequest:Timetable:1:Civico 1227:fermata:bus"); //DataRequest:Lines:bus
+                    asd.execute("DataRequest:Lines:bus"); //DataRequest:Lines:bus
                     ArrayList<String> michelelist =  asd.get();
                     Boolean bool = michelelist==null;
                     Log.d("ziojack:", "michelelist==null? " + bool.toString());
@@ -66,6 +67,7 @@ public class Main extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    Log.d("autobus:","ho cliccato battelli");
                     AsyncDownload asd = new AsyncDownload();
                     line.putExtra("Trasporto", "Battelli");
                     line.putExtra("serviceType","navig");

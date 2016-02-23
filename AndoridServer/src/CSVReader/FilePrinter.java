@@ -45,7 +45,7 @@ public class FilePrinter {
             //DatabaseUpdater dbupdate = DatabaseUpdater.getIstance();
             String toWrite;
             toWrite=(DatabaseUpdater.updateTables2(filesName.substring(0, filesName.length()-4),csvr.getTableNames(), s))+"\n";            
-            DBConnector.getIstance().updateDatabaseServer(toWrite);
+            //DBConnector.getIstance().updateDatabaseServer(toWrite);
             stampante.write(toWrite); 
             stringList.clear();
             stringList=null;

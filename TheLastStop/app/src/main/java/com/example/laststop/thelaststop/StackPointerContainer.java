@@ -11,6 +11,8 @@ public class StackPointerContainer {
 
     private orari orariPointer;
 
+    private fermate fermatePointer;
+
     private static StackPointerContainer ref=null;
 
     private StackPointerContainer(){}
@@ -27,10 +29,14 @@ public class StackPointerContainer {
 
     public void addOrari(orari o){ this.orariPointer=o; }
 
+    public void addFermate(fermate o){this.fermatePointer=o;}
+
     public Main getMainPointer(){ return mainPointer; }
 
     public linee getLineePointer(){ return lineePointer; }
 
     public orari getOrariPointer(){ return orariPointer; }
+
+    public fermate getFermatePointer(){ return fermatePointer; }
 
 }

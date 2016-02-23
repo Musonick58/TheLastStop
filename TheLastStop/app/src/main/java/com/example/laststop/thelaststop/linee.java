@@ -54,6 +54,7 @@ public class linee extends ActionBarActivity {
                                                     stops.putExtra("Linea", splitedString[0]);
                                                     stops.putExtra("Capolinea", splitedString[1]);
                                                     stops.putExtra("Trasporto", aux);
+                                                   stops.putExtra("serviceType",serviceType);
 
                                                    if(fermate!=null){
                                                        stops.putStringArrayListExtra("fermate", fermate);

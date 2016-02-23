@@ -2,16 +2,11 @@ package androidclient;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import java.text.*;
 
-import com.example.laststop.thelaststop.StackPointerContainer;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import org.json.*;
 
@@ -91,12 +86,12 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
         Date currentLocalTime = cal.getTime();
         DateFormat date = new SimpleDateFormat("HH:mm a");
         // you can get seconds by adding  "...:ss" to it
-        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-
+           date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
         String localTime = date.format(currentLocalTime);
-        int currentHour = cal.get(Calendar.HOUR);
-        int currentMinutes = cal.get(Calendar.MINUTE);
-        int currentSeconds = cal.get(Calendar.SECOND);
+        //int currentHour = cal.get(Calendar.HOUR);
+        //int currentMinutes = cal.get(Calendar.MINUTE);
+        //int currentSeconds = cal.get(Calendar.SECOND);
+        return localTime;
     }
 
 

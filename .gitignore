@@ -8,6 +8,8 @@
 *.class
 **.class
 
+TheLastStop/.idea/
+TheLastStop/.idea/*.*
 TheLastStop/.idea/runConfigurations.xml
 
 TheLastStop/.idea/modules.xml

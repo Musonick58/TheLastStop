@@ -100,6 +100,7 @@ public class DBConnector implements DBInterface {
         return query;
     }
 
+    @SuppressWarnings("CallToPrintStackTrace")
     public boolean updateTable() {
         Statement statement;
         try {
@@ -231,11 +232,14 @@ public class DBConnector implements DBInterface {
                     + ")";
             result = statement.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println("ignora");
+            return false;
         }
         return true;
     }
-
+    @SuppressWarnings("CallToPrintStackTrace")
     public boolean dropDB() {
         try {
             Statement statement = con.createStatement();
@@ -258,7 +262,9 @@ public class DBConnector implements DBInterface {
             sql = "DROP TABLE trips_shape CASCADE;";
             result = statement.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            System.out.println("ignora");
+            return false;
         }
         return true;
     }
@@ -386,14 +392,14 @@ public class DBConnector implements DBInterface {
         System.out.println("Trying to connect...");
         //System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "autobus"));
         //System.out.println(db.executeQuery("SELECT * FROM nick").getDataAsList().get(0));     
-        System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "battelli"));
+        System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "autobus"));
         //System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "autobus"));
-        if (!db.dropDB()) {
+       /* if (!db.updateTable()) {
             System.out.println("costruzione non riouscita");
-        }
+        }*/
         System.out.println(db.connect("postgresql", "52.33.218.151", 5432, "battelli"));
         if (!db.updateTable()) {
-            System.out.println("costruzione non riouscita");
+            System.out.println("costruzione non riuscita");
         }
         /*
         if( !db.dropDB() ){
