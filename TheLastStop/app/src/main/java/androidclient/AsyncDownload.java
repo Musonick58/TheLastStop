@@ -78,7 +78,7 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
         Log.d("jsonArray:", stringArray.toString());
         return stringArray;
     }//Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
-    
+
     protected String systemTime(){
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
         Date currentLocalTime = cal.getTime();

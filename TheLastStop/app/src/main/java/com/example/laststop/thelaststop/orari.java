@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.TimeZone;
 
@@ -27,6 +28,8 @@ public class orari extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String linea = getIntent().getExtras().getString("Linea");
         String fermata = getIntent().getExtras().getString("Fermata");
+        final String capoln = getIntent().getExtras().getString("Capolinea");
+        final String serviceType = getIntent().getExtras().getString("serviceType");
         final String aux1 = linea;
         final String aux2 = fermata;
         setTitle("Linea " + linea + " fermata di " + fermata);
@@ -51,6 +54,23 @@ public class orari extends ActionBarActivity {
                 startActivity(nuovo);
             }
         });
+    }
+
+    public ArrayList<String> calcolaRitardo(ArrayList<String> timetable, ArrayList<String> ritardi ){
+    Date data = new Date();
+
+     for(int i=0;i<timetable.size();i++){
+        String temporario= timetable.get(i);
+        String[] patenzahms = temporario.split(":");
+        String tempritardo = ritardi.get(i);
+        String[] ritardohms = tempritardo.split(":");
+
+
+
+
+
+    }
+
     }
 
     public void populate(String s){

@@ -57,6 +57,7 @@ public class fermate extends ActionBarActivity {
                         x.putExtra("Fermata", fermata);
                         x.putExtra("Capolinea", capoln);
                         x.putExtra("Linea", linea);
+                        x.putExtra("serviceType",serviceType);
                         x.putStringArrayListExtra("timetable",timetable);
                         x.putStringArrayListExtra("ritardi",ritardi);
                         startActivity(x);
