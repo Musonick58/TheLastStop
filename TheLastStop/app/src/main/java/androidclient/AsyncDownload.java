@@ -91,22 +91,6 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
         return stringArray;
     }//Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
 
-    protected String systemTime() {
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
-        Date currentLocalTime = cal.getTime();
-        DateFormat date = new SimpleDateFormat("HH:mm a");
-        // you can get seconds by adding  "...:ss" to it
-        date.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
-
-        String localTime = date.format(currentLocalTime);
-        int currentHour = cal.get(Calendar.HOUR);
-        int currentMinutes = cal.get(Calendar.MINUTE);
-        int currentSeconds = cal.get(Calendar.SECOND);
-
-        return localTime;
-    }
-
-
 
        /* protected void onProgressUpdate(Integer... progress) {
             setProgressPercent(progress[0]);
@@ -115,5 +99,6 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
        /* protected void onPostExecute(Long result) {
             showDialog("Downloaded " + result + " bytes");
         }*/
+
 }
 
