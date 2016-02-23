@@ -58,19 +58,39 @@ public class orari extends ActionBarActivity {
 
     public ArrayList<String> calcolaRitardo(ArrayList<String> timetable, ArrayList<String> ritardi ){
     Date data = new Date();
-
+        Calendar ritardic = new GregorianCalendar ();
+        Calendar partenza = new GregorianCalendar();
+        Calendar timedifference;
      for(int i=0;i<timetable.size();i++){
         String temporario= timetable.get(i);
-        String[] patenzahms = temporario.split(":");
+        String[] partenzahms = temporario.split(":");
         String tempritardo = ritardi.get(i);
         String[] ritardohms = tempritardo.split(":");
+         ritardic.set (Calendar.HOUR_OF_DAY, Integer.parseInt(partenzahms[0]));
+         ritardic.set (Calendar.MINUTE, Integer.parseInt(partenzahms[1]));
+         ritardic.set (Calendar.SECOND, Integer.parseInt(partenzahms[2]));
+         ritardic.set(Calendar.MILLISECOND, 0);
 
+         partenza.set (Calendar.HOUR_OF_DAY, Integer.parseInt(partenzahms[0]));
+         partenza.set (Calendar.MINUTE, Integer.parseInt(partenzahms[1]));
+         partenza.set (Calendar.SECOND, Integer.parseInt(partenzahms[2]));
+         partenza.set(Calendar.MILLISECOND, 0);
 
+         long partenzamillis = partenza.getTimeInMillis();
+         long ritardomillis = ritardic.getTimeInMillis();
+         long timediff;
+         if(ritardomillis > partenzamillis){
+              timediff= ritardomillis - partenzamillis;
+         }
+         else{
+             timediff = 0;
+         }
 
-
-
+         timedifference=Calendar.getInstance();
+         timedifference.setTimeInMillis(timediff);
+         //timedifference.get
     }
-
+    return null;
     }
 
     public void populate(String s){
