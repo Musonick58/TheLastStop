@@ -38,7 +38,7 @@ public class orari extends ActionBarActivity {
 
         ListView orari = (ListView)findViewById(R.id.listaOrari);
 
-        populate(linea);
+        populate(getIntent().getExtras().getStringArrayList("timetable"), getIntent().getExtras().getStringArrayList("ritardi"));
 
         myListAdapter adapter = new myListAdapter(this,list);
         /*adapter.getView();*/
@@ -100,19 +100,19 @@ public class orari extends ActionBarActivity {
 
          timedifference=Calendar.getInstance();
          timedifference.setTimeInMillis(timediff);
-         //timedifference.get
     }
     return null;
     }
 
-    public void populate(String s){
+    public void populate(ArrayList<String> arrivi, ArrayList<String> partenze){
+        ArrayList<String> listaRitardi = calcolaRitardo(arrivi, partenze);
         list = new ArrayList<HashMap>();
         int i;
         for( i = 0; i<15; i++) {
             HashMap temp = new HashMap();
-            temp.put("Ora Arrivo", "18:20");
-            temp.put("Ora Partenza", "18:22");
-            temp.put("Ritardo", "2 min");
+            temp.put("Ora Arrivo", arrivi.get(i));
+            temp.put("Ora Partenza", partenze.get(i));
+            temp.put("Ritardo", listaRitardi.get(i));
             list.add(temp);
         }
     }
