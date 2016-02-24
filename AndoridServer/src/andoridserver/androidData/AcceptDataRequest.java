@@ -177,9 +177,11 @@ public class AcceptDataRequest extends Thread {
                     else 
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "battelli" );
                         System.out.println("******"+lineStr);//2:Stop:navig
-                        System.out.println(oraArrivo.replace(".",":"));
-                        System.out.println(oraPartenza.replace(".",":"));
-                        info = DBConnector.getIstance().executeDelay(send.query.dbSetDelay( oraArrivo.replaceAll(".",":"), oraPartenza.replaceAll(".",":"), lineStr, stopName, headsign));
+                        oraArrivo=oraArrivo.replace(".",":");
+                        System.out.println(  oraArrivo);
+                        oraPartenza=oraPartenza.replace(".",":");
+                        System.out.println(oraPartenza);
+                        info = DBConnector.getIstance().executeDelay(send.query.dbSetDelay( oraArrivo, oraPartenza, lineStr, stopName, headsign));
                         send.toSend(info);
                         send.send();
                 }               
