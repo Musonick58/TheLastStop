@@ -70,7 +70,7 @@ public class Main extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Log.d("autobus:","ho cliccato battelli");
+                    Log.d("battelli:","ho cliccato battelli");
                     AsyncDownload asd = new AsyncDownload();
                     line.putExtra("Trasporto", "Battelli");
                     line.putExtra("serviceType","navig");
