@@ -16,7 +16,9 @@
         android:id="@+id/listaOrari"
         android:background="#91b4ff"
         android:divider="#616161"
-        android:dividerHeight="2dp" />
+        android:dividerHeight="2dp"
+        android:layout_above="@+id/segnala"
+        android:layout_below="@+id/arrivo" />
 
     <TextView
         android:layout_width="match_parent"
@@ -27,4 +29,35 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/arrivo"
+        android:text="Ora arrivo"
+        android:textAlignment="center"
+        android:layout_alignLeft="@+id/listaOrari"
+        android:textSize="20dp"
+        android:layout_alignParentTop="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/partenza"
+        android:text="Ora Partenza"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ritardo"
+        android:id="@+id/textView3"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_above="@+id/listaOrari"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingRight="20dp" />
 </RelativeLayout>

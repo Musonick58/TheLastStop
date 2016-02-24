@@ -10,6 +10,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="First"
+        android:textSize="20dp"
+        android:textAlignment="center"
         android:layout_weight="1">
     </TextView>
 
@@ -18,6 +20,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Second"
+        android:textSize="20dp"
+        android:textAlignment="center"
         android:layout_weight="1">
     </TextView>
 
@@ -26,6 +30,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Third"
+        android:textSize="20dp"
+        android:textAlignment="center"
         android:layout_weight="1">
     </TextView>
 </LinearLayout>
