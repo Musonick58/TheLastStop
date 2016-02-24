@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -40,7 +41,6 @@ public class segnalazione extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 AsyncDownload asd = new AsyncDownload();
-                Intent x = new Intent(getApplicationContext(), orari.class);
                 // Es -> DataRequest:SetDelay:linea:capolinea:fermata:servizio:ora(hh.mm.00):ritardo(hh.mm.00)
                 String ritardo = systemTime();
                 String richiesta = "DataRequest:SetDelay:" + linea + ":" + capoln + ":" + fermata + ":" + servizio + ":" + ora.replace(":", ".") + ":" + ritardo;
@@ -48,7 +48,7 @@ public class segnalazione extends ActionBarActivity {
                 asd.execute(richiesta);
                 try{
                     if(asd.get().get(0).equals("nothing to send")) {
-                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
+                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione "+systemTime()+" Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
                         Log.d("ritardo", "Segnalato ritardo "+systemTime());
                     }
                     else
@@ -91,4 +91,11 @@ public class segnalazione extends ActionBarActivity {
         Log.d("orario corrente", ritardo);
         return ritardo;
     }
+
+    /* @Override
+    public void onBackPressed() {
+        ArrayList<String> timeTable = getIntent().getExtras().getStringArrayList("timetable");
+        ArrayList<String> ritardi = getIntent().getExtras().getStringArrayList("ritardi");
+        StackPointerContainer.getInstance().getOrariPointer().populate(timeTable, ritardi);
+    } */
 }

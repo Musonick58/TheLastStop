@@ -25,6 +25,7 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
             // s.setSoTimeout(100);
             String request = params[0];
             //params[0];
+            Log.d("json request:", params[0]);
             Log.d("json:", "chiedo dati");
             OutputStream os = s.getOutputStream();
             PrintStream ps = new PrintStream(os);

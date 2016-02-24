@@ -19,21 +19,28 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.TimeZone;
 
+import androidclient.AsyncDownload;
+
 
 public class orari extends ActionBarActivity {
     private ArrayList<HashMap> list;
     private String orario = null;
     private Integer pos = null;
+    String linea;
+    String fermata;
+    String capoln;
+    String serviceType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orari);
         StackPointerContainer.getInstance().addOrari(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        String linea = getIntent().getExtras().getString("Linea");
-        String fermata = getIntent().getExtras().getString("Fermata");
-        final String capoln = getIntent().getExtras().getString("Capolinea");
-        final String serviceType = getIntent().getExtras().getString("serviceType");
+        linea = getIntent().getExtras().getString("Linea");
+        fermata = getIntent().getExtras().getString("Fermata");
+        capoln = getIntent().getExtras().getString("Capolinea");
+        serviceType = getIntent().getExtras().getString("serviceType");
         final String aux1 = linea;
         final String aux2 = fermata;
         ArrayList<String> timeTable = getIntent().getExtras().getStringArrayList("timetable");
@@ -142,13 +149,7 @@ public class orari extends ActionBarActivity {
                 long ritardomillis = ritardic.getTimeInMillis();
                 long ritsegnalatordomillis = ritsegnalato.getTimeInMillis();
                 long timediff;
-                if(ritardomillis > partenzamillis){
-                    timediff = ritardomillis - partenzamillis;
-                }
-                else{
-                    timediff = 0;
-                }
-
+                timediff = ritardomillis - partenzamillis + ritsegnalatordomillis;
                 timedifference = Calendar.getInstance();
                 timedifference.setTimeInMillis(timediff);
                 int minutes = timedifference.get(Calendar.MINUTE);
@@ -199,5 +200,27 @@ public class orari extends ActionBarActivity {
 
     public void setDelay(String orario){
         this.orario = orario;
+    }
+
+    @Override
+    public void onResume() {
+        try{
+            AsyncDownload asd = new AsyncDownload();
+            asd.execute("DataRequest:TimeTable:" + linea + ":" + capoln + ":" + fermata + ":" + serviceType);
+            ArrayList<String> timeTable= asd.get();
+            AsyncDownload asd2 = new AsyncDownload();
+            asd2.execute("DataRequest:Delay:" + linea + ":" + capoln + ":" + fermata + ":" + serviceType);
+            ArrayList<String> ritardi=asd2.get();
+            Thread.sleep(1500);
+            populate(timeTable, ritardi);
+            ListView orari = (ListView)findViewById(R.id.listaOrari);
+            myListAdapter adapter = new myListAdapter(this,list);
+        /*adapter.getView();*/
+            orari.setAdapter(adapter);
+            super.onResume();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
