@@ -29,7 +29,7 @@ public class segnalazione extends ActionBarActivity {
         final String fermata = getIntent().getExtras().getString("Fermata");
         final String servizio = getIntent().getExtras().getString("serviceType");
         final String capoln = getIntent().getExtras().getString("Capolinea");
-        final String ora = getIntent().getExtras().getString("Ora") + ":00";
+        final String ora = getIntent().getExtras().getString("Ora");
 
         info.setText("Segnalazione ritardo sulla linea " + linea + " fermata di " + fermata + " delle ore " + ora + ". L'ora della segnalazione sara' rilevata automaticamente");
 
@@ -37,7 +37,7 @@ public class segnalazione extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 AsyncDownload asd = new AsyncDownload();
-                // Es -> DataRequest:Delay:linea:capolinea:fermata:servizio:ora(hh.mm.00):ritardo(hh.mm.00)
+                // Es -> DataRequest:SetDelay:linea:capolinea:fermata:servizio:ora(hh.mm.00):ritardo(hh.mm.00)
                 String ritardo = systemTime();
                 String richiesta = "DataRequest:SetDelay:" + linea + ":" + capoln + ":" + fermata + ":" + servizio + ":" + ora.replace(":", ".") + ":" + ritardo;
                 Log.d("richiesta", richiesta);
