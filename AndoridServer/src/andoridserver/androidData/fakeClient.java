@@ -34,7 +34,7 @@ public class fakeClient {
     
     public void request(){
         try {
-            String request="DataRequest:Lines:navig";//"DataRequest:Timetable:2:Sacca Fisola DX:navig";
+            String request="DataRequest:SetDelay:2:Rialto D:S. Basilio:navig:19.25.00:19.23.00\n";//"DataRequest:Timetable:2:Sacca Fisola DX:navig";
             OutputStream os = this.s.getOutputStream();
             PrintStream ps = new PrintStream(os);
             ps.println(request);

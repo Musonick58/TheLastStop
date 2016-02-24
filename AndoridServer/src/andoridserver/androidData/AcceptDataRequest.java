@@ -181,9 +181,17 @@ public class AcceptDataRequest extends Thread {
                         System.out.println(  oraArrivo);
                         oraPartenza=oraPartenza.replace(".",":");
                         System.out.println(oraPartenza);
-                        info = DBConnector.getIstance().executeDelay(send.query.dbSetDelay( oraArrivo, oraPartenza, lineStr, stopName, headsign));
-                        send.toSend(info);
-                        send.send();
+                        DBConnector.getIstance().executeSetDelay(send.query.dbSetDelay( oraArrivo, oraPartenza, lineStr, stopName, headsign));
+                    try {
+                        
+                        PrintStream ps = new PrintStream(socket.getOutputStream());
+                        ps.println("[\"nothing to send\"]");
+                        ps.flush();
+                        ps.close();
+                        ps=null;
+                    } catch (IOException ex) {
+                        Logger.getLogger(AcceptDataRequest.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }               
                 if (temp.startsWith("Lines:")) {
                     temp = temp.substring("Lines:".length());

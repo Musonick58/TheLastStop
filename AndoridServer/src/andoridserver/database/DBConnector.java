@@ -334,6 +334,8 @@ public class DBConnector implements DBInterface {
         }
         return adi;
     }
+    
+    
 
     @Override
     public AndroidDataInterface executeLines(String compiledQuery) {
@@ -351,6 +353,26 @@ public class DBConnector implements DBInterface {
         }
         return adi;
     }
+    
+        /*TODO: fare la parte legata al db*/
+    
+    public void executeSetDelay(String compiledQuery) {
+       int risultato=-1;
+        try {
+            Statement statement = con.createStatement();
+            risultato = statement.executeUpdate(compiledQuery);//executeQuery(compiledQuery);
+            System.out.println(risultato);
+            //con.commit();
+           // while(resultSet.next()){
+          //      System.out.println(resultSet.toString());
+          //  }
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
 
     /*TODO: fare la parte legata al db*/
     @Override
