@@ -49,17 +49,16 @@ public class orari extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                Intent nuovo = new Intent (getApplicationContext(),segnalazione.class);
-               String ora = parent.getAdapter().getItem(position).toString();
+                String ora = parent.getAdapter().getItem(position).toString();
                 Log.d("tipo:",parent.getAdapter().getItem(position).getClass().getName());
-                //ArrayList<HashMap<String,String>> map = (ArrayList)parent.getAdapter().getItem(position);
                 HashMap<String,String> map = (HashMap) parent.getAdapter().getItem(position);
                 Log.d("tipo:",map.toString());
                 Log.d("tipo:",map.get("Ritardo"));
                 Log.d("tipo:",map.get("Ora Partenza"));
+                ora = map.get("Ora Partenza");
                 Log.d("tipo:",map.get("Ora Arrivo"));
                 nuovo.putExtra("Linea", aux1);
                 nuovo.putExtra("Fermata", aux2);
-
                 nuovo.putExtra("Ora", ora);
                 nuovo.putExtra("Capolinea", capoln);
                 nuovo.putExtra("serviceType", serviceType);
@@ -79,9 +78,9 @@ public class orari extends ActionBarActivity {
          String tempritardo = ritardi.get(i);
          String[] ritardohms = tempritardo.split(":");
 
-         ritardic.set (Calendar.HOUR_OF_DAY, Integer.parseInt(partenzahms[0]));
-         ritardic.set (Calendar.MINUTE, Integer.parseInt(partenzahms[1]));
-         ritardic.set (Calendar.SECOND, Integer.parseInt(partenzahms[2]));
+         ritardic.set (Calendar.HOUR_OF_DAY, Integer.parseInt(ritardohms[0]));
+         ritardic.set (Calendar.MINUTE, Integer.parseInt(ritardohms[1]));
+         ritardic.set (Calendar.SECOND, Integer.parseInt(ritardohms[2]));
          ritardic.set(Calendar.MILLISECOND, 0);
 
          partenza.set (Calendar.HOUR_OF_DAY, Integer.parseInt(partenzahms[0]));

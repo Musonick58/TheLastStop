@@ -21,7 +21,7 @@ public class myListAdapter extends BaseAdapter{
         this.activity = activity;
         this.list = list;
     }
-        @Override
+    @Override
     public int getCount() {
         return list.size();
     }

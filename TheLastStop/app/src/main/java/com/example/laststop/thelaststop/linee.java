@@ -50,11 +50,12 @@ public class linee extends ActionBarActivity {
                                                     String[] splitedString = splitLineFromHeadsign(entry);
                                                     asd.execute("DataRequest:Stops:" + splitedString[0] + ":" + splitedString[1] + ":" + serviceType);
                                                     ArrayList<String> fermate = asd.get();
+                                                    Thread.sleep(1500);
                                                     Log.d("ziojack:", "Linea: " + splitedString[0] + " capolinea:" + splitedString[1]);
                                                     stops.putExtra("Linea", splitedString[0]);
                                                     stops.putExtra("Capolinea", splitedString[1]);
                                                     stops.putExtra("Trasporto", aux);
-                                                   stops.putExtra("serviceType",serviceType);
+                                                    stops.putExtra("serviceType",serviceType);
 
                                                    if(fermate!=null){
                                                        stops.putStringArrayListExtra("fermate", fermate);

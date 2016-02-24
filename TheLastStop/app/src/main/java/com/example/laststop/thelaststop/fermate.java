@@ -51,7 +51,7 @@ public class fermate extends ActionBarActivity {
                     AsyncDownload asd2 = new AsyncDownload();
                     asd2.execute("DataRequest:TimeTable:" + linea + ":" + capoln + ":" + fermata + ":" + serviceType);
                     ArrayList<String> ritardi=asd2.get();
-                    Thread.sleep(3000);
+                    Thread.sleep(1500);
                     Intent x = new Intent(getApplicationContext(), orari.class);
                     if(timetable!=null && ritardi!=null){
                         x.putExtra("Fermata", fermata);

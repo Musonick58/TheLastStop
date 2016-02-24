@@ -23,13 +23,13 @@ public class segnalazione extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_segnalazione);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Button invia = (Button)findViewById(R.id.invia);
-        TextView info = (TextView)findViewById(R.id.descrizione);
+        Button invia = (Button) findViewById(R.id.invia);
+        TextView info = (TextView) findViewById(R.id.descrizione);
         final String linea = getIntent().getExtras().getString("Linea");
         final String fermata = getIntent().getExtras().getString("Fermata");
         final String servizio = getIntent().getExtras().getString("serviceType");
         final String capoln = getIntent().getExtras().getString("Capolinea");
-        final String ora = getIntent().getExtras().getString("Ora").substring(15,19).replace(':', '.') + ".00";
+        final String ora = getIntent().getExtras().getString("Ora") + ":00";
 
         info.setText("Segnalazione ritardo sulla linea " + linea + " fermata di " + fermata + " delle ore " + ora + ". L'ora della segnalazione sara' rilevata automaticamente");
 
@@ -39,7 +39,7 @@ public class segnalazione extends ActionBarActivity {
                 AsyncDownload asd = new AsyncDownload();
                 // Es -> DataRequest:Delay:linea:capolinea:fermata:servizio:ora(hh.mm.00):ritardo(hh.mm.00)
                 String ritardo = systemTime();
-                String richiesta = "DataRequest:SetDelay:"+linea+":"+capoln+":"+fermata+":"+servizio+":"+ora+":"+ritardo;
+                String richiesta = "DataRequest:SetDelay:" + linea + ":" + capoln + ":" + fermata + ":" + servizio + ":" + ora.replace(":", ".") + ":" + ritardo;
                 Log.d("richiesta", richiesta);
                 asd.execute(richiesta);
             }
