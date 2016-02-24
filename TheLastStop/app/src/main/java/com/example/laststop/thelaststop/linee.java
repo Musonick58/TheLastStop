@@ -34,7 +34,7 @@ public class linee extends ActionBarActivity {
         final String aux = trasporto;
        // AsyncDownload asd = new AsyncDownload();
         //JOHN : modifica il metodo populate per passare i dati alla lista
-        List<String> lines = getIntent().getExtras().getStringArrayList("lineearr"); //TODO: da riempire da John con nome delle linee(es.31,32,ecc)
+        List<String> lines = getIntent().getExtras().getStringArrayList("lineearr");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lines);
         ListView listView = (ListView) findViewById(R.id.listaLinee);
         listView.setAdapter(adapter);

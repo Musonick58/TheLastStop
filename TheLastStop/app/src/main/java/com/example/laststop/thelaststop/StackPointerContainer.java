@@ -13,6 +13,8 @@ public class StackPointerContainer {
 
     private fermate fermatePointer;
 
+    private segnalazione segnPointer;
+
     private static StackPointerContainer ref=null;
 
     private StackPointerContainer(){}
@@ -31,6 +33,8 @@ public class StackPointerContainer {
 
     public void addFermate(fermate o){this.fermatePointer=o;}
 
+    public void addSegnalazione(segnalazione o){this.segnPointer=o;}
+
     public Main getMainPointer(){ return mainPointer; }
 
     public linee getLineePointer(){ return lineePointer; }
@@ -38,5 +42,7 @@ public class StackPointerContainer {
     public orari getOrariPointer(){ return orariPointer; }
 
     public fermate getFermatePointer(){ return fermatePointer; }
+
+    public segnalazione getSegnalazionePointer(){ return segnPointer; }
 
 }

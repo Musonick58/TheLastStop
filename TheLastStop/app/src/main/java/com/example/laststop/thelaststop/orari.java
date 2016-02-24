@@ -22,6 +22,8 @@ import java.util.TimeZone;
 
 public class orari extends ActionBarActivity {
     private ArrayList<HashMap> list;
+    private String orario = null;
+    private Integer pos = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +48,13 @@ public class orari extends ActionBarActivity {
         /*adapter.getView();*/
         orari.setAdapter(adapter);
 
+
         /* aggiungere listener su click della lista */
         orari.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               Intent nuovo = new Intent (getApplicationContext(),segnalazione.class);
+                pos = position;
+                Intent nuovo = new Intent (getApplicationContext(),segnalazione.class);
                 String ora = parent.getAdapter().getItem(position).toString();
                 Log.d("tipo:",parent.getAdapter().getItem(position).getClass().getName());
                 HashMap<String,String> map = (HashMap) parent.getAdapter().getItem(position);
@@ -75,38 +79,83 @@ public class orari extends ActionBarActivity {
         Calendar partenza = new GregorianCalendar();
         Calendar timedifference;
         ArrayList<String> listaRitardi = new ArrayList<>();
-        for(int i = 0; i < timetable.size(); i++){
-             String temporario = timetable.get(i);
-             String[] partenzahms = temporario.split(":");
-             String tempritardo = ritardi.get(i);
-             String[] ritardohms = tempritardo.split(":");
+        if(orario == null){ //primo caricamento, nessuno ritardo segnalato
+            for(int i = 0; i < timetable.size(); i++){
+                String temporario = timetable.get(i);
+                String[] partenzahms = temporario.split(":");
+                String tempritardo = ritardi.get(i);
+                String[] ritardohms = tempritardo.split(":");
 
-             ritardic.set (Calendar.HOUR_OF_DAY, Integer.parseInt(ritardohms[0]));
-             ritardic.set (Calendar.MINUTE, Integer.parseInt(ritardohms[1]));
-             ritardic.set (Calendar.SECOND, Integer.parseInt(ritardohms[2]));
-             ritardic.set(Calendar.MILLISECOND, 0);
+                ritardic.set (Calendar.HOUR_OF_DAY, Integer.parseInt(ritardohms[0]));
+                ritardic.set (Calendar.MINUTE, Integer.parseInt(ritardohms[1]));
+                ritardic.set (Calendar.SECOND, Integer.parseInt(ritardohms[2]));
+                ritardic.set(Calendar.MILLISECOND, 0);
 
-             partenza.set (Calendar.HOUR_OF_DAY, Integer.parseInt(partenzahms[0]));
-             partenza.set (Calendar.MINUTE, Integer.parseInt(partenzahms[1]));
-             partenza.set (Calendar.SECOND, Integer.parseInt(partenzahms[2]));
-             partenza.set(Calendar.MILLISECOND, 0);
+                partenza.set (Calendar.HOUR_OF_DAY, Integer.parseInt(partenzahms[0]));
+                partenza.set (Calendar.MINUTE, Integer.parseInt(partenzahms[1]));
+                partenza.set (Calendar.SECOND, Integer.parseInt(partenzahms[2]));
+                partenza.set(Calendar.MILLISECOND, 0);
 
-             long partenzamillis = partenza.getTimeInMillis();
-             long ritardomillis = ritardic.getTimeInMillis();
-             long timediff;
-             if(ritardomillis > partenzamillis){
-                  timediff = ritardomillis - partenzamillis;
-             }
-             else{
-                 timediff = 0;
-             }
+                long partenzamillis = partenza.getTimeInMillis();
+                long ritardomillis = ritardic.getTimeInMillis();
+                long timediff;
+                if(ritardomillis > partenzamillis){
+                    timediff = ritardomillis - partenzamillis;
+                }
+                else{
+                    timediff = 0;
+                }
 
-             timedifference = Calendar.getInstance();
-             timedifference.setTimeInMillis(timediff);
-             int minutes = timedifference.get(Calendar.MINUTE);
-             listaRitardi.add(Integer.toString(minutes));
+                timedifference = Calendar.getInstance();
+                timedifference.setTimeInMillis(timediff);
+                int minutes = timedifference.get(Calendar.MINUTE);
+                listaRitardi.add(Integer.toString(minutes));
+            }
+            return listaRitardi;
         }
-        return listaRitardi;
+        else{ // ripopolamento con ritardo segnalato
+            String[] ritsplittato = orario.split(".");
+            Calendar ritsegnalato = new GregorianCalendar();
+            int ritminuti = Integer.parseInt(ritsplittato[1]);
+            for(int i = pos; i < timetable.size(); i++){
+                String temporario = timetable.get(i);
+                String[] partenzahms = temporario.split(":");
+                String tempritardo = ritardi.get(i);
+                String[] ritardohms = tempritardo.split(":");
+
+                ritardic.set (Calendar.HOUR_OF_DAY, Integer.parseInt(ritardohms[0]));
+                ritardic.set (Calendar.MINUTE, Integer.parseInt(ritardohms[1]));
+                ritardic.set (Calendar.SECOND, Integer.parseInt(ritardohms[2]));
+                ritardic.set(Calendar.MILLISECOND, 0);
+
+                partenza.set (Calendar.HOUR_OF_DAY, Integer.parseInt(partenzahms[0]));
+                partenza.set (Calendar.MINUTE, Integer.parseInt(partenzahms[1]));
+                partenza.set (Calendar.SECOND, Integer.parseInt(partenzahms[2]));
+                partenza.set(Calendar.MILLISECOND, 0);
+
+                ritsegnalato.set(Calendar.HOUR_OF_DAY, Integer.parseInt(ritsplittato[0]));
+                ritsegnalato.set (Calendar.MINUTE, Integer.parseInt(ritsplittato[1]));
+                ritsegnalato.set(Calendar.SECOND, Integer.parseInt(ritsplittato[2]));
+                ritsegnalato.set(Calendar.MILLISECOND, 0);
+
+                long partenzamillis = partenza.getTimeInMillis();
+                long ritardomillis = ritardic.getTimeInMillis();
+                long ritsegnalatordomillis = ritsegnalato.getTimeInMillis();
+                long timediff;
+                if(ritardomillis > partenzamillis){
+                    timediff = ritardomillis - partenzamillis;
+                }
+                else{
+                    timediff = 0;
+                }
+
+                timedifference = Calendar.getInstance();
+                timedifference.setTimeInMillis(timediff);
+                int minutes = timedifference.get(Calendar.MINUTE);
+                listaRitardi.add(Integer.toString(minutes));
+            }
+            return listaRitardi;
+        }
     }
 
     public void populate(ArrayList<String> arrivi, ArrayList<String> partenze){
@@ -145,5 +194,10 @@ public class orari extends ActionBarActivity {
         //int currentSeconds = cal.get(Calendar.SECOND);
         Log.d("orario corrente:", localTime);
         return localTime;
+    }
+
+
+    public void setDelay(String orario){
+        this.orario = orario;
     }
 }

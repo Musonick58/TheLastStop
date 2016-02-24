@@ -1,5 +1,6 @@
 package com.example.laststop.thelaststop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -18,11 +19,13 @@ import androidclient.AsyncDownload;
 
 public class segnalazione extends ActionBarActivity {
 
+    private String rit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_segnalazione);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        StackPointerContainer.getInstance().addSegnalazione(this);
         Button invia = (Button) findViewById(R.id.invia);
         TextView info = (TextView) findViewById(R.id.descrizione);
         final String linea = getIntent().getExtras().getString("Linea");
@@ -37,11 +40,24 @@ public class segnalazione extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 AsyncDownload asd = new AsyncDownload();
+                Intent x = new Intent(getApplicationContext(), orari.class);
                 // Es -> DataRequest:SetDelay:linea:capolinea:fermata:servizio:ora(hh.mm.00):ritardo(hh.mm.00)
                 String ritardo = systemTime();
                 String richiesta = "DataRequest:SetDelay:" + linea + ":" + capoln + ":" + fermata + ":" + servizio + ":" + ora.replace(":", ".") + ":" + ritardo;
                 Log.d("richiesta", richiesta);
                 asd.execute(richiesta);
+                try{
+                    if(asd.get().get(0).equals("nothing to send")) {
+                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
+                        Log.d("ritardo", "Segnalato ritardo "+systemTime());
+                    }
+                    else
+                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), costanti.CON_SERVER_ERR_MSG,costanti.CON_TOAST_ERR_MSG);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+
             }
         });
 
@@ -51,7 +67,9 @@ public class segnalazione extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                StackPointerContainer.getInstance().getOrariPointer().setDelay(rit);
                 this.onBackPressed();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
