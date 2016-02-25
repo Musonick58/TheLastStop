@@ -33,6 +33,7 @@ public class orari extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("metodo","Sono entrato su onCreate di orari.java");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orari);
         StackPointerContainer.getInstance().addOrari(this);
@@ -81,6 +82,7 @@ public class orari extends ActionBarActivity {
     }
 
     public ArrayList<String> calcolaRitardo(ArrayList<String> timetable, ArrayList<String> ritardi){
+        Log.d("metodo","Sono entrato su calcolaRitardo di orari.java");
         Date data = new Date();
         Calendar ritardic = new GregorianCalendar ();
         Calendar partenza = new GregorianCalendar();
@@ -160,6 +162,7 @@ public class orari extends ActionBarActivity {
     }
 
     public void populate(ArrayList<String> arrivi, ArrayList<String> partenze){
+        Log.d("metodo","Sono entrato su populate di orari.java");
         ArrayList<String> listaRitardi = calcolaRitardo(arrivi, partenze);
         list = new ArrayList<HashMap>();
         int i;
@@ -173,6 +176,7 @@ public class orari extends ActionBarActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("metodo","Sono entrato su onOptionsItemSelected di orari.java");
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.onBackPressed();
@@ -183,6 +187,7 @@ public class orari extends ActionBarActivity {
     }
 
     public String systemTime() {
+        Log.d("metodo","Sono entrato su systemTime di orari.java");
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
         Date currentLocalTime = cal.getTime();
         DateFormat date = new SimpleDateFormat("HH:mm a");
@@ -199,11 +204,13 @@ public class orari extends ActionBarActivity {
 
 
     public void setDelay(String orario){
+        Log.d("metodo","Sono entrato su setDelay di orari.java");
         this.orario = orario;
     }
 
     @Override
     public void onResume() {
+        Log.d("metodo","Sono entrato su onResume di orari.java");
         try{
             AsyncDownload asd = new AsyncDownload();
             asd.execute("DataRequest:TimeTable:" + linea + ":" + capoln + ":" + fermata + ":" + serviceType);

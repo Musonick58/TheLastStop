@@ -23,6 +23,7 @@ public class segnalazione extends ActionBarActivity {
     private String rit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("metodo","Sono entrato su onCreate di segnalazione.java");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_segnalazione);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,6 +66,7 @@ public class segnalazione extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("metodo","Sono entrato su onOptionsItemSelected di segnalazione.java");
         switch (item.getItemId()) {
             case android.R.id.home:
                 StackPointerContainer.getInstance().getOrariPointer().setDelay(rit);
@@ -77,6 +79,7 @@ public class segnalazione extends ActionBarActivity {
     }
 
     public static String systemTime() {
+        Log.d("metodo","Sono entrato su systemTime di segnalazione.java");
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
         Date currentLocalTime = cal.getTime();
         DateFormat date = new SimpleDateFormat("HH:mm");
