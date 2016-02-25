@@ -21,12 +21,9 @@ import androidclient.AsyncDownload;
 public class segnalazione extends ActionBarActivity {
 
     private String rit;
-    final String dati = "";
-    int successo = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("metodo", "Sono entrato su onCreate di segnalazione.java");
+        Log.d("metodo","Sono entrato su onCreate di segnalazione.java");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_segnalazione);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -49,7 +46,6 @@ public class segnalazione extends ActionBarActivity {
                 String ritardo = systemTime();
                 String richiesta = "DataRequest:SetDelay:" + linea + ":" + capoln + ":" + fermata + ":" + servizio + ":" + ora.replace(":", ".") + ":" + ritardo;
                 asd.execute(richiesta);
-<<<<<<< HEAD
                 try{
                     if(asd.get().get(0).equals("nothing to send")) {
                         StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione "+systemTime().substring(0, 5)+" Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
@@ -58,21 +54,9 @@ public class segnalazione extends ActionBarActivity {
                     else
                         StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), costanti.CON_SERVER_ERR_MSG,costanti.CON_TOAST_ERR_MSG);
                 }catch(Exception e){
-=======
-                retarded(ritardo, dati);
-
-                try {
-                    if (asd.get().get(0).equals("nothing to send")) {
-                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione " + systemTime().substring(0, 4) + " Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
-                        Log.d("ritardo", "Segnalato ritardo " + systemTime());
-                        successo = 1;
-                    } else
-                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), costanti.CON_SERVER_ERR_MSG, costanti.CON_TOAST_ERR_MSG);
-                } catch (Exception e) {
->>>>>>> origin/master
                     e.printStackTrace();
                 }
-                finish();
+
 
             }
         });
@@ -81,19 +65,26 @@ public class segnalazione extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("metodo", "Sono entrato su onOptionsItemSelected di segnalazione.java");
+        Log.d("metodo","Sono entrato su onOptionsItemSelected di segnalazione.java");
         switch (item.getItemId()) {
             case android.R.id.home:
                 StackPointerContainer.getInstance().getOrariPointer().setDelay(rit);
                 this.onBackPressed();
+
                 return true;
             default:
+                Intent back = new Intent(getApplicationContext(), orari.class);
+                back.putExtra("Posizione", getIntent().getExtras().getString("Posizione"));
+                back.putExtra("Fermata", getIntent().getExtras().getString("Fermata"));
+                back.putExtra("Linea", getIntent().getExtras().getString("Linea"));
+                back.putExtra("Ora",getIntent().getExtras().getString("Ora"));
+                startActivity(back);
                 return true;
         }
     }
 
     public static String systemTime() {
-        Log.d("metodo", "Sono entrato su systemTime di segnalazione.java");
+        Log.d("metodo","Sono entrato su systemTime di segnalazione.java");
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
         Date currentLocalTime = cal.getTime();
         DateFormat date = new SimpleDateFormat("HH:mm");
@@ -115,23 +106,4 @@ public class segnalazione extends ActionBarActivity {
         ArrayList<String> ritardi = getIntent().getExtras().getStringArrayList("ritardi");
         StackPointerContainer.getInstance().getOrariPointer().populate(timeTable, ritardi);
     } */
-
-    public void retarded(String x, String aux) {
-        aux = getIntent().getExtras().getString("Linea") + " " + getIntent().getExtras().getString("Capolinea") + ":" + getIntent().getExtras().getString("Fermata") + ":" + getIntent().getExtras().getString("Posizione") + ":" + x;
-    }
-    @Override
-    public void onBackPressed(){
-        Intent back = new Intent(getApplicationContext(), orari.class);
-        back.putExtra("Posizione", getIntent().getExtras().getString("Posizione"));
-        back.putExtra("Fermata", getIntent().getExtras().getString("Fermata"));
-        back.putExtra("Linea", getIntent().getExtras().getString("Linea"));
-        back.putExtra("Ora",getIntent().getExtras().getString("Ora"));
-        back.putExtra("Dati", dati);
-        Log.d("DIOPORCO", dati);
-        if (successo == 1){
-            startActivity(back);
-        }
-        else
-            finish();
-    }
 }
