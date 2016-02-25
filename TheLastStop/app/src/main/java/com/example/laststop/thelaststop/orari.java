@@ -89,6 +89,7 @@ public class orari extends ActionBarActivity {
         Calendar timedifference;
         ArrayList<String> listaRitardi = new ArrayList<>();
         if(orario == null){ //primo caricamento, nessuno ritardo segnalato
+            Log.d("calcolaRitardo","primo populate, orario == null -> " + ((Boolean) (orario == null)).toString());
             for(int i = 0; i < timetable.size(); i++){
                 String temporario = timetable.get(i);
                 String[] partenzahms = temporario.split(":");
@@ -120,9 +121,11 @@ public class orari extends ActionBarActivity {
                 int minutes = timedifference.get(Calendar.MINUTE);
                 listaRitardi.add(Integer.toString(minutes));
             }
+            Log.d("listaRitardi // CalcRit",listaRitardi.toString());
             return listaRitardi;
         }
         else{ // ripopolamento con ritardo segnalato
+            Log.d("calcolaRitardo", "populate successivo, orario != null -> " + ((Boolean) (orario != null)).toString());
             String[] ritsplittato = orario.split(".");
             Calendar ritsegnalato = new GregorianCalendar();
             int ritminuti = Integer.parseInt(ritsplittato[1]);
@@ -157,6 +160,7 @@ public class orari extends ActionBarActivity {
                 int minutes = timedifference.get(Calendar.MINUTE);
                 listaRitardi.add(Integer.toString(minutes));
             }
+            Log.d("listaRitardi // CalcRit",listaRitardi.toString());
             return listaRitardi;
         }
     }
@@ -208,7 +212,7 @@ public class orari extends ActionBarActivity {
         this.orario = orario;
     }
 
-    @Override
+    /*@Override
     public void onResume() {
         Log.d("metodo","Sono entrato su onResume di orari.java");
         try{
@@ -222,12 +226,11 @@ public class orari extends ActionBarActivity {
             populate(timeTable, ritardi);
             ListView orari = (ListView)findViewById(R.id.listaOrari);
             myListAdapter adapter = new myListAdapter(this,list);
-        /*adapter.getView();*/
             orari.setAdapter(adapter);
             super.onResume();
         } catch(Exception e){
             e.printStackTrace();
         }
 
-    }
+    } */
 }

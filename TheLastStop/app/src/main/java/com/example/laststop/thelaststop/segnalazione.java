@@ -45,11 +45,10 @@ public class segnalazione extends ActionBarActivity {
                 // Es -> DataRequest:SetDelay:linea:capolinea:fermata:servizio:ora(hh.mm.00):ritardo(hh.mm.00)
                 String ritardo = systemTime();
                 String richiesta = "DataRequest:SetDelay:" + linea + ":" + capoln + ":" + fermata + ":" + servizio + ":" + ora.replace(":", ".") + ":" + ritardo;
-                Log.d("richiesta", richiesta);
                 asd.execute(richiesta);
                 try{
                     if(asd.get().get(0).equals("nothing to send")) {
-                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione "+systemTime()+" Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
+                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione "+systemTime().substring(0, 4)+" Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
                         Log.d("ritardo", "Segnalato ritardo "+systemTime());
                     }
                     else

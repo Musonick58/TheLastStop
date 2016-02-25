@@ -26,40 +26,32 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
             String request = params[0];
             //params[0];
             Log.d("json request:", params[0]);
-            Log.d("json:", "chiedo dati");
             OutputStream os = s.getOutputStream();
             PrintStream ps = new PrintStream(os);
             ps.println(request);
             Log.d("json:", "mandato request");
             ps.flush();
             os.flush();
-            Log.d("json:", "flushato tutto");
             InputStream is = s.getInputStream();
             Scanner isobj = new Scanner(is);
-            Log.d("json:", "inizializzo scanner");
             json = isobj.nextLine();
-            Log.d("json:", "messo next line in json");
             isobj.close();
             ps.close();
             os.close();
-            Log.d("json:", "chiuso tutto");
-            Log.d("json:", "***************************************************************************");
-            Log.d("json:", ((Boolean) (json != null)).toString());
-            Log.d("json:", json);
-            Log.d("json:", "***************************************************************************");
             s.close();
         } catch (Exception e) {
 
             //StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getMainPointer());
             //e.printStackTrace();
-            Log.d("ziojack: ", e.getMessage());
+            Log.d("ziojack exception: ", e.getMessage());
             //e.printStackTrace();
             // this.cancel(true);
             return null;
 
 
         }
-        Log.d("ciao", ((Boolean) (json != null)).toString());
+        Log.d("json == null", ((Boolean) (json == null)).toString());
+        Log.d("json request response", jsonToArrayList(json).toString());
         return jsonToArrayList(json);
     }
 
@@ -76,11 +68,11 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
             //  Log.d("Exception: ", e.getMessage());
             e.printStackTrace();
         }
-        Log.d("jsonArray:", stringArray.toString());
         return stringArray;
     }//Metodo pr lo spacchettamento del JSON in ingresso in un ArrayList
 
     protected String systemTime(){
+        Log.d("metodo","Sono entrato su systemTime di AsyncDownload.java");
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
         Date currentLocalTime = cal.getTime();
         DateFormat date = new SimpleDateFormat("HH:mm a");
@@ -90,6 +82,8 @@ public class AsyncDownload extends AsyncTask< String, Integer, ArrayList<String>
         //int currentHour = cal.get(Calendar.HOUR);
         //int currentMinutes = cal.get(Calendar.MINUTE);
         //int currentSeconds = cal.get(Calendar.SECOND);
+        Log.d("orario corrente:", localTime);
+
         return localTime;
     }
 
