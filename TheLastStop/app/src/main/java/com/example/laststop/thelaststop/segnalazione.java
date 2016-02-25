@@ -48,7 +48,7 @@ public class segnalazione extends ActionBarActivity {
                 asd.execute(richiesta);
                 try{
                     if(asd.get().get(0).equals("nothing to send")) {
-                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione "+systemTime().substring(0, 4)+" Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
+                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione "+systemTime().substring(0, 5)+" Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
                         Log.d("ritardo", "Segnalato ritardo "+systemTime());
                     }
                     else

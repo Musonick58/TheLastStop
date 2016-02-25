@@ -130,6 +130,8 @@ public class orari extends ActionBarActivity {
             String[] ritsplittato = orario.split(".");
             Calendar ritsegnalato = new GregorianCalendar();
             int ritminuti = Integer.parseInt(ritsplittato[1]);
+            Log.d("orario", orario);
+            Log.d("pos", ""+pos);
             for(int i = pos; i < timetable.size(); i++){
                 String temporario = timetable.get(i);
                 String[] partenzahms = temporario.split(":");
@@ -174,7 +176,7 @@ public class orari extends ActionBarActivity {
         for( i = 0; i < arrivi.size(); i++) {
             HashMap temp = new HashMap();
             temp.put("Ora Arrivo", arrivi.get(i));
-            temp.put("Ora Partenza", partenze.get(i));
+            temp.put("Partenza Prevista", partenze.get(i));
             temp.put("Ritardo", listaRitardi.get(i));
             list.add(temp);
         }
