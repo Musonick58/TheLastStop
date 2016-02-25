@@ -76,6 +76,7 @@ public class orari extends ActionBarActivity {
                 nuovo.putExtra("Ora", ora);
                 nuovo.putExtra("Capolinea", capoln);
                 nuovo.putExtra("serviceType", serviceType);
+                nuovo.putExtra("Posizione", position);
                 startActivity(nuovo);
             }
         });

@@ -48,8 +48,8 @@ public class segnalazione extends ActionBarActivity {
                 asd.execute(richiesta);
                 try{
                     if(asd.get().get(0).equals("nothing to send")) {
-                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione "+ritardo.substring(0, 5)+" Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
-                        Log.d("ritardo", "Segnalato ritardo "+ ritardo);
+                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione "+systemTime().substring(0, 4)+" Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
+                        Log.d("ritardo", "Segnalato ritardo "+systemTime());
                     }
                     else
                         StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), costanti.CON_SERVER_ERR_MSG,costanti.CON_TOAST_ERR_MSG);
@@ -73,7 +73,13 @@ public class segnalazione extends ActionBarActivity {
 
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                Intent back = new Intent(getApplicationContext(), orari.class);
+                back.putExtra("Posizione", getIntent().getExtras().getString("Posizione"));
+                back.putExtra("Fermata", getIntent().getExtras().getString("Fermata"));
+                back.putExtra("Linea", getIntent().getExtras().getString("Linea"));
+                back.putExtra("Ora",getIntent().getExtras().getString("Ora"));
+                startActivity(back);
+                return true;
         }
     }
 
