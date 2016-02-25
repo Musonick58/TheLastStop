@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -130,8 +131,6 @@ public class orari extends ActionBarActivity {
             String[] ritsplittato = orario.split(".");
             Calendar ritsegnalato = new GregorianCalendar();
             int ritminuti = Integer.parseInt(ritsplittato[1]);
-            Log.d("orario", orario);
-            Log.d("pos", ""+pos);
             for(int i = pos; i < timetable.size(); i++){
                 String temporario = timetable.get(i);
                 String[] partenzahms = temporario.split(":");
@@ -181,6 +180,7 @@ public class orari extends ActionBarActivity {
             list.add(temp);
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d("metodo","Sono entrato su onOptionsItemSelected di orari.java");
