@@ -23,6 +23,7 @@ public class segnalazione extends ActionBarActivity {
     private String rit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("metodo","Sono entrato su onCreate di segnalazione.java");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_segnalazione);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -44,11 +45,10 @@ public class segnalazione extends ActionBarActivity {
                 // Es -> DataRequest:SetDelay:linea:capolinea:fermata:servizio:ora(hh.mm.00):ritardo(hh.mm.00)
                 String ritardo = systemTime();
                 String richiesta = "DataRequest:SetDelay:" + linea + ":" + capoln + ":" + fermata + ":" + servizio + ":" + ora.replace(":", ".") + ":" + ritardo;
-                Log.d("richiesta", richiesta);
                 asd.execute(richiesta);
                 try{
                     if(asd.get().get(0).equals("nothing to send")) {
-                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione "+systemTime()+" Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
+                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione "+systemTime().substring(0, 4)+" Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
                         Log.d("ritardo", "Segnalato ritardo "+systemTime());
                     }
                     else
@@ -65,6 +65,7 @@ public class segnalazione extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("metodo","Sono entrato su onOptionsItemSelected di segnalazione.java");
         switch (item.getItemId()) {
             case android.R.id.home:
                 StackPointerContainer.getInstance().getOrariPointer().setDelay(rit);
@@ -77,6 +78,7 @@ public class segnalazione extends ActionBarActivity {
     }
 
     public static String systemTime() {
+        Log.d("metodo","Sono entrato su systemTime di segnalazione.java");
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+1:00"));
         Date currentLocalTime = cal.getTime();
         DateFormat date = new SimpleDateFormat("HH:mm");
