@@ -5,19 +5,49 @@
  */
 package andoridserver.database;
 
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ThreadAggiornaDelayOrario {
+
+public class ThreadAggiornaDelayOrario extends Thread {
     
-    public static void main(String args[]) {
-        Thread t = Thread.currentThread();
-        t.setPriority(10);
-        DBAsk aggiorna= new DBAsk();
+    static boolean aggiornabool=false;
+    static Date date= new Date();
+    static Date currentDate=date;
+
+    DBAsk aggiorna = new DBAsk();
         
-        try{
-            t.sleep();
-            aggiorna.aggiornaData();
-        }catch (InterruptedException e) {
-            System.out.println("Thread interrotto");
-        }
+    public synchronized void setAggiornaBool(boolean value){
+        this.aggiornabool=value;
     }
+    
+    public synchronized boolean getAggiornaBool(boolean value){
+        return this.aggiornabool;
+    }
+    
+        @Override
+       public void run(){ 
+        while(true){
+             try {
+            if( date!=currentDate ){
+               
+                    this.sleep(86400000);
+                    currentDate=date;
+                    DBConnector temp=DBConnector.getIstance();
+                    temp.executeSetDelay( aggiorna.dbSetDefaultDelay() );
+                    setAggiornaBool(true);
+               
+            }
+            else{
+                this.sleep(86400000);
+                setAggiornaBool(false);
+            }
+             } catch (InterruptedException ex) {
+                    Logger.getLogger(DBAsk.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+       
+    }
+         
 }
