@@ -56,7 +56,6 @@ public class orari extends ActionBarActivity {
         myListAdapter adapter = new myListAdapter(this,list);
         /*adapter.getView();*/
         orari.setAdapter(adapter);
-        recreate();
 
         /* aggiungere listener su click della lista */
         orari.setOnItemClickListener(new AdapterView.OnItemClickListener() {
