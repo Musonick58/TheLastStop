@@ -20,6 +20,7 @@ public interface AndroidDataRequest {
      //Es -> DataRequest:Delay:2:Stop:navig
      String  askAvgDelay(String linesNumber, String fermata, String servizio); //orario medio di ritardo
 
-
+     //Es -> DataRequest:NextStops:Linea:Capolinea:Fermata:Orario:Servizio
+     String  askNextStops(String linesNumber, String fermata, String servizio); //orario medio di ritardo
 
 }
