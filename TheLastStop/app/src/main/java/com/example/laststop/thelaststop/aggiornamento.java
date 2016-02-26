@@ -37,6 +37,11 @@ public class aggiornamento extends ActionBarActivity {
         String orario = getIntent().getExtras().getString("Orario");
         ListView update = (ListView)findViewById(R.id.listaAggiornata);
 
+        Log.d("AGGIORNAMENTO timetable", timetable.toString());
+        Log.d("AGGIORNAMENTO nFermate", nFermate.toString());
+        Log.d("AGGIORNAMENTO hArrivi", hArrivi.toString());
+        Log.d("AGGIORNAMENTO hPartenze", hPartenze.toString());
+
         populate(nFermate, hArrivi, hPartenze);
 
         adapter = new myListAdapter(this, list);
