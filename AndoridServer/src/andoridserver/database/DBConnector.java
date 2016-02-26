@@ -29,7 +29,7 @@ public class DBConnector implements DBInterface {
     public static int POSTGRESPORT;
     public static String DRIVER = "postgresql";
     public static String ADDRESS;
-    private AndroidDataInterface delay = null;
+   
 
     private DBConnector() {
     }
@@ -315,11 +315,35 @@ public class DBConnector implements DBInterface {
     public String compileQuery(String query) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
     @Override
     public AndroidDataInterface executeTimetable(String compiledQuery) {
         AndroidDataInterface adi = new AndroidOrariData();
-        AndroidDataInterface ritardi = new AndroidDataDelay();
+        //ritardi = new AndroidDataDelay();
+        String s = "";
+        try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(compiledQuery);
+            //adesso devo convertire il mio result set nell'oggetto per android
+            while (resultSet.next()) {
+                s = resultSet.getString("arrival_time");
+                //System.out.println(s);
+                adi.addData(s);
+                s = resultSet.getString("departure_time");
+                //ritardi.addData(s);
+                
+            }
+            //setDelay(ritardi);
+            System.out.println(adi.getDataAsList().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return adi;
+    }
+
+    
+    public AndroidDataInterface executeTimetable(String compiledQuery,AndroidDataInterface ritardi) {
+        AndroidDataInterface adi = new AndroidOrariData();
+        ritardi = new AndroidDataDelay();
         String s = "";
         try {
             Statement statement = con.createStatement();
@@ -333,7 +357,7 @@ public class DBConnector implements DBInterface {
                 ritardi.addData(s);
                 
             }
-            setDelay(ritardi);
+            //setDelay(ritardi);
             System.out.println(adi.getDataAsList().toString());
         } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
@@ -379,17 +403,13 @@ public class DBConnector implements DBInterface {
         System.out.println("FINE DEL UPDATE");
     }
     
-    private void setDelay(AndroidDataInterface adi){
-    
-        this.delay=adi;
-    
-    }
+
 
     /*TODO: fare la parte legata al db*/
     @Override
     public AndroidDataInterface executeDelay(String compiledQuery) {
   
-        return this.delay;
+        return null;
     }
 
     @Override
