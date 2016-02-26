@@ -406,7 +406,7 @@ public class DBConnector implements DBInterface {
     /*TODO: -...-.*/
     public AndroidDataInterface executeSetDelayForStops(String compiledQuery){
         AndroidDataInterface adi = new AndroidOrariData();
-        adi.addData("todo");
+        adi.addData("[\"nomeFermata#oraArrivo#oraPartenza\"]");
         return adi;
     }
 
