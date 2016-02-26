@@ -428,6 +428,7 @@ public class DBConnector implements DBInterface {
         return adi;
     }
     
+    /*QUESTO METODO DEVE ESSERE ESEGUITO SOLO UNA VOLTA ALL INIZIO DEL SERVER*/
     public void executeLoopAggiornamento(String compiledQuery) {
         int risultato=-1;
         try {
@@ -437,7 +438,7 @@ public class DBConnector implements DBInterface {
         } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("FINE DEL AGGIORNAMENTO");
+        System.out.println("FINE DEL UPDATE DI AGGIORNAMENTO");
     }
 
     public static void main(String[] args) {
