@@ -31,7 +31,7 @@ public class DBConnector implements DBInterface {
     public static String ADDRESS;
    
 
-    private DBConnector() {
+    DBConnector() {
     }
 
     public static DBConnector getIstance() {

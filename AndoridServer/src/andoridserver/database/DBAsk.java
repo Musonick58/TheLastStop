@@ -199,12 +199,15 @@ public class DBAsk implements DBAskInterface{
                 try {
                     t.sleep(86400000);
                     currentDate=date;
+                    DBConnector temp=new DBConnector();
+                    temp.executeSetDelay( dbSetDefaultDelay() );
                     return true;
                 } catch (InterruptedException ex) {
                     Logger.getLogger(DBAsk.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else{
+                t.sleep(86400000);
                 return false;
             }
         }
