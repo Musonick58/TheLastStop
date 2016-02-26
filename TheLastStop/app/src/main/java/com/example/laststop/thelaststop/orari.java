@@ -174,8 +174,8 @@ public class orari extends ActionBarActivity {
         int i;
         for( i = 0; i < arrivi.size(); i++) {
             HashMap temp = new HashMap();
-            temp.put("Ora Arrivo", arrivi.get(i));
-            temp.put("Ora Partenza", partenze.get(i));
+            temp.put("Ora Arrivo", arrivi.get(i).substring(0, 5));
+            temp.put("Ora Partenza", partenze.get(i).substring(0, 5));
             temp.put("Ritardo", "" + Funzioni.diffOrari(arrivi.get(i), partenze.get(i)));
             list.add(temp);
         }

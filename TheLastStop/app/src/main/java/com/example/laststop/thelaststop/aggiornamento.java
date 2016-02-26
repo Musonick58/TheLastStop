@@ -59,8 +59,8 @@ public class aggiornamento extends ActionBarActivity {
         for( i = 0; i < arrivi.size(); i++) {
             HashMap temp = new HashMap();
             temp.put("Ora Arrivo", fermate.get(i));
-            temp.put("Ora Partenza", arrivi.get(i));
-            temp.put("Ritardo", partenze.get(i));
+            temp.put("Ora Partenza", arrivi.get(i).substring(0, 5));
+            temp.put("Ritardo", partenze.get(i).substring(0, 5));
             list.add(temp);
         }
         Log.d("POPULATE list", list.toString());

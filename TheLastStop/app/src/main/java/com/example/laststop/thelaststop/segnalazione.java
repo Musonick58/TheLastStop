@@ -72,7 +72,7 @@ public class segnalazione extends ActionBarActivity {
                     String richiesta2 = "DataRequest:NextStops:" + linea + ":" + capoln + ":" + fermata + ":" + ora.replace(":", ".") + ":" + ritardo + ":" + servizio;
                     asd2.execute(richiesta2);
                     ArrayList<String> timetable = asd2.get();
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                     aggiorna.putExtra("TimeTable", timetable);
                     startActivity(aggiorna);
                 }catch(Exception e){
