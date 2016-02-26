@@ -56,7 +56,7 @@ public class orari extends ActionBarActivity {
         myListAdapter adapter = new myListAdapter(this,list);
         /*adapter.getView();*/
         orari.setAdapter(adapter);
-
+        recreate();
 
         /* aggiungere listener su click della lista */
         orari.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -215,25 +215,5 @@ public class orari extends ActionBarActivity {
         this.orario = orario;
     }
 
-    /*@Override
-    public void onResume() {
-        Log.d("metodo","Sono entrato su onResume di orari.java");
-        try{
-            AsyncDownload asd = new AsyncDownload();
-            asd.execute("DataRequest:TimeTable:" + linea + ":" + capoln + ":" + fermata + ":" + serviceType);
-            ArrayList<String> timeTable= asd.get();
-            AsyncDownload asd2 = new AsyncDownload();
-            asd2.execute("DataRequest:Delay:" + linea + ":" + capoln + ":" + fermata + ":" + serviceType);
-            ArrayList<String> ritardi=asd2.get();
-            Thread.sleep(1500);
-            populate(timeTable, ritardi);
-            ListView orari = (ListView)findViewById(R.id.listaOrari);
-            myListAdapter adapter = new myListAdapter(this,list);
-            orari.setAdapter(adapter);
-            super.onResume();
-        } catch(Exception e){
-            e.printStackTrace();
-        }
 
-    } */
 }

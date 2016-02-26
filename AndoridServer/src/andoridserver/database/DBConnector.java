@@ -107,129 +107,129 @@ public class DBConnector implements DBInterface {
         try {
             statement = con.createStatement();
             String sql = "CREATE TABLE agency(\n"
-                    + "    Agency_id text,\n"
-                    + "    Agency_name text,\n"
-                    + "    Agency_url text,\n"
-                    + "    Agency_timezone text,\n"
-                    + "    Agency_lang text,\n"
-                    + "    Agency_phone varchar(10),\n"
-                    + "    Agency_fare_url text,\n"
-                    + "    PRIMARY KEY(Agency_id)\n"
+                    + "	Agency_id text,\n"
+                    + "	Agency_name text,\n"
+                    + "	Agency_url text,\n"
+                    + "	Agency_timezone text,\n"
+                    + "	Agency_lang text,\n"
+                    + "	Agency_phone varchar(10),\n"
+                    + "	Agency_fare_url text,\n"
+                    + "	PRIMARY KEY(Agency_id)\n"
                     + ");\n";
             int result = statement.executeUpdate(sql);
 
             sql = "CREATE TABLE calendar(\n"
-                    + "    service_id text,\n"
-                    + "    monday integer, \n"
-                    + "    tuesday integer,\n"
-                    + "    wednesday integer,\n"
-                    + "    thursday integer,\n"
-                    + "    friday integer,\n"
-                    + "    saturday integer,\n"
-                    + "    sunday integer,\n"
-                    + "    start_date text,\n"
-                    + "    end_date text,\n"
-                    + "    PRIMARY KEY(service_id)\n"
+                    + "	service_id text,\n"
+                    + "	monday integer, \n"
+                    + "	tuesday integer,\n"
+                    + "	wednesday integer,\n"
+                    + "	thursday integer,\n"
+                    + "	friday integer,\n"
+                    + "	saturday integer,\n"
+                    + "	sunday integer,\n"
+                    + "	start_date text,\n"
+                    + "	end_date text,\n"
+                    + "	PRIMARY KEY(service_id)\n"
                     + ")";
             result = statement.executeUpdate(sql);
 
             sql = "CREATE TABLE calendar_dates(\n"
-                    + "    service_id text,\n"
-                    + "    end_date text,\n"
-                    + "    exception_type text\n"
-                    + "    --FOREIGN KEY(service_id) REFERENCES calendar(service_id)\n"
+                    + "	service_id text,\n"
+                    + "	end_date text,\n"
+                    + "	exception_type text\n"
+                    + "	--FOREIGN KEY(service_id) REFERENCES calendar(service_id)\n"
                     + ")";
             result = statement.executeUpdate(sql);
 
             sql = "CREATE TABLE routes(\n"
-                    + "    route_id integer,\n"
-                    + "    agency_id text,\n"
-                    + "    route_short_name varchar(3),\n"
-                    + "    route_long_name text,\n"
-                    + "    route_desc text,\n"
-                    + "    route_type integer,\n"
-                    + "    route_url text,\n"
-                    + "    route_color varchar(6),\n"
-                    + "    route_text_color varchar(6),\n"
-                    + "    --FOREIGN KEY(agency_id) REFERENCES agency(agency_id),\n"
-                    + "    PRIMARY KEY(route_id)\n"
+                    + "	route_id integer,\n"
+                    + "	agency_id text,\n"
+                    + "	route_short_name varchar(3),\n"
+                    + "	route_long_name text,\n"
+                    + "	route_desc text,\n"
+                    + "	route_type integer,\n"
+                    + "	route_url text,\n"
+                    + "	route_color varchar(6),\n"
+                    + "	route_text_color varchar(6),\n"
+                    + "	--FOREIGN KEY(agency_id) REFERENCES agency(agency_id),\n"
+                    + "	PRIMARY KEY(route_id)\n"
                     + ")";
             result = statement.executeUpdate(sql);
 
             sql = "CREATE TABLE stops(\n"
-                    + "    stop_id integer,\n"
-                    + "    stop_code text,\n"
-                    + "    stop_name text,\n"
-                    + "    stop_desc text,\n"
-                    + "    stop_lat double precision,\n"
-                    + "    stop_lon double precision,\n"
-                    + "    --in caso correggere tipo\n"
-                    + "    zone_id text,\n"
-                    + "    stop_url text,\n"
-                    + "    location_type text,\n"
-                    + "    parent_station text,\n"
-                    + "    stop_timezone time,\n"
-                    + "    wheelchair_boarding text,\n"
-                    + "    --\n"
-                    + "    PRIMARY KEY(stop_id)\n"
+                    + "	stop_id integer,\n"
+                    + "	stop_code text,\n"
+                    + "	stop_name text,\n"
+                    + "	stop_desc text,\n"
+                    + "	stop_lat double precision,\n"
+                    + "	stop_lon double precision,\n"
+                    + "	--in caso correggere tipo\n"
+                    + "	zone_id text,\n"
+                    + "	stop_url text,\n"
+                    + "	location_type text,\n"
+                    + "	parent_station text,\n"
+                    + "	stop_timezone time,\n"
+                    + "	wheelchair_boarding text,\n"
+                    + "	--\n"
+                    + "	PRIMARY KEY(stop_id)\n"
                     + ")";
             result = statement.executeUpdate(sql);
 
             sql = "CREATE TABLE trips(\n"
-                    + "    route_id integer,\n"
-                    + "    service_id text,\n"
-                    + "    trip_id integer,\n"
-                    + "    trip_headsign text,\n"
-                    + "    --da controllare il tipo\n"
-                    + "    trip_short_name text,\n"
-                    + "    --\n"
-                    + "    direction_id integer,\n"
-                    + "    block_id integer,\n"
-                    + "    shape_id text,\n"
-                    + "    --da controllare il tipo\n"
-                    + "    wheelchair_accessible text,\n"
-                    + "    --\n"
-                    + "    PRIMARY KEY(trip_id)\n"
-                    + "    --FOREIGN KEY(route_id) REFERENCES routes(route_id),\n"
-                    + "    --FOREIGN KEY(service_id) REFERENCES calendar(service_id)\n"
-                    + "    --bisogna modificare la chiave primari di shapes\n"
+                    + "	route_id integer,\n"
+                    + "	service_id text,\n"
+                    + "	trip_id integer,\n"
+                    + "	trip_headsign text,\n"
+                    + "	--da controllare il tipo\n"
+                    + "	trip_short_name text,\n"
+                    + "	--\n"
+                    + "	direction_id integer,\n"
+                    + "	block_id integer,\n"
+                    + "	shape_id text,\n"
+                    + "	--da controllare il tipo\n"
+                    + "	wheelchair_accessible text,\n"
+                    + "	--\n"
+                    + "	PRIMARY KEY(trip_id)\n"
+                    + "	--FOREIGN KEY(route_id) REFERENCES routes(route_id),\n"
+                    + "	--FOREIGN KEY(service_id) REFERENCES calendar(service_id)\n"
+                    + "	--bisogna modificare la chiave primari di shapes\n"
                     + ")";
             result = statement.executeUpdate(sql);
 
             sql = "CREATE TABLE stop_times(\n"
-                    + "    trip_id integer,\n"
-                    + "    arrival_time time,\n"
-                    + "    departure_time time,\n"
-                    + "    stop_id integer,\n"
-                    + "    stop_sequence integer,\n"
-                    + "    stop_headsign text,\n"
-                    + "    pickup_type integer,\n"
-                    + "    --in caso correggere tipo\n"
-                    + "    drop_off_type text,\n"
-                    + "    shape_dist_traveled text\n"
-                    + "    --\n"
-                    + "    --FOREIGN KEY(stop_id) REFERENCES stops(stop_id),\n"
-                    + "    --FOREIGN KEY(trip_id) REFERENCES trips(trip_id)\n"
+                    + "	trip_id integer,\n"
+                    + "	arrival_time time,\n"
+                    + "	departure_time time,\n"
+                    + "	stop_id integer,\n"
+                    + "	stop_sequence integer,\n"
+                    + "	stop_headsign text,\n"
+                    + "	pickup_type integer,\n"
+                    + "	--in caso correggere tipo\n"
+                    + "	drop_off_type text,\n"
+                    + "	shape_dist_traveled text\n"
+                    + "	--\n"
+                    + "	--FOREIGN KEY(stop_id) REFERENCES stops(stop_id),\n"
+                    + "	--FOREIGN KEY(trip_id) REFERENCES trips(trip_id)\n"
                     + ")";
             result = statement.executeUpdate(sql);
 
             sql = "CREATE TABLE shapes(\n"
-                    + "    shape_id text,\n"
-                    + "    shape_pt_lat double precision,\n"
-                    + "    shape_pt_lon double precision,\n"
-                    + "    shape_pt_sequence integer,\n"
-                    + "    shape_dist_traveled double precision,\n"
-                    + "    PRIMARY KEY(shape_id,shape_pt_sequence)\n"
+                    + "	shape_id text,\n"
+                    + "	shape_pt_lat double precision,\n"
+                    + "	shape_pt_lon double precision,\n"
+                    + "	shape_pt_sequence integer,\n"
+                    + "	shape_dist_traveled double precision,\n"
+                    + "	PRIMARY KEY(shape_id,shape_pt_sequence)\n"
                     + ")";
             result = statement.executeUpdate(sql);
 
             sql = "CREATE TABLE trips_shape(\n"
-                    + "    trip_id integer,\n"
-                    + "    shape_id text,\n"
-                    + "    shape_pt_sequence integer,\n"
-                    + "    FOREIGN KEY(trip_id) REFERENCES trips(trip_id),\n"
-                    + "    FOREIGN KEY(shape_id,shape_pt_sequence) REFERENCES shapes(shape_id,shape_pt_sequence),\n"
-                    + "    PRIMARY KEY(trip_id,shape_id,shape_pt_sequence)\n"
+                    + "	trip_id integer,\n"
+                    + "	shape_id text,\n"
+                    + "	shape_pt_sequence integer,\n"
+                    + "	FOREIGN KEY(trip_id) REFERENCES trips(trip_id),\n"
+                    + "	FOREIGN KEY(shape_id,shape_pt_sequence) REFERENCES shapes(shape_id,shape_pt_sequence),\n"
+                    + "	PRIMARY KEY(trip_id,shape_id,shape_pt_sequence)\n"
                     + ")";
             result = statement.executeUpdate(sql);
         } catch (SQLException ex) {
@@ -414,6 +414,7 @@ public class DBConnector implements DBInterface {
     /*TODO: fare la parte legata al db*/
     @Override
     public AndroidDataInterface executeDelay(String compiledQuery) {
+  
         return null;
     }
 
@@ -432,19 +433,6 @@ public class DBConnector implements DBInterface {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
         return adi;
-    }
-    
-    /*QUESTO METODO DEVE ESSERE ESEGUITO SOLO UNA VOLTA ALL INIZIO DEL SERVER*/
-    public void executeLoopAggiornamento(String compiledQuery) {
-        int risultato=-1;
-        try {
-            Statement statement = con.createStatement();
-            risultato = statement.executeUpdate(compiledQuery);//executeQuery(compiledQuery);
-            System.out.println(risultato);           
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("FINE DEL UPDATE DI AGGIORNAMENTO");
     }
 
     public static void main(String[] args) {

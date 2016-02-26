@@ -10,5 +10,6 @@
     <string name="title_activity_fermate">fermate</string>
     <string name="linee">Linea</string>
     <string name="Capolinea">Capolinea</string>
+    <string name="title_activity_aggiornamento">aggiornamento</string>
 
 </resources>

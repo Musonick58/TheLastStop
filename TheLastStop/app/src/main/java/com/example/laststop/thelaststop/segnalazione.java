@@ -49,7 +49,6 @@ public class segnalazione extends ActionBarActivity {
                 String ritardo = systemTime();
                 String richiesta = "DataRequest:SetDelay:" + linea + ":" + capoln + ":" + fermata + ":" + servizio + ":" + ora.replace(":", ".") + ":" + ritardo;
                 asd.execute(richiesta);
-                retarded(ritardo, dati);
 
                 try {
                     if (asd.get().get(0).equals("nothing to send")) {
@@ -62,7 +61,24 @@ public class segnalazione extends ActionBarActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                Intent aggiorna = new Intent(getApplicationContext(), aggiornamento.class);
+                //Extra da passare alla prossima pagina per le prossime fermate
+                aggiorna.putExtra("serviceTipe", servizio);
+                aggiorna.putExtra("Linea", linea);
+                aggiorna.putExtra("Capolinea", capoln);
+                aggiorna.putExtra("Fermata", fermata);
+                aggiorna.putExtra("Orario", ora);
+                AsyncDownload asd2 = new AsyncDownload();
 
+                try{
+                    String richiesta2 = "DataRequest:NextStops:" + linea + ":" + capoln + ":" + fermata + ":" + ora.replace(":", ".") + ":" + servizio;
+                    asd2.execute(richiesta2);
+                    ArrayList<String> timetable = asd2.get();
+                    aggiorna.putExtra("TimeTable", timetable);
+                    startActivity(aggiorna);
+                }catch(Exception e){
+                    StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getFermatePointer(),costanti.CON_SERVER_ERR_MSG,costanti.CON_TOAST_ERR_MSG);
+                }
             }
         });
 
@@ -105,20 +121,4 @@ public class segnalazione extends ActionBarActivity {
         StackPointerContainer.getInstance().getOrariPointer().populate(timeTable, ritardi);
     } */
 
-    public void retarded(String x, String aux) {
-        aux = getIntent().getExtras().getString("Linea") + " " + getIntent().getExtras().getString("Capolinea") + ":" + getIntent().getExtras().getString("Fermata") + ":" + getIntent().getExtras().getString("Posizione") + ":" + x;
-    }
-    @Override
-    public void onBackPressed(){
-        Intent back = new Intent(getApplicationContext(), orari.class);
-        back.putExtra("Posizione", getIntent().getExtras().getString("Posizione"));
-        back.putExtra("Fermata", getIntent().getExtras().getString("Fermata"));
-        back.putExtra("Linea", getIntent().getExtras().getString("Linea"));
-        back.putExtra("Ora",getIntent().getExtras().getString("Ora"));
-        back.putExtra("Dati", dati);
-        Log.d("DIOPORCO", dati);
-        if (successo == 1){
-            startActivity(back);
-        }
-    }
 }
