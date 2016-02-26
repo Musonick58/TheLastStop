@@ -68,7 +68,7 @@ public class AcceptDataRequest extends Thread {
         String oraArrivo = null;
         String oraPartenza = null;
         AndroidDataInterface info;
-        AndroidDataInterface ritardi=new AndroidOrariData();
+        AndroidDataInterface ritardi=null;
         if (request != null && request.startsWith("DataRequest:")) {
             System.out.println("[ACCEPTDATAREQUEST] Data Request: Processing");
             if (request.startsWith("DataRequest:")) {
@@ -151,7 +151,7 @@ public class AcceptDataRequest extends Thread {
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "battelli" );
                        */ //System.out.println("******"+lineStr);//2:Stop:navig
                         //System.out.println(send.query.dbTimesDelay(lineStr,stopName,headsign));
-                        ritardi = DBConnector.getIstance().executeDelay(send.query.dbTime(lineStr,stopName,headsign));
+                        //info = DBConnector.getIstance().executeDelay(send.query.dbTime(lineStr,stopName,headsign));
                         send.toSend(ritardi);
                         send.send();
                 }
@@ -214,35 +214,7 @@ public class AcceptDataRequest extends Thread {
                     info = DBConnector.getIstance().executeLines(send.query.dbLinee());
                     send.toSend(info);
                     send.send(); 
-                }
-                if(temp.startsWith("NextStops")){
-                 System.out.println("NextStops request");
-                    temp = temp.substring("NextStops:".length());
-                    System.out.println("temp: " + temp);
-                    lines = temp.split(":");
-                    System.out.println("lunghezza array" + lines.length);
-                    for (String x : lines) {
-                        System.out.println("contenuto" + x);
-                    }
-                    //Linea:Capolinea:Fermata:Orario:Servizio
-                    lineStr = lines[0];//linea
-                    headsign = lines[1];//capolinea
-                    stopName = lines[2];//fermata
-                    oraArrivo = lines[3];//orario
-                    serviceType = lines[4];//servicetype
-                    System.out.println("Servizio: "+serviceType);
-                    SendData send = new SendData(socket, serviceType, null, lineStr, DBConnector.getIstance());
-                    //DBConnector.getIstance().disconnect();
-                    if(serviceType.equals("bus"))
-                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "autobus" );
-                    else 
-                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "battelli" );
-                        
-                 //query
-                        info = DBConnector.getIstance().executeSetDelayForStops(send.query.dbSetDelay( oraArrivo, oraPartenza, lineStr, stopName, headsign));
-                        send.toSend(info);
-                        send.send();
-                }
+                }       
             }
         }else{
             try {

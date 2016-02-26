@@ -1,6 +1,5 @@
 package andoridserver.database;
 
-import andoridserver.database.DBAskInterface;
 import java.util.Date;
 
 /**
@@ -117,11 +116,10 @@ public class DBAsk implements DBAskInterface{
                 "st.stop_id=s.stop_id   AND\n" +
                 "st.trip_id=tr.trip_id   AND\n" +
                 "r.route_short_name='"+linea+"'  AND\n" +
-                "tr.trip_headsign='"+headSign+"' AND \n " +
+                "tr.trip_headsign='"+headSign+"' AND  " +
                 "s.stop_name='"+stop+"' AND\n" +
-                "tr.service_id IN("+getServiceId()+") \n " +
-                "GROUP BY st.arrival_time,st.departure_time \n "
-                +"ORDER BY st.arrival_time;";
+                "tr.service_id IN("+getServiceId()+")" +
+                "GROUP BY st.arrival_time,st.departure_time;";
         return str;
     }
     
@@ -159,7 +157,22 @@ public class DBAsk implements DBAskInterface{
         return str;
     };
     
-  
+    /*UPDATE stop_times   
+                     SET departure_time='19:25:00'   
+                     WHERE arrival_time='19:23:00' AND   
+                     trip_id IN ( SELECT st.trip_id   
+                     FROM trips tr,stop_times st,stops s,routes r   
+                     WHERE r.route_id=tr.route_id AND   
+                     st.stop_id=s.stop_id   AND   
+                     st.trip_id=tr.trip_id   AND   
+                     r.route_short_name='2'  AND   
+                     tr.trip_headsign='Rialto D' AND    
+                     s.stop_name='S. Basilio' AND     
+                     tr.service_id IN ( SELECT service_id  
+                   FROM    calendar 
+                   WHERE   monday='1' ) );*/
+    
+    @Override
     public String dbSetDelay(String arrival_time,String delay_time,String line,String stop,String headSign){
         String str="UPDATE stop_times \n"
                 +    "SET departure_time='"+delay_time+"' \n"
@@ -172,55 +185,7 @@ public class DBAsk implements DBAskInterface{
                 +    "          r.route_short_name='"+line+"'  AND \n"
                 +    "          tr.trip_headsign='"+headSign+"' AND  \n"
                 +    "          s.stop_name='"+stop+"' AND \n  "
-                + "             tr.service_id IN("+getServiceId()+");";
-        return str;
-    }
-    
-    
-    public String getTripID(String linesnumber,String headsign,String stopname, String orarioPartenza){
-    String str="SELECT tr.trip_id\n" +
-                "FROM trips tr,stop_times st,stops s,routes r    \n" +
-                "WHERE r.route_id=tr.route_id  AND    \n" +
-                "st.stop_id=s.stop_id   AND    \n" +
-                "st.trip_id=tr.trip_id   AND \n" +
-                "st.arrival_time='"+orarioPartenza+"' AND\n" +
-                "s.stop_name='"+stopname+"' AND\n" +
-                "r.route_short_name='"+linesnumber+"'  AND   \n" +
-                "tr.trip_headsign='"+headsign+"'  AND    \n" +
-                "tr.service_id IN("+getServiceId()+");";
-    
-            return str;
-    }
-    
-    public String dbFindId(String shortName, String capolinea,String time){
-        
-        String str= "SELECT tr.trip_id\n" +
-                    "FROM trips tr,stop_times st,stops s,routes r \n" +
-                    "WHERE r.route_id=tr.route_id AND \n" +
-                    "	st.stop_id=s.stop_id   AND\n" +
-                    "	st.trip_id=tr.trip_id   AND\n" +
-                    "	r.route_short_name='"+shortName+"'  AND\n" +
-                    "	tr.trip_headsign='"+capolinea+"'	AND\n" +
-                    "	st.arrival_time='"+time+"' 	AND\n" +
-                    "	tr.service_id IN(SELECT service_id\n" +
-                    "			FROM    calendar\n" +
-                    "			WHERE   monday='1');";
-        return str;
-    }
-
-    public String dbFindStopsWithId(String shortName, String capolinea,String time){
-        String str="SELECT s.stop_name,st.arrival_time,st.departure_time\n" +
-                    "FROM  stop_times st,stops s\n" +
-                    "WHERE st.stop_id=s.stop_id AND\n" +
-                    "st.trip_id IN ("+dbFindId(shortName,capolinea,time)+")\n" +
-                    "GROUP BY st.stop_sequence,s.stop_id,s.stop_name,st.arrival_time,st.departure_time\n" +
-                    "ORDER BY st.stop_sequence,s.stop_id,s.stop_name;";
-        return str;
-    }
-    
-    public String dbSetDefaultDelay(){
-        String str="UPDATE departure_time"
-                + "SET departure_time=arrival_time;";
+                + "             tr.service_id IN("+getServiceId()+") );";
         return str;
     }
 
