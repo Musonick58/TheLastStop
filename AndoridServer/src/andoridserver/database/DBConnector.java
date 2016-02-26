@@ -408,7 +408,6 @@ public class DBConnector implements DBInterface {
     /*TODO: fare la parte legata al db*/
     @Override
     public AndroidDataInterface executeDelay(String compiledQuery) {
-  
         return null;
     }
 
@@ -427,6 +426,18 @@ public class DBConnector implements DBInterface {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
         return adi;
+    }
+    
+    public void executeLoopAggiornamento(String compiledQuery) {
+        int risultato=-1;
+        try {
+            Statement statement = con.createStatement();
+            risultato = statement.executeUpdate(compiledQuery);//executeQuery(compiledQuery);
+            System.out.println(risultato);           
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("FINE DEL AGGIORNAMENTO");
     }
 
     public static void main(String[] args) {

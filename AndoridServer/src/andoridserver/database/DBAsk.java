@@ -1,6 +1,8 @@
 package andoridserver.database;
 
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -189,17 +191,24 @@ public class DBAsk implements DBAskInterface{
         return str;
     }
     
-    public boolean aggiornaData(){
+    public boolean AggiornareDataEOrario(){
+        Thread t=Thread.currentThread();
+        
         while(true){
             if( date!=currentDate ){
-                ThreadAggiornaDelayOrario t =new ThreadAggiornaDelayOrario();
-                currentDate=date;
-                return true;
+                try {
+                    t.sleep(86400000);
+                    currentDate=date;
+                    return true;
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(DBAsk.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             else{
                 return false;
             }
         }
     }
+   
     
 }
