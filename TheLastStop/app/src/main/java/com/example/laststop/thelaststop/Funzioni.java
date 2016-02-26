@@ -1,13 +1,18 @@
 package com.example.laststop.thelaststop;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+
 /**
  * Created by John on 25/02/16.
  */
 
 public class Funzioni {
 
-    //Dati 2 orari calcola la differenza in minuti tra il primo e il secondo
+    //Dati 2 orari calcola la differenza in minuti(INT) tra il primo e il secondo
     public static int diffOrari(String arrivo, String ritardo){
+        Log.d("metodo", "Sono entrato su diffOrari di Funzioni.java");
         String[] aSplit = arrivo.replace(".", ":").split(":"); // [0]->ore, [1]-> minuti, [2]->secondi
         String[] rSplit = ritardo.replace(".", ":").split(":"); // [0]->ore, [1]-> minuti, [2]->secondi
         int aMin = Integer.parseInt(aSplit[1]);
@@ -25,8 +30,9 @@ public class Funzioni {
         }
     }
 
-    //Dato un orario e un ritardo calcola l'orario effettivo
+    //Dato un orario e un ritardo calcola l'orario effettivo(STRING)
     public static String sommaMinuti(String orario, int minuti){
+        Log.d("metodo", "Sono entrato su sommaMinuti di Funzioni.java");
         String[] oSplit = orario.replace(".", ":").split(":"); // [0]->ore, [1]-> minuti, [2]->secondi
         int oMin = Integer.parseInt(oSplit[1]);
         int oOre = Integer.parseInt(oSplit[0]);
@@ -45,9 +51,14 @@ public class Funzioni {
             return (oEff + "." + mEff + "." + "00");
     }
 
-    public static void main(String[] args){
-        System.out.print(diffOrari("23.40.00", "11.20.00") + "\n");
-        //System.out.print(sommaMinuti("12.10.00", 720) + "\n");
+    //Dato un Arraylist<String> di orari(arrivi) e uno di ritardi(ritardi) calcola un ArrayList<String> di orari modificati
+    public static ArrayList<String> calcolaRitardi(ArrayList<String > arrivi, ArrayList<String> ritardi){
+        ArrayList<String> output = new ArrayList<>();
+        for (int i = 0; i < arrivi.size(); i++){
+            output.add(i, "" + sommaMinuti(arrivi.get(i), (diffOrari(arrivi.get(i), ritardi.get(i)))));
+        }
+        return output;
     }
+
 
 }

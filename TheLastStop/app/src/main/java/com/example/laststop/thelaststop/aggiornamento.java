@@ -56,4 +56,18 @@ public class aggiornamento extends ActionBarActivity {
             list.add(temp);
         }
     }
+
+
+    /*public void populate(ArrayList<String> arrivi, ArrayList<String> partenze){
+        Log.d("metodo","Sono entrato su populate di orari.java");
+        list = new ArrayList<HashMap>();
+        int i;
+        for( i = 0; i < arrivi.size(); i++) {
+            HashMap temp = new HashMap();
+            temp.put("Ora Arrivo", arrivi.get(i));
+            temp.put("Ora Partenza", partenze.get(i));
+            temp.put("Ritardo", "" + Funzioni.diffOrari(arrivi.get(i), partenze.get(i)));
+            list.add(temp);
+        }
+    }*/
 }

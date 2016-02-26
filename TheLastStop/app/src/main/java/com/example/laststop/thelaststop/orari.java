@@ -20,6 +20,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.TimeZone;
 
+import com.example.laststop.thelaststop.Funzioni;
 import androidclient.AsyncDownload;
 
 
@@ -50,7 +51,8 @@ public class orari extends ActionBarActivity {
         setTitle("Linea " + linea + " fermata di " + fermata);
 
         ListView orari = (ListView)findViewById(R.id.listaOrari);
-
+        Log.d("ALESSIA TIMETABLE", timeTable.toString());
+        Log.d("ALESSIA RITARDI", ritardi.toString());
         populate(timeTable, ritardi);
 
         myListAdapter adapter = new myListAdapter(this,list);
@@ -82,7 +84,7 @@ public class orari extends ActionBarActivity {
         });
     }
 
-    public ArrayList<String> calcolaRitardo(ArrayList<String> timetable, ArrayList<String> ritardi){
+    /*public ArrayList<String> calcolaRitardo(ArrayList<String> timetable, ArrayList<String> ritardi){
         Log.d("metodo","Sono entrato su calcolaRitardo di orari.java");
         Date data = new Date();
         Calendar ritardic = new GregorianCalendar ();
@@ -164,18 +166,17 @@ public class orari extends ActionBarActivity {
             Log.d("listaRitardi // CalcRit",listaRitardi.toString());
             return listaRitardi;
         }
-    }
+    }*/
 
     public void populate(ArrayList<String> arrivi, ArrayList<String> partenze){
         Log.d("metodo","Sono entrato su populate di orari.java");
-        ArrayList<String> listaRitardi = calcolaRitardo(arrivi, partenze);
         list = new ArrayList<HashMap>();
         int i;
         for( i = 0; i < arrivi.size(); i++) {
             HashMap temp = new HashMap();
             temp.put("Ora Arrivo", arrivi.get(i));
             temp.put("Ora Partenza", partenze.get(i));
-            temp.put("Ritardo", listaRitardi.get(i));
+            temp.put("Ritardo", "" + Funzioni.diffOrari(arrivi.get(i), partenze.get(i)));
             list.add(temp);
         }
     }
