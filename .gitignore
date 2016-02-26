@@ -17,3 +17,11 @@ TheLastStop/.idea/modules.xml
 TheLastStop/.idea/runConfigurations.xml
 
 TheLastStop/.idea/modules.xml
+
+*.xml
+
+TheLastStop/app/src/main/java/andoridserver/androidData/AndroidDataRequest.java
+
+TheLastStop/.idea/misc.xml
+
+TheLastStop/app/src/main/java/andoridserver/androidData/AndroidDataRequest.java
