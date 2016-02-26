@@ -3,6 +3,7 @@ package com.example.laststop.thelaststop;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -59,7 +60,17 @@ public class aggiornamento extends ActionBarActivity {
         }
         Log.d("POPULATE list", list.toString());
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("metodo","Sono entrato su onOptionsItemSelected di aggiornamenti.java");
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     /*public void populate(ArrayList<String> arrivi, ArrayList<String> partenze){
         Log.d("metodo","Sono entrato su populate di orari.java");
