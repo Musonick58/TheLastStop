@@ -211,11 +211,37 @@ public class DBAsk implements DBAskInterface{
             return str;
     }
     
+    public String dbFindId(String shortName, String capolinea,String time){
+        
+        String str= "SELECT tr.trip_id\n" +
+                    "FROM trips tr,stop_times st,stops s,routes r \n" +
+                    "WHERE r.route_id=tr.route_id AND \n" +
+                    "	st.stop_id=s.stop_id   AND\n" +
+                    "	st.trip_id=tr.trip_id   AND\n" +
+                    "	r.route_short_name='"+shortName+"'  AND\n" +
+                    "	tr.trip_headsign='"+capolinea+"'	AND\n" +
+                    "	st.arrival_time='"+time+"' 	AND\n" +
+                    "	tr.service_id IN(SELECT service_id\n" +
+                    "			FROM    calendar\n" +
+                    "			WHERE   monday='1');";
+        return str;
+    }
+
+    public String dbFindStopsWithId(String shortName, String capolinea,String time){
+        String str="SELECT s.stop_name,st.arrival_time,st.departure_time\n" +
+                    "FROM  stop_times st,stops s\n" +
+                    "WHERE st.stop_id=s.stop_id AND\n" +
+                    "st.trip_id IN ("+dbFindId(shortName,capolinea,time)+")\n" +
+                    "GROUP BY st.stop_sequence,s.stop_id,s.stop_name,st.arrival_time,st.departure_time\n" +
+                    "ORDER BY st.stop_sequence,s.stop_id,s.stop_name;";
+        return str;
+    }
+    
     public String dbSetDefaultDelay(){
         String str="UPDATE departure_time"
                 + "SET departure_time=arrival_time;";
     
-        return str;
+
     }
 
 }
