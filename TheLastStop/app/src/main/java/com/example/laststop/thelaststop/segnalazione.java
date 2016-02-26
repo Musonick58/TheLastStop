@@ -22,7 +22,6 @@ public class segnalazione extends ActionBarActivity {
 
     private String rit;
     final String dati = "";
-    int successo = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,6 @@ public class segnalazione extends ActionBarActivity {
                         Log.d("michele ritardo", "Segnalato ritardo " + systemTime());
                         Log.d("michele tag", dati);
                         StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione " + systemTime().substring(0, 4) + " Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
-                        successo = 1;
                     } else
                         StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), costanti.CON_SERVER_ERR_MSG, costanti.CON_TOAST_ERR_MSG);
                 } catch (Exception e) {
