@@ -1,5 +1,6 @@
-﻿package andoridserver.database;
+package andoridserver.database;
 
+import andoridserver.database.DBAskInterface;
 import java.util.Date;
 
 /**
@@ -172,7 +173,7 @@ public class DBAsk implements DBAskInterface{
                    FROM    calendar 
                    WHERE   monday='1' ) );*/
     
-    @Override
+  
     public String dbSetDelay(String arrival_time,String delay_time,String line,String stop,String headSign){
         String str="UPDATE stop_times \n"
                 +    "SET departure_time='"+delay_time+"' \n"
