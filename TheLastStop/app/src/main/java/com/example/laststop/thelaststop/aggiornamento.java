@@ -16,8 +16,8 @@ public class aggiornamento extends ActionBarActivity {
         Log.d("metodo", "Sono entrato su onCreate di aggiornamento.java");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aggiornamento);
+        setTitle("Aggiornamento Linea");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        myListAdapter adapter;
 
         // Es timetable -> [\"nomeFermata#oraArrivo#oraPartenza\"]
         ArrayList<String> timetable = getIntent().getExtras().getStringArrayList("TimeTable");
@@ -35,6 +35,7 @@ public class aggiornamento extends ActionBarActivity {
         String capoln = getIntent().getExtras().getString("Capolinea");
         String fermata = getIntent().getExtras().getString("Fermata");
         String orario = getIntent().getExtras().getString("Orario");
+
         ListView update = (ListView)findViewById(R.id.listaAggiornata);
 
         Log.d("AGGIORNAMENTO timetable", timetable.toString());
@@ -44,7 +45,7 @@ public class aggiornamento extends ActionBarActivity {
 
         populate(nFermate, hArrivi, hPartenze);
 
-        adapter = new myListAdapter(this, list);
+        updateAdapter adapter = new updateAdapter(this, list);
         update.setAdapter(adapter);
 
 

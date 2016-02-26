@@ -18,7 +18,8 @@
         android:divider="#616161"
         android:dividerHeight="2dp"
         android:layout_above="@+id/segnala"
-        android:layout_below="@+id/arrivo" />
+        android:layout_below="@+id/arrivo"
+        android:fastScrollEnabled="true" />
 
     <TextView
         android:layout_width="match_parent"

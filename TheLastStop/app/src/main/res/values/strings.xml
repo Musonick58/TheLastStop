@@ -11,5 +11,6 @@
     <string name="linee">Linea</string>
     <string name="Capolinea">Capolinea</string>
     <string name="title_activity_aggiornamento">aggiornamento</string>
+    <string name="title_activity_about">about</string>
 
 </resources>
