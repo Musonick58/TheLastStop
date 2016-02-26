@@ -150,7 +150,7 @@ public class AcceptDataRequest extends Thread {
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "battelli" );
                         System.out.println("******"+lineStr);//2:Stop:navig
                         //System.out.println(send.query.dbTimesDelay(lineStr,stopName,headsign));
-                        info = DBConnector.getIstance().executeDelay(send.query.dbTimesDelay(lineStr,stopName,headsign));
+                        info = DBConnector.getIstance().executeDelay(send.query.dbTime(lineStr,stopName,headsign));
                         send.toSend(info);
                         send.send();
                 }
