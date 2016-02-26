@@ -343,7 +343,7 @@ public class DBConnector implements DBInterface {
     
     public AndroidDataInterface executeTimetable(String compiledQuery,AndroidDataInterface ritardi) {
         AndroidDataInterface adi = new AndroidOrariData();
-        ritardi = new AndroidDataDelay();
+        //ritardi = new AndroidDataDelay();
         String s = "";
         try {
             Statement statement = con.createStatement();
@@ -354,7 +354,9 @@ public class DBConnector implements DBInterface {
                 //System.out.println(s);
                 adi.addData(s);
                 s = resultSet.getString("departure_time");
+                System.out.println("partenza "+s);
                 ritardi.addData(s);
+               
                 
             }
             //setDelay(ritardi);
@@ -414,8 +416,24 @@ public class DBConnector implements DBInterface {
     /*TODO: fare la parte legata al db*/
     @Override
     public AndroidDataInterface executeDelay(String compiledQuery) {
-  
-        return null;
+    AndroidDataInterface adi = new AndroidOrariData();
+        //ritardi = new AndroidDataDelay();
+        String s = "";
+        try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(compiledQuery);
+            //adesso devo convertire il mio result set nell'oggetto per android
+            while (resultSet.next()) {
+                s = resultSet.getString("departure_time");
+                //ritardi.addData(s);
+                adi.addData(s);
+            }
+            //setDelay(ritardi);
+            System.out.println(adi.getDataAsList().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return adi;
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class ThreadAggiornaDelayOrario extends Thread {
     
     static boolean aggiornabool=false;
-    static Date date= new Date();
+    static Date date = new Date();
     static Date currentDate=date;
 
     DBAsk aggiorna = new DBAsk();

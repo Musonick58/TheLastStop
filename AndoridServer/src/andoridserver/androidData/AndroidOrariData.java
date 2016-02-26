@@ -45,5 +45,20 @@ public class AndroidOrariData implements AndroidDataInterface{
     }
 
    
+    public static void main(String[] args){
+        AndroidDataInterface adi = new AndroidOrariData();
+        adi.addData("01:02:00");
+        adi.addData("01:22:00");
+        adi.addData("16:00:15");
+        adi.addData("02:00:15");
+        adi.addData("11:00:15");
+        adi.addData("13:00:15");
+        adi.addData("06:00:15");
+        adi.addData("05:00:15");
+        adi.getDataAsList().sort(null);
+        System.out.println(adi.getDataAsList().toString());
+        
+    
+    }
     
 }

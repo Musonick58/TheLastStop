@@ -68,7 +68,7 @@ public class AcceptDataRequest extends Thread {
         String oraArrivo = null;
         String oraPartenza = null;
         AndroidDataInterface info;
-        AndroidDataInterface ritardi=null;
+        AndroidDataInterface ritardi=new AndroidOrariData();
         if (request != null && request.startsWith("DataRequest:")) {
             System.out.println("[ACCEPTDATAREQUEST] Data Request: Processing");
             if (request.startsWith("DataRequest:")) {
@@ -151,7 +151,7 @@ public class AcceptDataRequest extends Thread {
                         DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "battelli" );
                        */ //System.out.println("******"+lineStr);//2:Stop:navig
                         //System.out.println(send.query.dbTimesDelay(lineStr,stopName,headsign));
-                        //info = DBConnector.getIstance().executeDelay(send.query.dbTime(lineStr,stopName,headsign));
+                        ritardi = DBConnector.getIstance().executeDelay(send.query.dbTime(lineStr,stopName,headsign));
                         send.toSend(ritardi);
                         send.send();
                 }
@@ -214,7 +214,7 @@ public class AcceptDataRequest extends Thread {
                     info = DBConnector.getIstance().executeLines(send.query.dbLinee());
                     send.toSend(info);
                     send.send(); 
-                }//DataRequest:NextStops:Linea:Capolinea:Fermata:Orario:Servizio
+                }
                 if(temp.startsWith("NextStops")){
                  System.out.println("NextStops request");
                     temp = temp.substring("NextStops:".length());
