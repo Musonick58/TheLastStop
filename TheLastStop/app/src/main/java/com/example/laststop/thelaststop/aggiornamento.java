@@ -12,7 +12,7 @@ public class aggiornamento extends ActionBarActivity {
     ArrayList<HashMap> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("metodo", "Sono entrato su poponCreateulate di aggiornamento.java");
+        Log.d("metodo", "Sono entrato su onCreate di aggiornamento.java");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aggiornamento);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,6 +48,8 @@ public class aggiornamento extends ActionBarActivity {
         Log.d("metodo", "Sono entrato su populate di aggiornamento.java");
         list = new ArrayList<HashMap>();
         int i;
+        Log.d("POPULATE arrivi", arrivi.toString());
+        Log.d("POPULATE partenze", partenze.toString());
         for( i = 0; i < arrivi.size(); i++) {
             HashMap temp = new HashMap();
             temp.put("Fermata", fermate.get(i));
@@ -55,6 +57,7 @@ public class aggiornamento extends ActionBarActivity {
             temp.put("Partenza prevista", partenze.get(i));
             list.add(temp);
         }
+        Log.d("POPULATE list", list.toString());
     }
 
 
