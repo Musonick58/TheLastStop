@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -76,6 +77,7 @@ public class orari extends ActionBarActivity {
                 nuovo.putExtra("Ora", ora);
                 nuovo.putExtra("Capolinea", capoln);
                 nuovo.putExtra("serviceType", serviceType);
+                nuovo.putExtra("Posizione", position);
                 startActivity(nuovo);
             }
         });
@@ -178,6 +180,7 @@ public class orari extends ActionBarActivity {
             list.add(temp);
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d("metodo","Sono entrato su onOptionsItemSelected di orari.java");
