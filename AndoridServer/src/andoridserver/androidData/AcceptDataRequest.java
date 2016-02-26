@@ -214,7 +214,35 @@ public class AcceptDataRequest extends Thread {
                     info = DBConnector.getIstance().executeLines(send.query.dbLinee());
                     send.toSend(info);
                     send.send(); 
-                }       
+                }//DataRequest:NextStops:Linea:Capolinea:Fermata:Orario:Servizio
+                if(temp.startsWith("NextStops")){
+                 System.out.println("NextStops request");
+                    temp = temp.substring("NextStops:".length());
+                    System.out.println("temp: " + temp);
+                    lines = temp.split(":");
+                    System.out.println("lunghezza array" + lines.length);
+                    for (String x : lines) {
+                        System.out.println("contenuto" + x);
+                    }
+                    //Linea:Capolinea:Fermata:Orario:Servizio
+                    lineStr = lines[0];//linea
+                    headsign = lines[1];//capolinea
+                    stopName = lines[2];//fermata
+                    oraArrivo = lines[3];//orario
+                    serviceType = lines[4];//servicetype
+                    System.out.println("Servizio: "+serviceType);
+                    SendData send = new SendData(socket, serviceType, null, lineStr, DBConnector.getIstance());
+                    //DBConnector.getIstance().disconnect();
+                    if(serviceType.equals("bus"))
+                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "autobus" );
+                    else 
+                        DBConnector.getIstance().connect(DBConnector.DRIVER, DBConnector.ADDRESS, DBConnector.POSTGRESPORT, "battelli" );
+                        
+                 //query
+                        info = DBConnector.getIstance().executeSetDelayForStops(send.query.dbSetDelay( oraArrivo, oraPartenza, lineStr, stopName, headsign));
+                        send.toSend(info);
+                        send.send();
+                }
             }
         }else{
             try {

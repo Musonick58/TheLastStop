@@ -184,6 +184,27 @@ public class DBAsk implements DBAskInterface{
                 + "             tr.service_id IN("+getServiceId()+");";
         return str;
     }
+    /*TODO: ********** */
+    public String setDelayForStops(){
+    
+        return "";
+    }
+    
+    
+    public String getTripID(String linesnumber,String headsign,String stopname, String orarioPartenza){
+    String str="SELECT tr.trip_id\n" +
+                "FROM trips tr,stop_times st,stops s,routes r    \n" +
+                "WHERE r.route_id=tr.route_id  AND    \n" +
+                "st.stop_id=s.stop_id   AND    \n" +
+                "st.trip_id=tr.trip_id   AND \n" +
+                "st.arrival_time='"+orarioPartenza+"' AND\n" +
+                "s.stop_name='"+stopname+"' AND\n" +
+                "r.route_short_name='"+linesnumber+"'  AND   \n" +
+                "tr.trip_headsign='"+headsign+"'  AND    \n" +
+                "tr.service_id IN("+getServiceId()+");";
+    
+            return str;
+    }
     
     public String dbSetDefaultDelay(){
         String str="UPDATE departure_time"

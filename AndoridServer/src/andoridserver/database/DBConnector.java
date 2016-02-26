@@ -339,7 +339,7 @@ public class DBConnector implements DBInterface {
         }
         return adi;
     }
-
+    
     
     public AndroidDataInterface executeTimetable(String compiledQuery,AndroidDataInterface ritardi) {
         AndroidDataInterface adi = new AndroidOrariData();
@@ -403,6 +403,12 @@ public class DBConnector implements DBInterface {
         System.out.println("FINE DEL UPDATE");
     }
     
+    /*TODO: -...-.*/
+    public AndroidDataInterface executeSetDelayForStops(String compiledQuery){
+        AndroidDataInterface adi = new AndroidOrariData();
+        adi.addData("todo");
+        return adi;
+    }
 
 
     /*TODO: fare la parte legata al db*/
