@@ -65,13 +65,13 @@ public class orari extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 pos = position;
                 Intent nuovo = new Intent (getApplicationContext(),segnalazione.class);
-                String ora = parent.getAdapter().getItem(position).toString();
+                String ora;
                 Log.d("tipo:",parent.getAdapter().getItem(position).getClass().getName());
                 HashMap<String,String> map = (HashMap) parent.getAdapter().getItem(position);
                 Log.d("tipo:",map.toString());
                 Log.d("tipo:",map.get("Ritardo"));
                 Log.d("tipo:",map.get("Ora Partenza"));
-                ora = map.get("Ora Partenza");
+                ora = map.get("Ora Arrivo");
                 Log.d("tipo:",map.get("Ora Arrivo"));
                 nuovo.putExtra("Linea", aux1);
                 nuovo.putExtra("Fermata", aux2);
