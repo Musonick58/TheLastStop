@@ -54,8 +54,7 @@ public class segnalazione extends ActionBarActivity {
                     if (asd.get().get(0).equals("nothing to send")) {
                         Log.d("michele ritardo", "Segnalato ritardo " + systemTime());
                         Log.d("michele tag", dati);
-                        StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione " + systemTime().substring(0, 4) + " Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
-                        successo = 1;
+                        //StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), "Segnalazione " + systemTime().substring(0, 4) + " Inviata", "Ti ringraziamo per il tuo tempo...sei un grande!");
                     } else
                         StackPointerContainer.getInstance().getMainPointer().popup(StackPointerContainer.getInstance().getSegnalazionePointer(), costanti.CON_SERVER_ERR_MSG, costanti.CON_TOAST_ERR_MSG);
                 } catch (Exception e) {
