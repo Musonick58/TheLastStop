@@ -189,11 +189,6 @@ public class DBAsk implements DBAskInterface{
                 + "             tr.service_id IN("+getServiceId()+");";
         return str;
     }
-    /*TODO: ********** */
-    public String setDelayForStops(){
-    
-        return "";
-    }
     
     
     public String getTripID(String linesnumber,String headsign,String stopname, String orarioPartenza){
@@ -240,8 +235,7 @@ public class DBAsk implements DBAskInterface{
     public String dbSetDefaultDelay(){
         String str="UPDATE departure_time"
                 + "SET departure_time=arrival_time;";
-    
-
+        return str;
     }
 
 }
