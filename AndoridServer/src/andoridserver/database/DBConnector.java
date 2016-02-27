@@ -339,11 +339,11 @@ public class DBConnector implements DBInterface {
         }
         return adi;
     }
-
+    
     
     public AndroidDataInterface executeTimetable(String compiledQuery,AndroidDataInterface ritardi) {
         AndroidDataInterface adi = new AndroidOrariData();
-        ritardi = new AndroidDataDelay();
+        //ritardi = new AndroidDataDelay();
         String s = "";
         try {
             Statement statement = con.createStatement();
@@ -354,7 +354,9 @@ public class DBConnector implements DBInterface {
                 //System.out.println(s);
                 adi.addData(s);
                 s = resultSet.getString("departure_time");
+                System.out.println("partenza "+s);
                 ritardi.addData(s);
+               
                 
             }
             //setDelay(ritardi);
@@ -403,13 +405,85 @@ public class DBConnector implements DBInterface {
         System.out.println("FINE DEL UPDATE");
     }
     
+    /*TODO: -...-.*/
+    public AndroidDataInterface executeSetDelayForStops(String compiledQuery,String ritardo){
+        AndroidDataInterface adi = new AndroidOrariData();
+        System.out.println(this.getClass().getName());
+        System.out.println(compiledQuery);
+        String partenza,arrivo,nomefermata,lineashort,capolinea;
+        try {
+            System.out.println("sto creando la query");
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(compiledQuery);
+            //adesso devo convertire il mio result set nell'oggetto per android
+            int i=0; 
+            int diff=0;
+            while (resultSet.next()) {
+                arrivo = resultSet.getString("arrival_time");
+                //partenza = resultSet.getString("departure_time");
+                nomefermata = resultSet.getString("stop_name");
+                lineashort = resultSet.getString("route_short_name");
+                capolinea = resultSet.getString("trip_headsign");
+                arrivo = arrivo.replace(".", ":");
+                
+                System.out.println(arrivo);
+                System.out.println(ritardo);
+                System.out.println(nomefermata);
+                System.out.println(lineashort);
+                System.out.println(capolinea);
+                //ritardi.addData(s);
+                ritardo = ritardo.replace(".",":");
+                if(i==0)
+                    diff=Funzioni.diffOrari(arrivo, ritardo);
+                ritardo=Funzioni.sommaMinuti(arrivo, diff);
+                ritardo = ritardo.replace(".",":");
+                executeSetDelay(new DBAsk().dbSetDelay(arrivo, ritardo, lineashort, nomefermata, capolinea));
+                i++;
+            }
+            System.out.println("sto ricreando la query");
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(compiledQuery);
+            String oraPartenza=null;
+             while (resultSet.next()) {
+                arrivo = resultSet.getString("arrival_time");
+                oraPartenza = resultSet.getString("departure_time");
+                nomefermata = resultSet.getString("stop_name");
+                adi.addData(""+nomefermata+"#"+arrivo+"#"+oraPartenza+"");
+                System.out.println(""+nomefermata+"#"+arrivo+"#"+oraPartenza+"");
+            }
+              System.out.println("fine del metodo");
+            //setDelay(ritardi);
+            System.out.println(adi.getDataAsList().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return adi;
+    }
+    
+    
 
 
     /*TODO: fare la parte legata al db*/
     @Override
     public AndroidDataInterface executeDelay(String compiledQuery) {
-  
-        return null;
+    AndroidDataInterface adi = new AndroidOrariData();
+        //ritardi = new AndroidDataDelay();
+        String s = "";
+        try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(compiledQuery);
+            //adesso devo convertire il mio result set nell'oggetto per android
+            while (resultSet.next()) {
+                s = resultSet.getString("departure_time");
+                //ritardi.addData(s);
+                adi.addData(s);
+            }
+            //setDelay(ritardi);
+            System.out.println(adi.getDataAsList().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return adi;
     }
 
     @Override
